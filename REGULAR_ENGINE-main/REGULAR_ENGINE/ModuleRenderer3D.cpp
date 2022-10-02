@@ -166,7 +166,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		}
 	}
 	if (showMenu == true) {
-		ImGui::ShowDemoWindow();
+		ImGui::CloseAppWindow();
 
 	}
 

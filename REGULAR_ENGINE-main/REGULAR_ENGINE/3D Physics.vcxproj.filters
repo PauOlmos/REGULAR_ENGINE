@@ -158,5 +158,8 @@
     <ClCompile Include="ModuleSceneIntro.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_close_app.cpp">
+      <Filter>Sources\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
