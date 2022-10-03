@@ -15,6 +15,7 @@ public:
 	double delta = 0;
 	bool fullscreen = false;
 	bool Vsync = true;
+	float Brightness = 1.f;
 
 	bool help_ = false;
 	bool showExample = false;

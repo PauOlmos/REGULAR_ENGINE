@@ -274,7 +274,6 @@ bool imgui_close_app::KLK(bool* p_open)
                         SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_MAXIMIZED);
                     }
                 }
-                float Brightness = 1.f;
                 ImGui::SliderFloat("Brightness", &Brightness, 0.f, 1.f);
 
                 SDL_SetWindowBrightness(App->window->window, Brightness);
