@@ -105,6 +105,8 @@ void* GImGuiDemoMarkerCallbackUserData2 = NULL;
 
 imgui_close_app::imgui_close_app(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+
+   
 }
 
 // Destructor
@@ -113,7 +115,8 @@ imgui_close_app::~imgui_close_app()
 
 bool imgui_close_app::KLK(bool* p_open)
 {
-
+    float a = SDL_GetTicks();
+    float b = SDL_GetTicks();
     //Button("Close");
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
     // Most functions would normally just crash if the context is missing.
@@ -254,22 +257,11 @@ bool imgui_close_app::KLK(bool* p_open)
                 ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
 
                 char title[25];
-                b = a;
-                a = SDL_GetTicks();
-                delta = a - b;
 
-                if (1000/maxFPS > delta)
-                {
-                    SDL_Delay(1000.0f / maxFPS - delta);
-                   
-                    //ImGui::PlotHistogram
-                    //std::cout << "Framerate: " << 1000 / delta << std::endl;
-                    /*sprintf_s(title,25,"Framerate: %.1f", fps);
-                    ImGui::PlotHistogram("##framerate", fps, 0, title, 0.0f, 100.0f, ImVec2(310, 100)); */
-                }
-               
-
-                ImGui::BulletText("Framerate: %.1f", delta);
+                frame_time = SDL_GetTicks() - start_time;
+                fps = (frame_time > 0) ? 1000.0f / frame_time : 0.0f;
+                start_time = SDL_GetTicks();
+                ImGui::BulletText("Framerate: %.4f", fps);
 
             }
             if (ImGui::Button("Window")) {

@@ -10,8 +10,8 @@ public:
 public:
 	bool KLK(bool* p_open);
 	float fps = 0.f;
-	unsigned int a = SDL_GetTicks();
-	unsigned int b = SDL_GetTicks();
+	float start_time = 0;
+	float frame_time = 0;
 	double delta = 0;
 	bool fullscreen = false;
 	bool Vsync = true;
