@@ -1,5 +1,4 @@
 #include "imgui.h"
-
 // System includes
 #include <ctype.h>          // toupper
 #include <limits.h>         // INT_MIN, INT_MAX
@@ -12,6 +11,10 @@
 #include <stdint.h>         // intptr_t
 #endif
 #include "Globals.h"
+#include <string>
+#include "Timer.h"
+#include <iostream>
+#include "ModuleRenderer3D.h"
 
 // Visual Studio warnings
 #ifdef _MSC_VER
@@ -97,8 +100,16 @@ ImGuiDemoMarkerCallback             GImGuiDemoMarkerCallback2 = NULL;
 void* GImGuiDemoMarkerCallbackUserData2 = NULL;
 #define IMGUI_DEMO_MARKER(section)  do { if (GImGuiDemoMarkerCallback2 != NULL) GImGuiDemoMarkerCallback2(__FILE__, __LINE__, section, GImGuiDemoMarkerCallbackUserData2); } while (0)
 
+unsigned int a = SDL_GetTicks();
+unsigned int b = SDL_GetTicks();
+double delta = 0;
+float fps = 0.f;
+bool fullscreen = false;
+bool Vsync = true;
+
 bool ImGui::CloseAppWindow(bool* p_open)
 {
+
     //Button("Close");
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
     // Most functions would normally just crash if the context is missing.
@@ -180,12 +191,105 @@ bool ImGui::CloseAppWindow(bool* p_open)
     }
     if (ImGui::BeginMenuBar())
      {
-        if (ImGui::MenuItem("Close")) {
-            int klk = 0;
+        if (ImGui::SmallButton("Close")) {
+            return UPDATE_STOP;
         }
+        ImGui::SameLine();
+        if (ImGui::SmallButton("Show Example")) {
+            ShowDemoWindow();
+        }
+        ImGui::SameLine();
 
-         ImGui::EndMenuBar();
+        if (ImGui::SmallButton("Help")) {
+            if (ImGui::SmallButton("About")) {
+                ImGui::BulletText("Regular Engine v0.01");
+                ImGui::BulletText("Engine produced for practicing and developing new skills");
+                ImGui::BulletText("By: Pau Olmos Serrano");
+                ImGui::BulletText("External libraries: \n\n\tSDL2\n\n\tImGui v1.89\n\n\tGlew\n\n\tMathGeoLib\n\n\tAssimp\n\n\tDevIl\n\n\tPhysFS\n\n");
+                ImGui::BulletText("MIT License\n\n Copyright(c) 2022 Pau Olmos\n\n");
+            }
+            if (ImGui::SmallButton("GitHub")) {
+                //App->RequestBrowser("https://github.com/PauOlmos/REGULAR_ENGINE");
+            }
+            if (ImGui::SmallButton("FAQs")) {
+                //App->RequestBrowser("https://FAQs");
+
+            }
+        }
+        ImGui::EndMenuBar();
+        char buf[25]{};
+        std::string s1{ "REGULAR ENGINE" };
+        std::string s2{ "UPC CITM" };
+        if (!ImGui::Button("Configuration")) {
+            ImGui::BulletText("Options");
+            if (!ImGui::Button("Application")) {
+                strncpy(buf, s1.c_str(), sizeof(buf) - 1);
+                ImGui::InputText("App Name", buf, sizeof(buf));
+                s1 = buf;
+                
+                strncpy(buf, s2.c_str(), sizeof(buf) - 1);
+                ImGui::InputText("Organization", buf, sizeof(buf));
+                s2 = buf;
+                
+                static float maxFPS = 0.f;
+                ImGui::SliderFloat("Max FPS", &maxFPS, 0.f,100.f);
+
+                char title[25];
+                a = SDL_GetTicks();
+                delta += a - b;
+
+                if (delta > 1000 / 60.0)
+                {
+                    fps = 1000 / delta;
+                    delta = 0;
+                    //ImGui::PlotHistogram
+                    //std::cout << "Framerate: " << 1000 / delta << std::endl;
+                    //ImGui::BulletText("Framerate: %.1f", &fps);
+                    /*sprintf_s(title,25,"Framerate: %.1f", fps);
+                    ImGui::PlotHistogram("##framerate", fps, 0, title, 0.0f, 100.0f, ImVec2(310, 100)); */
+                }
+                b = SDL_GetTicks();
+
+                
+
+            }
+            if (!ImGui::Button("Window")) {
+                if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
+                    //App->window->SetFullscreen(fullscreen);
+
+                    //SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+                    //SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
+                }
+                static float Brightness = 0.f;
+                ImGui::SliderFloat("Brightness", &Brightness, 0.f, 100.f);
+                /*
+                static float WindowWidth = App->ModuleWindow->width;
+                ImGui::SliderFloat("Width", &WindowWidth, 0.f, SCREEN_WIDTH);
+                
+                static float WindowHeight = App->ModuleWindow->height;
+                ImGui::SliderFloat("Height", &WindowHeight, 0.f, SCREEN_HEIGHT);
+
+                App->ModuleRenderer3D->OnResize(WindowWidth, WindowHeight);
+                */
+                if (ImGui::Checkbox("Vsync", &Vsync)) {
+                    
+	                /*if (VsyncActive == true)
+	                    {
+		                    flags |= SDL_RENDERER_PRESENTVSYNC;
+	                    	LOG("Using vsync");
+	                }*/
+
+                }
+            }
+
+            if (!ImGui::Button("Hardware")) {
+            }
+        }
+        
     }
+
+    
+
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
     //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);

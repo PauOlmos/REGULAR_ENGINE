@@ -5,7 +5,6 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl3.h"
@@ -109,7 +108,6 @@ bool ModuleRenderer3D::Init()
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -157,18 +155,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	
 	//Show Menu Demo
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		if (showMenu == true) {
-			showMenu = false;
-		}
-		else {
-			showMenu = true;
-		}
-	}
-	if (showMenu == true) {
-		ImGui::CloseAppWindow();
-
-	}
+	
+	ImGui::CloseAppWindow();
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
