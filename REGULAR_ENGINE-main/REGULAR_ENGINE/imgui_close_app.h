@@ -17,8 +17,10 @@ public:
 	bool Vsync = true;
 
 	bool help_ = false;
-	bool About_ = false;
-	bool Application_ = false;
-	bool Configuration_ = false;
-	bool Window_ = false;
+	bool showExample = false;
+	bool about_ = false;
+	bool application_ = false;
+	bool configuration_ = false;
+	bool window_ = false;
+	bool hardware_ = false;
 };

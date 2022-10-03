@@ -201,7 +201,11 @@ bool imgui_close_app::KLK(bool* p_open)
             help_ = !help_;
         }
         if (ImGui::SmallButton("Show Example")) {
-            //ShowDemoWindow();
+            showExample = !showExample;
+        }
+        if (showExample) {
+            ImGui::ShowDemoWindow();
+
         }
         if (ImGui::SmallButton("Close")) {
             return false;
@@ -213,9 +217,9 @@ bool imgui_close_app::KLK(bool* p_open)
 
         if (help_) {
             if (ImGui::SmallButton("About")) {
-                About_ = !About_;
+                about_ = !about_;
             }
-            if (About_) {
+            if (about_) {
                 ImGui::BulletText("Regular Engine v0.01");
                 ImGui::BulletText("Engine produced for practicing and developing new skills");
                 ImGui::BulletText("By: Pau Olmos Serrano");
@@ -234,16 +238,16 @@ bool imgui_close_app::KLK(bool* p_open)
         std::string s1{ "REGULAR ENGINE" };
         std::string s2{ "UPC CITM" };
         if (ImGui::Button("Configuration")) {
-            Configuration_ = !Configuration_;
+            configuration_ = !configuration_;
 
 
         }
-        if (Configuration_) {
+        if (configuration_) {
             ImGui::BulletText("Options");
             if (ImGui::Button("Application")) {
-                Application_ = !Application_;
+                application_ = !application_;
             }
-            if (Application_) {
+            if (application_) {
                 strncpy(buf, s1.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("App Name", buf, sizeof(buf));
                 s1 = buf;
@@ -259,9 +263,9 @@ bool imgui_close_app::KLK(bool* p_open)
 
             }
             if (ImGui::Button("Window")) {
-                Window_ = !Window_;
+                window_ = !window_;
             }
-            if (Window_) {
+            if (window_) {
                 if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
                     if (fullscreen == true) {
                         SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN);
@@ -287,13 +291,16 @@ bool imgui_close_app::KLK(bool* p_open)
                     SDL_GL_SetSwapInterval(0);
                 }
             }
-            if (!ImGui::Button("Hardware")) {
+            if (ImGui::Button("Hardware")) {
+                
+                hardware_ = !hardware_;
+            }
+            if (hardware_) {
                 ImGui::BulletText("SDL Version: %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
                 ImGui::BulletText("CPUs: %d", SDL_GetCPUCount());
                 ImGui::BulletText("CPU Cache: %d kb", SDL_GetCPUCacheLineSize());
                 float RAM = SDL_GetSystemRAM() / 1000;
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
-
             }
         }
 
