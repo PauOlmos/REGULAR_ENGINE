@@ -12,6 +12,7 @@
 #endif
 #include "Globals.h"
 #include <string>
+#include "SDL/include/SDL_cpuinfo.h"
 #include "Timer.h"
 #include <iostream>
 #include "ModuleRenderer3D.h"
@@ -115,8 +116,6 @@ imgui_close_app::~imgui_close_app()
 
 bool imgui_close_app::KLK(bool* p_open)
 {
-    float a = SDL_GetTicks();
-    float b = SDL_GetTicks();
     //Button("Close");
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
     // Most functions would normally just crash if the context is missing.
@@ -258,11 +257,6 @@ bool imgui_close_app::KLK(bool* p_open)
 
                 char title[25];
 
-                frame_time = SDL_GetTicks() - start_time;
-                fps = (frame_time > 0) ? 1000.0f / frame_time : 0.0f;
-                start_time = SDL_GetTicks();
-                ImGui::BulletText("Framerate: %.4f", fps);
-
             }
             if (ImGui::Button("Window")) {
                 Window_ = !Window_;
@@ -294,6 +288,12 @@ bool imgui_close_app::KLK(bool* p_open)
                 }
             }
             if (!ImGui::Button("Hardware")) {
+                ImGui::BulletText("SDL Version: %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+                ImGui::BulletText("CPUs: %d", SDL_GetCPUCount());
+                ImGui::BulletText("CPU Cache: %d kb", SDL_GetCPUCacheLineSize());
+                float RAM = SDL_GetSystemRAM() / 1000;
+                ImGui::BulletText("System RAM %.1f Gb", RAM);
+
             }
         }
 
