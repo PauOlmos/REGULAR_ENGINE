@@ -267,10 +267,9 @@ bool imgui_close_app::KLK(bool* p_open)
                 a = SDL_GetTicks();
                 delta += a - b;
 
-                if (delta > 1000 / 60.0)
+                if (1000/maxFPS >delta)
                 {
-                    fps = 1000 / delta;
-                    delta = 0;
+                    SDL_Delay(1000.0f / maxFPS - delta);
                     //ImGui::PlotHistogram
                     //std::cout << "Framerate: " << 1000 / delta << std::endl;
                     //ImGui::BulletText("Framerate: %.1f", &fps);
