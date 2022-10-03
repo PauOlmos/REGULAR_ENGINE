@@ -231,6 +231,7 @@ bool imgui_close_app::KLK(bool* p_open)
                 ImGui::BulletText("MIT License\n\n Copyright(c) 2022 Pau Olmos\n\n");
             }
             if (ImGui::SmallButton("GitHub")) {
+                //App->RequestBrowser("https://github.com/PauOlmos/REGULAR_ENGINE");
                 SDL_OpenURL("https://github.com/PauOlmos/REGULAR_ENGINE");
             }
             if (ImGui::SmallButton("FAQs")) {
