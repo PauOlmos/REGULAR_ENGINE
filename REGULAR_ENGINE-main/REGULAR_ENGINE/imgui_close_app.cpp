@@ -212,7 +212,7 @@ bool imgui_close_app::KLK(bool* p_open)
             //ShowDemoWindow();
         }
         if (ImGui::SmallButton("Close")) {
-            return UPDATE_STOP;
+            return false;
         }
         ImGui::SameLine();
 

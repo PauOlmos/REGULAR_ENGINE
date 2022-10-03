@@ -156,8 +156,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	
 	//Show Menu Demo
-	
-	App->close_app->KLK(NULL);
+	bool close = false;
+	close = App->close_app->KLK(NULL);
+	if (!close) {
+		return UPDATE_STOP;
+	}
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
