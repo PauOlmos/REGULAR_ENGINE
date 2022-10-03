@@ -107,6 +107,12 @@ float fps = 0.f;
 bool fullscreen = false;
 bool Vsync = true;
 
+bool help_ = false;
+bool About_ = false;
+bool Application_ = false;
+bool Configuration_ = false;
+bool Window_ = false;
+
 bool ImGui::CloseAppWindow(bool* p_open)
 {
 
@@ -190,18 +196,26 @@ bool ImGui::CloseAppWindow(bool* p_open)
         ImGui::End();
     }
     if (ImGui::BeginMenuBar())
-     {
+    {
+        if (ImGui::SmallButton("Help")) {
+            help_ = !help_;
+        }
+        if (ImGui::SmallButton("Show Example")) {
+            //ShowDemoWindow();
+        }
         if (ImGui::SmallButton("Close")) {
             return UPDATE_STOP;
         }
         ImGui::SameLine();
-        if (ImGui::SmallButton("Show Example")) {
-            ShowDemoWindow();
-        }
-        ImGui::SameLine();
 
-        if (ImGui::SmallButton("Help")) {
+        ImGui::SameLine();
+        ImGui::EndMenuBar();
+
+        if (help_) {
             if (ImGui::SmallButton("About")) {
+                About_ = !About_;
+            }
+            if (About_) {
                 ImGui::BulletText("Regular Engine v0.01");
                 ImGui::BulletText("Engine produced for practicing and developing new skills");
                 ImGui::BulletText("By: Pau Olmos Serrano");
@@ -216,23 +230,30 @@ bool ImGui::CloseAppWindow(bool* p_open)
 
             }
         }
-        ImGui::EndMenuBar();
         char buf[25]{};
         std::string s1{ "REGULAR ENGINE" };
         std::string s2{ "UPC CITM" };
-        if (!ImGui::Button("Configuration")) {
+        if (ImGui::Button("Configuration")) {
+            Configuration_ = !Configuration_;
+
+
+        }
+        if (Configuration_) {
             ImGui::BulletText("Options");
-            if (!ImGui::Button("Application")) {
+            if (ImGui::Button("Application")) {
+                Application_ = !Application_;
+            }
+            if (Application_) {
                 strncpy(buf, s1.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("App Name", buf, sizeof(buf));
                 s1 = buf;
-                
+
                 strncpy(buf, s2.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("Organization", buf, sizeof(buf));
                 s2 = buf;
-                
-                static float maxFPS = 0.f;
-                ImGui::SliderFloat("Max FPS", &maxFPS, 0.f,100.f);
+
+                static float maxFPS = 30.f;
+                ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
 
                 char title[25];
                 a = SDL_GetTicks();
@@ -250,10 +271,13 @@ bool ImGui::CloseAppWindow(bool* p_open)
                 }
                 b = SDL_GetTicks();
 
-                
+
 
             }
-            if (!ImGui::Button("Window")) {
+            if (ImGui::Button("Window")) {
+                Window_ = !Window_;
+            }
+            if (Window_) {
                 if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
                     //App->window->SetFullscreen(fullscreen);
 
@@ -265,27 +289,26 @@ bool ImGui::CloseAppWindow(bool* p_open)
                 /*
                 static float WindowWidth = App->ModuleWindow->width;
                 ImGui::SliderFloat("Width", &WindowWidth, 0.f, SCREEN_WIDTH);
-                
+
                 static float WindowHeight = App->ModuleWindow->height;
                 ImGui::SliderFloat("Height", &WindowHeight, 0.f, SCREEN_HEIGHT);
 
                 App->ModuleRenderer3D->OnResize(WindowWidth, WindowHeight);
                 */
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
-                    
-	                /*if (VsyncActive == true)
-	                    {
-		                    flags |= SDL_RENDERER_PRESENTVSYNC;
-	                    	LOG("Using vsync");
-	                }*/
+
+                    /*if (VsyncActive == true)
+                        {
+                            flags |= SDL_RENDERER_PRESENTVSYNC;
+                            LOG("Using vsync");
+                    }*/
 
                 }
             }
-
             if (!ImGui::Button("Hardware")) {
             }
         }
-        
+
     }
 
     
