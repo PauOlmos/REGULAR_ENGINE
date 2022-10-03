@@ -15,7 +15,8 @@
 #include "Timer.h"
 #include <iostream>
 #include "ModuleRenderer3D.h"
-
+#include "imgui_close_app.h"
+#include "Application.h"
 // Visual Studio warnings
 #ifdef _MSC_VER
 #pragma warning (disable: 4127)     // condition expression is constant
@@ -112,8 +113,15 @@ bool About_ = false;
 bool Application_ = false;
 bool Configuration_ = false;
 bool Window_ = false;
+imgui_close_app::imgui_close_app(Application* app, bool start_enabled) : Module(app, start_enabled)
+{
+}
 
-bool ImGui::CloseAppWindow(bool* p_open)
+// Destructor
+imgui_close_app::~imgui_close_app()
+{}
+
+bool imgui_close_app::KLK(bool* p_open)
 {
 
     //Button("Close");
@@ -325,5 +333,5 @@ bool ImGui::CloseAppWindow(bool* p_open)
     // End of ShowDemoWindow()
     ImGui::PopItemWidth();
     ImGui::End();
-    return UPDATE_CONTINUE;
+    //return UPDATE_CONTINUE;
 }

@@ -9,6 +9,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleSceneIntro.h"
+#include "imgui_close_app.h"
 
 
 class Application
@@ -19,6 +20,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleSceneIntro* scene_intro;
+	imgui_close_app* close_app;
 
 
 private:
