@@ -102,18 +102,7 @@ ImGuiDemoMarkerCallback             GImGuiDemoMarkerCallback2 = NULL;
 void* GImGuiDemoMarkerCallbackUserData2 = NULL;
 #define IMGUI_DEMO_MARKER(section)  do { if (GImGuiDemoMarkerCallback2 != NULL) GImGuiDemoMarkerCallback2(__FILE__, __LINE__, section, GImGuiDemoMarkerCallbackUserData2); } while (0)
 
-unsigned int a = SDL_GetTicks();
-unsigned int b = SDL_GetTicks();
-double delta = 0;
-float fps = 0.f;
-bool fullscreen = false;
-bool Vsync = true;
 
-bool help_ = false;
-bool About_ = false;
-bool Application_ = false;
-bool Configuration_ = false;
-bool Window_ = false;
 imgui_close_app::imgui_close_app(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -265,21 +254,22 @@ bool imgui_close_app::KLK(bool* p_open)
                 ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
 
                 char title[25];
+                b = a;
                 a = SDL_GetTicks();
-                delta += a - b;
+                delta = a - b;
 
-                if (1000/maxFPS >delta)
+                if (1000/maxFPS > delta)
                 {
                     SDL_Delay(1000.0f / maxFPS - delta);
+                   
                     //ImGui::PlotHistogram
                     //std::cout << "Framerate: " << 1000 / delta << std::endl;
-                    //ImGui::BulletText("Framerate: %.1f", &fps);
                     /*sprintf_s(title,25,"Framerate: %.1f", fps);
                     ImGui::PlotHistogram("##framerate", fps, 0, title, 0.0f, 100.0f, ImVec2(310, 100)); */
                 }
-                b = SDL_GetTicks();
+               
 
-
+                ImGui::BulletText("Framerate: %.1f", delta);
 
             }
             if (ImGui::Button("Window")) {
@@ -287,14 +277,11 @@ bool imgui_close_app::KLK(bool* p_open)
             }
             if (Window_) {
                 if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
-                    //App->window->SetFullscreen(fullscreen);
                     if (fullscreen == true) {
                         SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN);
-
                     }
                     else {
                         SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_MAXIMIZED);
-
                     }
                 }
                 float Brightness = 1.f;

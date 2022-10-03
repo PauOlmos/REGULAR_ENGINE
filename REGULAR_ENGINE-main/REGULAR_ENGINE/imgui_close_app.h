@@ -9,4 +9,16 @@ public:
 
 public:
 	bool KLK(bool* p_open);
+	float fps = 0.f;
+	unsigned int a = SDL_GetTicks();
+	unsigned int b = SDL_GetTicks();
+	double delta = 0;
+	bool fullscreen = false;
+	bool Vsync = true;
+
+	bool help_ = false;
+	bool About_ = false;
+	bool Application_ = false;
+	bool Configuration_ = false;
+	bool Window_ = false;
 };
