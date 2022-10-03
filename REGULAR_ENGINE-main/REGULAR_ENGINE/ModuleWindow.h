@@ -18,6 +18,9 @@ public:
 	bool Init();
 	bool CleanUp();
 
+	int width;
+	int height;
+
 	void SetTitle(const char* title);
 
 public:

@@ -158,6 +158,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Show Menu Demo
 	bool close = false;
 	close = App->close_app->KLK(NULL);
+
 	if (!close) {
 		return UPDATE_STOP;
 	}

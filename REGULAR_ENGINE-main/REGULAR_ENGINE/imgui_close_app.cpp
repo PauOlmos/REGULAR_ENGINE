@@ -15,6 +15,7 @@
 #include "Timer.h"
 #include <iostream>
 #include "ModuleRenderer3D.h"
+#include "ModuleWindow.h"
 #include "imgui_close_app.h"
 #include "Application.h"
 // Visual Studio warnings
@@ -291,16 +292,18 @@ bool imgui_close_app::KLK(bool* p_open)
                     //SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
                     //SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_MAXIMIZED);
                 }
-                static float Brightness = 0.f;
-                ImGui::SliderFloat("Brightness", &Brightness, 0.f, 100.f);
+                float Brightness = 1.f;
+                ImGui::SliderFloat("Brightness", &Brightness, 0.f, 1.f);
+
+                SDL_SetWindowBrightness(App->window->window, Brightness);
                 /*
-                static float WindowWidth = App->ModuleWindow->width;
+                static float WindowWidth = App->window->width;
                 ImGui::SliderFloat("Width", &WindowWidth, 0.f, SCREEN_WIDTH);
 
-                static float WindowHeight = App->ModuleWindow->height;
+                static float WindowHeight = App->window->height;
                 ImGui::SliderFloat("Height", &WindowHeight, 0.f, SCREEN_HEIGHT);
 
-                App->ModuleRenderer3D->OnResize(WindowWidth, WindowHeight);
+                App->renderer3D->OnResize(WindowWidth, WindowHeight);
                 */
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
 
