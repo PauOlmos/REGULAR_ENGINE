@@ -279,14 +279,11 @@ bool imgui_menu::KLK(bool* p_open)
             }
             
             if (window_) {
-                if (!initedScreenSizes) {
-                    WindowWidthInit = WindowWidth;
-                    WindowHeightInit = WindowHeight;
-                    initedScreenSizes = true;
-                }
 
                 if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
                     if (fullscreen == true) {
+                        App->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+                        SDL_SetWindowSize(App->window->window, SCREEN_WIDTH, SCREEN_HEIGHT);
                         SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN);
                     }
                     else {
@@ -296,29 +293,36 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::SliderFloat("Brightness", &Brightness, 0.f, 1.f);
 
                 SDL_SetWindowBrightness(App->window->window, Brightness);
-                
                 ImGui::SliderFloat("Width", &WindowWidth, 0.f, 2872.0f, "%.0f");
-                WindowHeight = WindowWidth / 1.333333;
-                WindowHeight = trunc(WindowHeight);
-                if (WindowHeight > 2160.0f) {
-                    WindowHeight = 2160.0f;
-                }
-                App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
-                if (WindowWidth > 2872.0f) {
-                    WindowWidth = 2872.0f;
-                }
                 ImGui::SliderFloat("Height", &WindowHeight, 0.f, 2160.0f, "%.0f");
-                WindowWidth = WindowHeight * 1.3333333;
-                WindowWidth = trunc(WindowWidth);
 
-                App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+
+                if (fullscreen == false) {
+                    WindowHeight = WindowWidth / 1.333333;
+
+                    WindowHeight = trunc(WindowHeight);
+                    if (WindowHeight > 2160.0f) {
+                        WindowHeight = 2160.0f;
+                    }
+                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                    if (WindowWidth > 2872.0f) {
+                        WindowWidth = 2872.0f;
+                    }
+                    WindowWidth = WindowHeight * 1.3333333;
+
+                    WindowWidth = trunc(WindowWidth);
+
+                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                }
 
                 if (ImGui::Button("Predet.")) {
                     WindowWidth = 1024;
                     WindowHeight = 768;
                     Brightness = 1.0f;
+                    SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_MAXIMIZED);
+
                 }
                 
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
@@ -326,11 +330,6 @@ bool imgui_menu::KLK(bool* p_open)
                 }
             }
             else {
-                initedScreenSizes = false;
-                if (WindowWidth != WindowWidthInit) {
-                }
-                else if (WindowHeight != WindowHeightInit) {
-                }
             }
             if (ImGui::Button("Hardware")) {
                 hardware_ = !hardware_;
