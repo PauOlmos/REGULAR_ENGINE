@@ -277,7 +277,7 @@ bool imgui_close_app::KLK(bool* p_open)
             if (ImGui::Button("Window")) {
                 window_ = !window_;
             }
-
+            
             if (window_) {
                 if (!initedScreenSizes) {
                     WindowWidthInit = WindowWidth;
@@ -297,10 +297,27 @@ bool imgui_close_app::KLK(bool* p_open)
 
                 SDL_SetWindowBrightness(App->window->window, Brightness);
                 
-                ImGui::SliderFloat("Width", &WindowWidth, 0.f, SCREEN_WIDTH);
+                ImGui::SliderFloat("Width", &WindowWidth, 0.f, 2872.0f, "%.0f");
+                WindowHeight = WindowWidth / 1.333333;
+                if (WindowHeight > 2160.0f) {
+                    WindowHeight = 2160.0f;
+                }
+                App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                if (WindowWidth > 2872.0f) {
+                    WindowWidth = 2872.0f;
+                }
+                ImGui::SliderFloat("Height", &WindowHeight, 0.f, 2160.0f, "%.0f");
+                WindowWidth = WindowHeight * 1.3333333;
+                
+                App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
 
-                ImGui::SliderFloat("Height", &WindowHeight, 0.f, SCREEN_HEIGHT);
-
+                if (ImGui::Button("Predet.")) {
+                    WindowWidth = 1024;
+                    WindowHeight = 768;
+                    Brightness = 1.0f;
+                }
                 
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
                     SDL_GL_SetSwapInterval(0);
@@ -309,14 +326,8 @@ bool imgui_close_app::KLK(bool* p_open)
             else {
                 initedScreenSizes = false;
                 if (WindowWidth != WindowWidthInit) {
-                    WindowHeight = WindowWidth / 1.333333;
-                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
                 }
                 else if (WindowHeight != WindowHeightInit) {
-                    WindowWidth = WindowHeight * 1.3333333;
-                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
                 }
             }
             if (ImGui::Button("Hardware")) {
