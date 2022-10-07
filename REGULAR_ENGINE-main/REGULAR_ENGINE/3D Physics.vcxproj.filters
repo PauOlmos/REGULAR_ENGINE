@@ -288,6 +288,9 @@
     <ClInclude Include="imgui_menu.h">
       <Filter>Sources\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleOpenGL_Primitives.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -448,6 +451,9 @@
     </ClCompile>
     <ClCompile Include="imgui_menu.cpp">
       <Filter>Sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleOpenGL_Primitives.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
