@@ -1,9 +1,10 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
 class imgui_close_app : public Module {
 public:
+	bool Start();
+
 	imgui_close_app(Application* app, bool start_enabled = true);
 	~imgui_close_app();
 
@@ -23,5 +24,14 @@ public:
 	bool application_ = false;
 	bool configuration_ = false;
 	bool window_ = false;
+	bool initedScreenSizes = false;
 	bool hardware_ = false;
+
+
+	float WindowHeight;
+	float WindowWidth;
+
+	float WindowHeightInit;
+	float WindowWidthInit;
+
 };
