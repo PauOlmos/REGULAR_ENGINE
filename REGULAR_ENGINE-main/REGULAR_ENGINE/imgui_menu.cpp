@@ -17,7 +17,7 @@
 #include <iostream>
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
-#include "imgui_close_app.h"
+#include "imgui_menu.h"
 #include "Application.h"
 // Visual Studio warnings
 #ifdef _MSC_VER
@@ -104,17 +104,17 @@ void* GImGuiDemoMarkerCallbackUserData2 = NULL;
 #define IMGUI_DEMO_MARKER(section)  do { if (GImGuiDemoMarkerCallback2 != NULL) GImGuiDemoMarkerCallback2(__FILE__, __LINE__, section, GImGuiDemoMarkerCallbackUserData2); } while (0)
 
 
-imgui_close_app::imgui_close_app(Application* app, bool start_enabled) : Module(app, start_enabled)
+imgui_menu::imgui_menu(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
    
 }
 
 // Destructor
-imgui_close_app::~imgui_close_app()
+imgui_menu::~imgui_menu()
 {}
 
-bool imgui_close_app::Start()
+bool imgui_menu::Start()
 {
     WindowHeight = App->window->height;
     WindowWidth = App->window->width;
@@ -125,7 +125,7 @@ bool imgui_close_app::Start()
     return ret;
 }
 
-bool imgui_close_app::KLK(bool* p_open)
+bool imgui_menu::KLK(bool* p_open)
 {
     //Button("Close");
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
@@ -299,6 +299,7 @@ bool imgui_close_app::KLK(bool* p_open)
                 
                 ImGui::SliderFloat("Width", &WindowWidth, 0.f, 2872.0f, "%.0f");
                 WindowHeight = WindowWidth / 1.333333;
+                WindowHeight = trunc(WindowHeight);
                 if (WindowHeight > 2160.0f) {
                     WindowHeight = 2160.0f;
                 }
@@ -309,7 +310,8 @@ bool imgui_close_app::KLK(bool* p_open)
                 }
                 ImGui::SliderFloat("Height", &WindowHeight, 0.f, 2160.0f, "%.0f");
                 WindowWidth = WindowHeight * 1.3333333;
-                
+                WindowWidth = trunc(WindowWidth);
+
                 App->renderer3D->OnResize(WindowWidth, WindowHeight);
                 SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
 

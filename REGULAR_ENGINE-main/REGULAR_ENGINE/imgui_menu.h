@@ -1,12 +1,12 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-class imgui_close_app : public Module {
+class imgui_menu : public Module {
 public:
 	bool Start();
 
-	imgui_close_app(Application* app, bool start_enabled = true);
-	~imgui_close_app();
+	imgui_menu(Application* app, bool start_enabled = true);
+	~imgui_menu();
 
 public:
 	bool KLK(bool* p_open);

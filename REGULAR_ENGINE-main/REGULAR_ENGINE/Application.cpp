@@ -7,7 +7,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	scene_intro = new ModuleSceneIntro(this);
-	close_app = new imgui_close_app(this);
+	close_app = new imgui_menu(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
