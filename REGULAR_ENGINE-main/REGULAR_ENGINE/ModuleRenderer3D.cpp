@@ -33,6 +33,8 @@ bool ModuleRenderer3D::Init()
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	
+
+
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
@@ -154,12 +156,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	ImGui::NewFrame();
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	
-	//Show Menu Demo
-	bool close = false;
-	//a = temps
-	//
-	
-	close = App->close_app->KLK(NULL);
+	bool close = App->close_app->KLK(NULL);
 
 	if (!close) {
 		return UPDATE_STOP;

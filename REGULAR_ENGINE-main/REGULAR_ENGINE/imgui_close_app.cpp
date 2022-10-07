@@ -194,6 +194,7 @@ bool imgui_close_app::KLK(bool* p_open)
     {
         // Early out if the window is collapsed, as an optimization.
         ImGui::End();
+        return UPDATE_CONTINUE;
     }
     if (ImGui::BeginMenuBar())
     {
@@ -277,7 +278,7 @@ bool imgui_close_app::KLK(bool* p_open)
                 ImGui::SliderFloat("Brightness", &Brightness, 0.f, 1.f);
 
                 SDL_SetWindowBrightness(App->window->window, Brightness);
-                /*
+                
                 static float WindowWidth = App->window->width;
                 ImGui::SliderFloat("Width", &WindowWidth, 0.f, SCREEN_WIDTH);
 
@@ -285,13 +286,13 @@ bool imgui_close_app::KLK(bool* p_open)
                 ImGui::SliderFloat("Height", &WindowHeight, 0.f, SCREEN_HEIGHT);
 
                 App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                */
+                SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
                     SDL_GL_SetSwapInterval(0);
                 }
             }
             if (ImGui::Button("Hardware")) {
-                
                 hardware_ = !hardware_;
             }
             if (hardware_) {
