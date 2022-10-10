@@ -47,14 +47,14 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
