@@ -77,6 +77,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\ai_assert.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\anim.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\camera.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\cexport.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\cfileio.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\cimport.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\color4.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\config.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\DefaultLogger.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\defs.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\Exporter.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\Importer.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\importerdesc.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\IOStream.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\IOSystem.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\light.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\Logger.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\LogStream.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\material.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\matrix3x3.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\matrix4x4.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\mesh.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\metadata.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\NullLogger.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\postprocess.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\ProgressHandler.hpp" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\quaternion.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\scene.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\texture.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\types.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\vector2.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\vector3.h" />
+    <ClInclude Include="Assimp (1)\Assimp\Assimp\include\version.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
@@ -149,6 +182,7 @@
     <ClInclude Include="MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModuleLoadFBX.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="ModuleSceneIntro.h" />
     <ClInclude Include="ModuleOpenGL_Primitives.h" />
@@ -210,6 +244,7 @@
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleLoadFBX.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ModuleOpenGL_Primitives.cpp" />
@@ -218,6 +253,13 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assimp (1)\Assimp\Assimp\include\color4.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\material.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\matrix3x3.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\matrix4x4.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\quaternion.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\vector2.inl" />
+    <None Include="Assimp (1)\Assimp\Assimp\include\vector3.inl" />
     <None Include="MathGeoLib\include\Geometry\KDTree.inl" />
     <None Include="MathGeoLib\include\Geometry\QuadTree.inl" />
     <None Include="MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl" />

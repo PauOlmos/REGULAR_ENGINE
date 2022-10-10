@@ -8,7 +8,9 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	scene_intro = new ModuleSceneIntro(this);
 	primitives1 = new ModuleOpenGL_Primitives(this);
+	loadFBX = new ModuleLoadFBX(this);
 	close_app = new imgui_menu(this);
+
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -21,6 +23,7 @@ Application::Application()
 	AddModule(close_app);
 	AddModule(scene_intro);
 	AddModule(primitives1);
+	AddModule(loadFBX);
 
 	// Renderer last!
 	AddModule(renderer3D);
