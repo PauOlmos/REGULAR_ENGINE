@@ -318,10 +318,11 @@ bool imgui_menu::KLK(bool* p_open)
                 }
 
                 if (ImGui::Button("Predet.")) {
-                    WindowWidth = 1024;
-                    WindowHeight = 768;
+                    WindowWidth = SCREEN_WIDTH;
+                    WindowHeight = SCREEN_HEIGHT;
                     Brightness = 1.0f;
                     SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_MAXIMIZED);
+                    fullscreen = false;
 
                 }
                 
