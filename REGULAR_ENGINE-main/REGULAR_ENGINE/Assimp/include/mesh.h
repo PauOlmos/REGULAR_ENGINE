@@ -467,6 +467,11 @@ struct aiAnimMesh
 */
 struct aiMesh
 {
+
+	/*uint id_index = 0; // index in VRAM
+	uint id_vertex = 0; // unique vertex in VRAM
+	uint num_vertex = 0;
+	float* vertex = nullptr;*/
     /** Bitwise combination of the members of the #aiPrimitiveType enum.
      * This specifies which types of primitives are present in the mesh.
      * The "SortByPrimitiveType"-Step can be used to make sure the
