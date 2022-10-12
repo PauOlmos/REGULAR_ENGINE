@@ -6,7 +6,10 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
+#include <vector>
 #include "ModuleLoadFBX.h"
+using std::vector;
+
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -26,8 +29,7 @@ bool ModuleLoadFBX::Start()
 
     LOG("Loading Intro assets");
     const aiScene* scene;
-    vector<aiMesh*> MyMeshes;
-
+    const vector<aiMesh*> MyMeshes;
     bool ret = true;
     const char* file_path;
     struct aiLogStream stream;
@@ -81,7 +83,6 @@ bool ModuleLoadFBX::CleanUp()
 void LoadMesh(aiMesh* mesh, aiMesh* mymesh) {
     CopyVertices(mesh, mymesh);
     CopyFaces(mesh, mymesh);
-    
 }
 
 void CopyVertices(aiMesh* mesh, aiMesh* mymesh) {

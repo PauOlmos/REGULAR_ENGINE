@@ -1,8 +1,6 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include <vector>
-using std::vector;
 
 
 class ModuleLoadFBX : public Module {
