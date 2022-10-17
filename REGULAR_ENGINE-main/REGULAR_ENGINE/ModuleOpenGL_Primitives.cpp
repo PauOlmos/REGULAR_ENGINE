@@ -15,6 +15,8 @@
 #include "Primitive.h"
 #include "ModuleInput.h"
 #include <gl/GL.h>
+#include <vector>
+
 #include "ModuleOpenGL_Primitives.h"
 
 ModuleOpenGL_Primitives::ModuleOpenGL_Primitives(Application* app, bool start_enabled) : Module(app, start_enabled)

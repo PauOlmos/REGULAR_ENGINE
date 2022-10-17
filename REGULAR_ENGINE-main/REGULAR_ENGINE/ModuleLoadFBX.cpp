@@ -1,13 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleLoadFBX.h"
-#include <gl/GL.h>
 #include "scene.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include <vector>
 #include "ModuleLoadFBX.h"
+
 using std::vector;
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
@@ -16,61 +16,75 @@ ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app,
 {
 }
 
-ModuleLoadFBX::~ModuleLoadFBX()
+MyMesh::~MyMesh() {
+	delete[] vertices;
+	delete[] indices;
+	vertices = nullptr;
+	indices = nullptr;
+	//glDeleteBuffers(1, &id_vertices);
+	//glDeleteBuffers(1, &id_indices);
+	id_vertices = 0;
+	id_indices = 0;
+}
+void MyMesh::Render()
 {
+	/*
+	// Binding buffers
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	// Draw
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+	// Unbind buffers
+	glDisableClientState(GL_VERTEX_ARRAY);/*/
 }
 
-void LoadMesh(aiMesh*,aiMesh*);
-void CopyVertices(aiMesh*,aiMesh*);
-void CopyFaces(aiMesh*,aiMesh*);
-
-bool ModuleLoadFBX::Start()
+void ModuleLoadFBX::LoadFile(string file_path)
 {
+	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
-    LOG("Loading Intro assets");
-    const aiScene* scene;
-    const vector<aiMesh*> MyMeshes;
-    bool ret = true;
-    const char* file_path;
-    struct aiLogStream stream;
-    stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-    aiAttachLogStream(&stream);
-    file_path = ("Assets/Ganivet.fbx");
-    scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-    /*
+	if (scene != nullptr && scene->HasMeshes())
+	{
+		//Iterate scene meshes
+		for (int i = 0; i < scene->mNumMeshes; i++) {
+			MyMesh* mesh = new MyMesh();
+			//Copy fbx mesh info to Mesh struct
+			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
+			mesh->vertices = new float[mesh->num_vertices * 3];
+			memcpy(mesh->vertices, scene->mMeshes[i]->mVertices, sizeof(float) * mesh->num_vertices * 3);
 
-    if (scene != nullptr && scene->HasMeshes())
-    {
-        if (scene->HasMeshes()) {
-            for (uint i = 0; i < scene->mNumMeshes; i++) {
-                LoadMesh(scene->mMeshes[i], MyMeshes[i]);
-                //Posar tot en funció LoadMesh
-                //Cridarla funció tants cops com meshes hi hagi i guardar la info en una llista d'mMeshes anomenada x exemple meshes.
-            }
-        }
-        aiReleaseImport(scene);
+			//Load Faces
+			if (scene->mMeshes[i]->HasFaces())
+			{
+				//Copy fbx mesh indices info to Mesh struct
+				mesh->num_indices = scene->mMeshes[i]->mNumFaces * 3;
+				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
 
-    }*/
-    return ret;
-}
+				//Iterate mesh faces
+				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
+				{
+					//Check that faces are triangles
+					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3) {
+					}
+					else {
+						memcpy(&mesh->indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
+					}
+				}
 
-bool ModuleLoadFBX::PreUpdate() {
-    // Stream log messages to Debug window
-    
-    return true;
-}
+				//Add mesh to array
+				LoadMesh(mesh);
+			}
+			else {
+				delete mesh;
+			}
+		}
 
-update_status ModuleLoadFBX::Update(float dt)
-{
-
-   
-    return UPDATE_CONTINUE;
-}
-
-bool ModuleLoadFBX::PostUpdate() {
-
-
-    return true;
+		aiReleaseImport(scene);
+	}
 }
 
 bool ModuleLoadFBX::CleanUp()
@@ -80,35 +94,34 @@ bool ModuleLoadFBX::CleanUp()
 }
 
 
-void LoadMesh(aiMesh* mesh, aiMesh* mymesh) {
-    CopyVertices(mesh, mymesh);
-    CopyFaces(mesh, mymesh);
+void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
+	/*
+	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
+	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
+
+	//Bind and fill buffers
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+
+	//Unbind buffers
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	//Add mesh to meshes vector
+	meshes.push_back(mesh);*/
 }
 
-void CopyVertices(aiMesh* mesh, aiMesh* mymesh) {
+update_status ModuleLoadFBX::PostUpdate(float dt)
+{
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i]->Render();
+	}
 
-    mymesh->mNumVertices = mesh->mNumVertices;
-    mymesh->mVertices = new aiVector3D[mymesh->mNumVertices * 3];
-    memcpy(mymesh->mVertices, mesh->mVertices, sizeof(aiVector3D) * mymesh->mNumVertices * 3);
-    //mymesh->num_vertex = mesh->mNumVertices; per demostrar que es pot fer amb uint
+	const char* file_path;
+	file_path = ("Assets/Ganivet.fbx");
+	LoadFile(file_path);
+	return UPDATE_CONTINUE;
 }
 
-void CopyFaces(aiMesh* mesh, aiMesh* mymesh) {
-
-    if (mesh->HasFaces()) {
-        /*mymesh->mNumFaces = mesh->mNumFaces;
-        mymesh->mFaces = mesh->mFaces;*/
-
-        mymesh->mFaces->mNumIndices = mesh->mNumFaces * 3;
-        mymesh->mFaces->mIndices = new uint[mymesh->mFaces->mNumIndices];
-        for (uint i = 0; i < mesh->mNumFaces; ++i)
-        {
-            if (mesh->mFaces[i].mNumIndices != 3) {
-                LOG("WARNING, geometry face with != 3 indices!");
-            }
-            else {
-                memcpy(&mesh->mFaces->mIndices[i * 3], mymesh->mFaces[i].mIndices, 3 * sizeof(uint));
-            }
-        }
-    }
-}
