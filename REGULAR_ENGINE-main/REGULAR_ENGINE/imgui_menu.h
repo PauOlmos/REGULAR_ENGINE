@@ -8,12 +8,15 @@ public:
 
 	imgui_menu(Application* app, bool start_enabled = true);
 	~imgui_menu();
-	void Histogram();
+	void HistogramFps();
+	void HistogramMs();
 
 public:
 	bool KLK(bool* p_open);
 	float averageFps = 0.f;
+	float frameTicks = 0.f;
 	float showDelay = 0.f;
+	float _maxFPS = 30.f;
 	float start_time = 0;
 	float frame_time = 0;
 	double delta = 0;

@@ -256,16 +256,21 @@ bool imgui_menu::KLK(bool* p_open)
 
             ImGui::BulletText("Options");
             if (ImGui::CollapsingHeader("Application")) {
-                FPSStart = App->prevLastSecFrameCount;
+                float startTicks = SDL_GetTicks();
                 strncpy(buf, s1.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("App Name", buf, sizeof(buf));
                 s1 = buf;
                 strncpy(buf, s2.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("Organization", buf, sizeof(buf));
                 s2 = buf;
-                static float maxFPS = 30.f;
-                ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
-                Histogram();
+                HistogramFps();
+                HistogramMs();
+                float frameTicks = SDL_GetTicks() - startTicks;
+                ImGui::SliderFloat("Max FPS", &_maxFPS, 30.f, 120.f);
+                if (1000.0f / _maxFPS > frameTicks)
+                {
+                    SDL_Delay(1000.0f / _maxFPS - frameTicks);
+                }
             }
             if (ImGui::CollapsingHeader("Window")) {
 
@@ -373,13 +378,13 @@ bool imgui_menu::KLK(bool* p_open)
     //return UPDATE_CONTINUE;
 }
 
-void imgui_menu::Histogram()
+void imgui_menu::HistogramFps()
 {
     //FPS
     {
         ImGui::BulletText("Average fps: %.0f",averageFps / 1000);
         showDelay += App->dt * 1000;
-        if (showDelay > 20 * App->dt * 1000) {
+        if (showDelay > App->dt * 1000) {
             showDelay = 0;
             averageFps = 0;
             for (int i = 0; i <= FPS.size(); i++) {
@@ -408,7 +413,12 @@ void imgui_menu::Histogram()
 
         ImGui::PlotHistogram("##FPS", FPS.data(), FPS.size(), 0, NULL, 0.f, 240.f, ImVec2(310, 100));
     }
-    //miliseconds
+   
+}
+
+void imgui_menu::HistogramMs()
+{
+  
     {
         ImGui::BulletText("Ms: ");
         if (Miliseconds.size() < 60)
