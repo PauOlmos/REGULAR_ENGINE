@@ -79,7 +79,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
 
 
 
-    if(App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
         depthTest = !depthTest;
     }
     if (depthTest == true) {
@@ -90,7 +90,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_DEPTH_TEST);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
         cullFace = !cullFace;
     }
     if (cullFace == true) {
@@ -101,7 +101,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_CULL_FACE);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
         lighting = !lighting;
     }
     if (lighting == true) {
@@ -112,7 +112,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_LIGHTING);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
         colorMaterial = !colorMaterial;
     }
     if (colorMaterial == true) {
@@ -123,7 +123,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_COLOR_MATERIAL);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
         texture2D = !texture2D;
     }
     if (texture2D == true) {
@@ -134,7 +134,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_TEXTURE_2D);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
         renderMode = !renderMode;
     }
     if (renderMode == true) {
@@ -145,7 +145,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_RENDER_MODE);
     }
 
-    if(App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+    if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
         normalize = !normalize;
     }
     if (normalize == true) {
@@ -315,3 +315,4 @@ bool ModuleOpenGL_Primitives::CleanUp()
 {
     return true;
 }
+

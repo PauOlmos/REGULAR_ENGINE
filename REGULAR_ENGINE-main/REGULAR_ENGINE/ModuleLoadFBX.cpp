@@ -123,3 +123,4 @@ update_status ModuleLoadFBX::PostUpdate(float dt)
 	LoadFile(file_path);
 	return UPDATE_CONTINUE;
 }
+
