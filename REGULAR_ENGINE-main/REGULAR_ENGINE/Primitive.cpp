@@ -1,10 +1,10 @@
-/*
+
 #include "Globals.h"
-//#include <gl/GL.h>
-//#include <gl/GLU.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #include "Primitive.h"
 
-#pragma comment (lib, "glut/glut32.lib")
+//#pragma comment (lib, "Glew/include\glew32.lib")
 
 // ------------------------------------------------------------
 Primitive::Primitive() : transform(IdentityMatrix), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
@@ -273,4 +273,4 @@ void Plane::InnerRender() const
 	}
 
 	glEnd();
-}*/
+}

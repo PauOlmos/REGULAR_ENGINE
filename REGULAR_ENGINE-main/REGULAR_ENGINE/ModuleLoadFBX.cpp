@@ -5,12 +5,11 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
+#include "glew.h"
 #include <vector>
-#include "ModuleLoadFBX.h"
-
-using std::vector;
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "Glew/libx86/glew32.lib")
 
 ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -21,14 +20,14 @@ MyMesh::~MyMesh() {
 	delete[] indices;
 	vertices = nullptr;
 	indices = nullptr;
-	//glDeleteBuffers(1, &id_vertices);
-	//glDeleteBuffers(1, &id_indices);
+	glDeleteBuffers(1, &id_vertices);
+	glDeleteBuffers(1, &id_indices);
 	id_vertices = 0;
 	id_indices = 0;
 }
 void MyMesh::Render()
 {
-	/*
+	
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -40,7 +39,7 @@ void MyMesh::Render()
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	// Unbind buffers
-	glDisableClientState(GL_VERTEX_ARRAY);/*/
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void ModuleLoadFBX::LoadFile(string file_path)
@@ -89,13 +88,13 @@ void ModuleLoadFBX::LoadFile(string file_path)
 
 bool ModuleLoadFBX::CleanUp()
 {
-    aiDetachAllLogStreams();
-    return true;
+	aiDetachAllLogStreams();
+	return true;
 }
 
 
 void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
-	/*
+	
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 
@@ -110,7 +109,7 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	//Add mesh to meshes vector
-	meshes.push_back(mesh);*/
+	meshes.push_back(mesh);
 }
 
 update_status ModuleLoadFBX::PostUpdate(float dt)
@@ -120,8 +119,9 @@ update_status ModuleLoadFBX::PostUpdate(float dt)
 	}
 
 	const char* file_path;
-	file_path = ("Assets/Ganivet.fbx");
+	file_path = ("Assets/BakerHouse.fbx");
 	LoadFile(file_path);
 	return UPDATE_CONTINUE;
 }
+
 
