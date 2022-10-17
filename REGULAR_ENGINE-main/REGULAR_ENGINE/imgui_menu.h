@@ -15,6 +15,7 @@ public:
 	float frame_time = 0;
 	double delta = 0;
 	bool fullscreen = false;
+	bool active16_9 = false;
 	bool Vsync = true;
 	float Brightness = 1.f;
 
@@ -30,6 +31,7 @@ public:
 
 	float WindowHeight;
 	float WindowWidth;
+	float WindowSize;
 
 	float WindowHeightInit;
 	float WindowWidthInit;

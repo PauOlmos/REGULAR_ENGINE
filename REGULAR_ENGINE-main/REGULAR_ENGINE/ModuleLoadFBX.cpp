@@ -37,7 +37,7 @@ bool ModuleLoadFBX::Start()
     aiAttachLogStream(&stream);
     file_path = ("Assets/Ganivet.fbx");
     scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-
+    /*
 
     if (scene != nullptr && scene->HasMeshes())
     {
@@ -50,7 +50,7 @@ bool ModuleLoadFBX::Start()
         }
         aiReleaseImport(scene);
 
-    }
+    }*/
     return ret;
 }
 

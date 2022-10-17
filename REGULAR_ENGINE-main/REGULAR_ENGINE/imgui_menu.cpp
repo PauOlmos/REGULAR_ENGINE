@@ -228,6 +228,8 @@ bool imgui_menu::KLK(bool* p_open)
         ImGui::EndMenuBar();
 
         if (help_) {
+            ImGui::BeginChild("Help");
+
             if (ImGui::SmallButton("About")) {
                 about_ = !about_;
             }
@@ -245,21 +247,17 @@ bool imgui_menu::KLK(bool* p_open)
                 //App->RequestBrowser("https://FAQs");
 
             }
+            ImGui::EndChild();
+
         }
         char buf[25]{};
         std::string s1{ "REGULAR ENGINE" };
         std::string s2{ "UPC CITM" };
-        if (ImGui::Button("Configuration")) {
-            configuration_ = !configuration_;
+        if (ImGui::CollapsingHeader("Configuration")) {
 
-
-        }
-        if (configuration_) {
             ImGui::BulletText("Options");
-            if (ImGui::Button("Application")) {
-                application_ = !application_;
-            }
-            if (application_) {
+            if (ImGui::CollapsingHeader("Application")) {
+
                 strncpy(buf, s1.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("App Name", buf, sizeof(buf));
                 s1 = buf;
@@ -272,13 +270,8 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
 
                 char title[25];
-
             }
-            if (ImGui::Button("Window")) {
-                window_ = !window_;
-            }
-            
-            if (window_) {
+            if (ImGui::CollapsingHeader("Window")) {
 
                 if (ImGui::Checkbox("Fullscreen", &fullscreen)) {
                     if (fullscreen == true) {
@@ -293,49 +286,72 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::SliderFloat("Brightness", &Brightness, 0.f, 1.f);
 
                 SDL_SetWindowBrightness(App->window->window, Brightness);
-                ImGui::SliderFloat("Width", &WindowWidth, 0.f, 2872.0f, "%.0f");
-                ImGui::SliderFloat("Height", &WindowHeight, 0.f, 2160.0f, "%.0f");
+
 
 
                 if (fullscreen == false) {
-                    WindowHeight = WindowWidth / 1.333333;
 
-                    WindowHeight = trunc(WindowHeight);
-                    if (WindowHeight > 2160.0f) {
-                        WindowHeight = 2160.0f;
+                    if (active16_9 == true) {
+
+                        ImGui::SliderFloat("Size", &WindowHeight, 0.f, 2160.0f, "%.0f");
+
+                        WindowWidth = WindowHeight * 1.3333333;
+
+                        WindowHeight = trunc(WindowHeight);
+                        if (WindowHeight > 2160.0f) {
+                            WindowHeight = 2160.0f;
+                        }
+                        App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                        SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                        if (WindowWidth > 2872.0f) {
+                            WindowWidth = 2872.0f;
+                        }
+                        WindowHeight = WindowWidth / 1.333333;
+
+                        WindowWidth = trunc(WindowWidth);
+
+                        App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                        SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
                     }
-                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
-                    if (WindowWidth > 2872.0f) {
-                        WindowWidth = 2872.0f;
+                    else {
+
+                        ImGui::SliderFloat("Width", &WindowWidth, 0.f, 2872.0f, "%.0f");
+                        ImGui::SliderFloat("Height", &WindowHeight, 0.f, 2160.0f, "%.0f");
+                        WindowHeight = trunc(WindowHeight);
+                        if (WindowHeight > 2160.0f) {
+                            WindowHeight = 2160.0f;
+                        }
+                        App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                        SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
+                        if (WindowWidth > 2872.0f) {
+                            WindowWidth = 2872.0f;
+                        }
+
+                        WindowWidth = trunc(WindowWidth);
+
+                        App->renderer3D->OnResize(WindowWidth, WindowHeight);
+                        SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
                     }
-                    WindowWidth = WindowHeight * 1.3333333;
 
-                    WindowWidth = trunc(WindowWidth);
-
-                    App->renderer3D->OnResize(WindowWidth, WindowHeight);
-                    SDL_SetWindowSize(App->window->window, WindowWidth, WindowHeight);
                 }
-
+                if (ImGui::Checkbox("16:9", &active16_9)) {
+                    active16_9 != active16_9;
+                }
                 if (ImGui::Button("Predet.")) {
                     WindowWidth = SCREEN_WIDTH;
                     WindowHeight = SCREEN_HEIGHT;
                     Brightness = 1.0f;
                     SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_MAXIMIZED);
                     fullscreen = false;
-
+                    active16_9 = false;
                 }
-                
+
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
                     SDL_GL_SetSwapInterval(0);
                 }
             }
-            else {
-            }
-            if (ImGui::Button("Hardware")) {
-                hardware_ = !hardware_;
-            }
-            if (hardware_) {
+
+            if (ImGui::CollapsingHeader("Hardware")) {
                 ImGui::BulletText("SDL Version: %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
                 ImGui::BulletText("CPUs: %d", SDL_GetCPUCount());
                 ImGui::BulletText("CPU Cache: %d kb", SDL_GetCPUCacheLineSize());
@@ -343,9 +359,7 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
             }
         }
-
     }
-
     
 
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
