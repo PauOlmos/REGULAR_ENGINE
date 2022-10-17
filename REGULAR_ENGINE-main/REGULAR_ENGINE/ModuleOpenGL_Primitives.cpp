@@ -28,6 +28,8 @@ ModuleOpenGL_Primitives::~ModuleOpenGL_Primitives()
 bool ModuleOpenGL_Primitives::Start()
 {
     LOG("Loading Intro assets");
+    float Quad[] = { NULL };
+
     bool ret = true;
 
     return ret;
@@ -42,54 +44,16 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
 update_status ModuleOpenGL_Primitives::Update(float dt)
 {
     
-    float Quad[] = { 0.f + x,1.f + y,0.f + z,//X    Plane 1
-                     0.f + x,0.f + y,0.f + z,//Y 
-                     0.f + x,0.f + y,1.f + z,//Z
+    if (App->close_app->CubeRenderer) {
+        DrawCube();
+    }
 
-                     0.0f + x,1.f + y,1.f + z,
-                     0.f + x,1.f + y,0.f + z,
-                     0.f + x,0.f + y,1.f + z,
-
-                     1.f + x,1.f + y,0.f + z,
-                     0.f + x,1.f + y,0.f + z,
-                     0.f + x,1.f + y,1.f + z,
-
-                     1.f + x,1.f + y,0.f + z,
-                     0.f + x,1.f + y,1.f + z,
-                     1.f + x,1.f + y,1.f + z,
-
-                     0.f + x,0.f + y,1.f + z,
-                     1.f + x,0.f + y,1.f + z,
-                     0.f + x,1.f + y,1.f + z,
-
-                     1.f + x,0.f + y,1.f + z,
-                     1.f + x,1.f + y,1.f + z,
-                     0.f + x,1.f + y,1.f + z,
-
-                     1.f + x, 0.f + y, 1.f + z,
-                     1.f + x, 0.f + y, 0.f + z,
-                     1.f + x, 1.f + y, 0.f + z,
-
-                     1.f + x, 0.f + y, 1.f + z,
-                     1.f + x, 1.f + y, 0.f + z,
-                     1.f + x, 1.f + y, 1.f + z,
-
-                     0.f + x, 0.f + y, 0.f + z,
-                     0.f + x, 1.f + y, 0.f + z,
-                     1.f + x, 1.f + y, 0.f + z,
-
-                     0.f + x, 0.f + y, 0.f + z,
-                     1.f + x, 1.f + y, 0.f + z,
-                     1.f + x, 0.f + y, 0.f + z,
-
-                     0.f + x, 0.f + y, 0.f + z,
-                     1.f + x, 0.f + y, 0.f + z,
-                     1.f + x, 0.f + y, 1.f + z,
-
-                     1.f + x, 0.f + y, 1.f + z,
-                     0.f + x, 0.f + y, 1.f + z,
-                     0.f + x, 0.f + y, 0.f + z,
-    };
+    if (App->close_app->CilindreRenderer) {
+        DrawCilindre(2, 2);
+    }
+    if (App->close_app->PiramidRenderer) {
+        DrawPiramid();
+    }
 
     if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
         x++;
@@ -111,14 +75,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         z--;
     }
     
-    if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
-        wireFrameView = !wireFrameView;
-    }
-    if (wireFrameView == true) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
-    else {
-    }
+    
 
     if(App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
         depthTest = !depthTest;
@@ -196,17 +153,155 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_NORMALIZE);
     }
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, Quad);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glDisableClientState(GL_VERTEX_ARRAY);
     // front face =================
 
+   
 
     glEnd();
     return UPDATE_CONTINUE;
 }
+
+void ModuleOpenGL_Primitives::DrawCube() {
+    
+    float Quad[] = { 0.f + x,1.f + y,0.f + z,//X    Plane 1
+                    0.f + x,0.f + y,0.f + z,//Y 
+                    0.f + x,0.f + y,1.f + z,//Z
+
+                    0.0f + x,1.f + y,1.f + z,
+                    0.f + x,1.f + y,0.f + z,
+                    0.f + x,0.f + y,1.f + z,
+
+                    1.f + x,1.f + y,0.f + z,
+                    0.f + x,1.f + y,0.f + z,
+                    0.f + x,1.f + y,1.f + z,
+
+                    1.f + x,1.f + y,0.f + z,
+                    0.f + x,1.f + y,1.f + z,
+                    1.f + x,1.f + y,1.f + z,
+
+                    0.f + x,0.f + y,1.f + z,
+                    1.f + x,0.f + y,1.f + z,
+                    0.f + x,1.f + y,1.f + z,
+
+                    1.f + x,0.f + y,1.f + z,
+                    1.f + x,1.f + y,1.f + z,
+                    0.f + x,1.f + y,1.f + z,
+
+                    1.f + x, 0.f + y, 1.f + z,
+                    1.f + x, 0.f + y, 0.f + z,
+                    1.f + x, 1.f + y, 0.f + z,
+
+                    1.f + x, 0.f + y, 1.f + z,
+                    1.f + x, 1.f + y, 0.f + z,
+                    1.f + x, 1.f + y, 1.f + z,
+
+                    0.f + x, 0.f + y, 0.f + z,
+                    0.f + x, 1.f + y, 0.f + z,
+                    1.f + x, 1.f + y, 0.f + z,
+
+                    0.f + x, 0.f + y, 0.f + z,
+                    1.f + x, 1.f + y, 0.f + z,
+                    1.f + x, 0.f + y, 0.f + z,
+
+                    0.f + x, 0.f + y, 0.f + z,
+                    1.f + x, 0.f + y, 0.f + z,
+                    1.f + x, 0.f + y, 1.f + z,
+
+                    1.f + x, 0.f + y, 1.f + z,
+                    0.f + x, 0.f + y, 1.f + z,
+                    0.f + x, 0.f + y, 0.f + z,
+    };
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, Quad);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
+void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
+{
+    int n = 30;
+
+    // Cylinder Bottom
+    glBegin(GL_POLYGON);
+    if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+        wireFrameView = !wireFrameView;
+    }
+    if (wireFrameView == true) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    else {
+    }
+    for (int i = 360; i >= 0; i -= (360 / n))
+    {
+        float a = i * M_PI / 180; // degrees to radians
+        float X = -leght * 0.5f;
+        float Y = radius * cos(a);
+        float Z = radius * sin(a);
+        glVertex3f(X, Y, Z);
+    }
+    glEnd();
+    // Cylinder Top
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    for (int i = 360; i >= 0; i -= (360 / n))
+    {
+        float a = i * M_PI / 180; // degrees to radians
+        float X = leght * 0.5f;
+        float Y = radius * cos(a);
+        float Z = -radius * sin(a);
+        glVertex3f(X, Y, Z);
+    }
+    glEnd();
+
+    // Cylinder "Cover"
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i < 480; i += (360 / n))
+    {
+        float a = i * M_PI / 180; // degrees to radians
+
+        glVertex3f(leght * 0.5f, radius * cos(a), radius * sin(a));
+        glVertex3f(-leght * 0.5f, radius * cos(a), radius * sin(a));
+    }
+    glEnd();
+}
+void ModuleOpenGL_Primitives::DrawPiramid()
+{
+    if (wireFrameView == true) {
+        //Wireframe Mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(2);
+    }
+    
+    Triangle T;
+
+    glBegin(GL_TRIANGLES);  // draw a triangle
+
+    glVertex3fv(T.v0);    //Cara1
+    glVertex3fv(T.v1);
+    glVertex3fv(T.v2);
+
+    glVertex3fv(T.v3);    //Cara2
+    glVertex3fv(T.v2);
+    glVertex3fv(T.v1);
+
+    glVertex3fv(T.v3);    //Cara3
+    glVertex3fv(T.v4);
+    glVertex3fv(T.v2);
+
+    glVertex3fv(T.v4);    //Cara4
+    glVertex3fv(T.v0);
+    glVertex3fv(T.v2);
+
+    glVertex3fv(T.v4);    //Base
+    glVertex3fv(T.v3);
+    glVertex3fv(T.v1);
+
+    glVertex3fv(T.v4);
+    glVertex3fv(T.v1);
+    glVertex3fv(T.v0);
+
+    glEnd();
+}
+
 
 bool ModuleOpenGL_Primitives::PostUpdate() {
 

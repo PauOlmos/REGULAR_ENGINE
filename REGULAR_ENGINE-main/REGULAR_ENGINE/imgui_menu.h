@@ -13,6 +13,8 @@ public:
 
 public:
 	bool KLK(bool* p_open);
+
+	float FPSStart;
 	float averageFps = 0.f;
 	float frameTicks = 0.f;
 	float showDelay = 0.f;
@@ -22,9 +24,13 @@ public:
 	double delta = 0;
 	bool fullscreen = false;
 	bool active16_9 = false;
+
+	bool CubeRenderer = false;
+	bool CilindreRenderer = false;
+	bool PiramidRenderer = false;
+
 	bool Vsync = true;
 	float Brightness = 1.f;
-	float FPSStart;
 
 	bool help_ = false;
 	bool showExample = false;

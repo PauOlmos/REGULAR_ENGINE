@@ -19,6 +19,7 @@
 #include "ModuleWindow.h"
 #include "imgui_menu.h"
 #include "Application.h"
+#include <gl/GL.h>
 // Visual Studio warnings
 #ifdef _MSC_VER
 #pragma warning (disable: 4127)     // condition expression is constant
@@ -358,6 +359,17 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::BulletText("CPU Cache: %d kb", SDL_GetCPUCacheLineSize());
                 float RAM = SDL_GetSystemRAM() / 1000;
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
+            }
+            if (ImGui::CollapsingHeader("Create")) {
+                if(ImGui::Checkbox("Cube",&CubeRenderer)) {
+                    //App->primitives1->DrawCube();
+                }
+                if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
+                    //App->primitives1->DrawCilindre(5,5);
+                }
+                if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
+                    //App->primitives1->DrawCilindre(5,5);
+                }
             }
         }
     }
