@@ -1,7 +1,7 @@
-
+/*
 #include "Globals.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+//#include <gl/GL.h>
+//#include <gl/GLU.h>
 #include "Primitive.h"
 
 //#pragma comment (lib, "Glew/include\glew32.lib")
@@ -273,4 +273,4 @@ void Plane::InnerRender() const
 	}
 
 	glEnd();
-}
+}*/

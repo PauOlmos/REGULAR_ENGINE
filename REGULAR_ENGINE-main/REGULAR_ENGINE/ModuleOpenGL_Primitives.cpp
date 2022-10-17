@@ -14,7 +14,7 @@
 #include <limits.h>         // INT_MIN, INT_MAX
 #include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
 #include <stdio.h>          // vsnprintf, sscanf, printf
-#include <stdlib.h>  
+#include <stdlib.h>
 #include <string>
 #include <gl/GL.h>
 
@@ -45,7 +45,7 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
 
 update_status ModuleOpenGL_Primitives::Update(float dt)
 {
-    
+
     if (App->close_app->CubeRenderer) {
         DrawCube();
     }
@@ -66,7 +66,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
         z++;
     }
-    
+
     if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
         x--;
     }
@@ -76,8 +76,8 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
         z--;
     }
-    
-    
+
+
 
     if(App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
         depthTest = !depthTest;
@@ -89,7 +89,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_DEPTH_TEST);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
         cullFace = !cullFace;
     }
@@ -100,7 +100,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_CULL_FACE);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
         lighting = !lighting;
     }
@@ -111,7 +111,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_LIGHTING);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
         colorMaterial = !colorMaterial;
     }
@@ -122,7 +122,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_COLOR_MATERIAL);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
         texture2D = !texture2D;
     }
@@ -133,7 +133,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_TEXTURE_2D);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
         renderMode = !renderMode;
     }
@@ -144,7 +144,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_RENDER_MODE);
     }
-    
+
     if(App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
         normalize = !normalize;
     }
@@ -157,16 +157,16 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     }
     // front face =================
 
-   
+
 
     glEnd();
     return UPDATE_CONTINUE;
 }
 
 void ModuleOpenGL_Primitives::DrawCube() {
-    
+
     float Quad[] = { 0.f + x,1.f + y,0.f + z,//X    Plane 1
-                    0.f + x,0.f + y,0.f + z,//Y 
+                    0.f + x,0.f + y,0.f + z,//Y
                     0.f + x,0.f + y,1.f + z,//Z
 
                     0.0f + x,1.f + y,1.f + z,
@@ -272,7 +272,7 @@ void ModuleOpenGL_Primitives::DrawPiramid()
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glLineWidth(2);
     }
-    
+
     Triangle T;
 
     glBegin(GL_TRIANGLES);  // draw a triangle

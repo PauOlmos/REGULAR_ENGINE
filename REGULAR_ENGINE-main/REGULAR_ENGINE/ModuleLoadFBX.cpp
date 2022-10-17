@@ -27,7 +27,7 @@ MyMesh::~MyMesh() {
 }
 void MyMesh::Render()
 {
-	
+
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -94,7 +94,7 @@ bool ModuleLoadFBX::CleanUp()
 
 
 void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
-	
+
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 
@@ -123,5 +123,3 @@ update_status ModuleLoadFBX::PostUpdate(float dt)
 	LoadFile(file_path);
 	return UPDATE_CONTINUE;
 }
-
-
