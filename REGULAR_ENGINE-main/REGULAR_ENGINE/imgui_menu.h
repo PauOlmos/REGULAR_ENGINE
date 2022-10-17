@@ -1,12 +1,14 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include<vector>
 class imgui_menu : public Module {
 public:
 	bool Start();
 
 	imgui_menu(Application* app, bool start_enabled = true);
 	~imgui_menu();
+	void Histogram();
 
 public:
 	bool KLK(bool* p_open);
@@ -18,6 +20,7 @@ public:
 	bool active16_9 = false;
 	bool Vsync = true;
 	float Brightness = 1.f;
+	float FPSStart;
 
 	bool help_ = false;
 	bool showExample = false;
@@ -36,4 +39,8 @@ public:
 	float WindowHeightInit;
 	float WindowWidthInit;
 
+private:
+
+	std::vector<float> FPS;
+	std::vector<float> Miliseconds;
 };

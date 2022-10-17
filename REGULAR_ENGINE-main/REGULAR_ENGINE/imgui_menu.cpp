@@ -131,7 +131,6 @@ bool imgui_menu::KLK(bool* p_open)
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
     // Most functions would normally just crash if the context is missing.
     IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing dear imgui context. Refer to examples app!");
-
     // Examples Apps (accessible from the "Examples" menu)
     static bool show_app_main_menu_bar = false;
     static bool show_app_documents = false;
@@ -257,19 +256,16 @@ bool imgui_menu::KLK(bool* p_open)
 
             ImGui::BulletText("Options");
             if (ImGui::CollapsingHeader("Application")) {
-
+                FPSStart = App->prevLastSecFrameCount;
                 strncpy(buf, s1.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("App Name", buf, sizeof(buf));
                 s1 = buf;
-
                 strncpy(buf, s2.c_str(), sizeof(buf) - 1);
                 ImGui::InputText("Organization", buf, sizeof(buf));
                 s2 = buf;
-
                 static float maxFPS = 30.f;
                 ImGui::SliderFloat("Max FPS", &maxFPS, 30.f, 120.f);
-
-                char title[25];
+                Histogram();
             }
             if (ImGui::CollapsingHeader("Window")) {
 
@@ -375,4 +371,53 @@ bool imgui_menu::KLK(bool* p_open)
     ImGui::PopItemWidth();
     ImGui::End();
     //return UPDATE_CONTINUE;
+}
+
+void imgui_menu::Histogram()
+{
+    //FPS
+    {
+        ImGui::BulletText("FPS: ");
+        if (FPS.size() < 45)
+        {
+            FPS.push_back(trunc(1000 / (App->dt * 1000)));
+        }
+
+        else if (FPS.size() == 45)
+        {
+            for (int i = 0; i <= 43; i++)
+            {
+                FPS[i] = FPS[i + 1];
+
+            }
+
+            FPS[44] = trunc(1000 / (App->dt * 1000));
+        }
+
+        SDL_GetPerformanceCounter();
+
+        ImGui::PlotHistogram("##FPS", FPS.data(), FPS.size(), 0, NULL, 0.f, 240.f, ImVec2(310, 100));
+    }
+    //miliseconds
+    {
+        ImGui::BulletText("Miliseconds: ");
+        if (Miliseconds.size() < 45)
+        {
+            Miliseconds.push_back(App->dt * 1000);
+        }
+
+        else if (Miliseconds.size() == 45)
+        {
+            for (int i = 0; i <= 43; i++)
+            {
+                Miliseconds[i] = Miliseconds[i + 1];
+
+            }
+            Miliseconds[44] = App->dt * 1000;
+        }
+
+        SDL_GetPerformanceCounter();
+
+        ImGui::PlotHistogram("##Milisecods", Miliseconds.data(), Miliseconds.size(), 0, NULL, 0.f, 80.f, ImVec2(310, 100));
+    }
 }
