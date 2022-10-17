@@ -377,21 +377,31 @@ void imgui_menu::Histogram()
 {
     //FPS
     {
-        ImGui::BulletText("FPS: ");
-        if (FPS.size() < 45)
+        ImGui::BulletText("Average fps: %.0f",averageFps / 1000);
+        showDelay += App->dt * 1000;
+        if (showDelay > 20 * App->dt * 1000) {
+            showDelay = 0;
+            averageFps = 0;
+            for (int i = 0; i <= FPS.size(); i++) {
+                averageFps += (1000 / App->dt * 1);
+            }
+            averageFps = averageFps / FPS.size();
+        }
+
+        if (FPS.size() < 60)
         {
             FPS.push_back(trunc(1000 / (App->dt * 1000)));
         }
 
-        else if (FPS.size() == 45)
+        else if (FPS.size() == 60)
         {
-            for (int i = 0; i <= 43; i++)
+            for (int i = 0; i <= 58; i++)
             {
                 FPS[i] = FPS[i + 1];
 
             }
 
-            FPS[44] = trunc(1000 / (App->dt * 1000));
+            FPS[59] = trunc(1000 / (App->dt * 1000));
         }
 
         SDL_GetPerformanceCounter();
@@ -400,20 +410,20 @@ void imgui_menu::Histogram()
     }
     //miliseconds
     {
-        ImGui::BulletText("Miliseconds: ");
-        if (Miliseconds.size() < 45)
+        ImGui::BulletText("Ms: ");
+        if (Miliseconds.size() < 60)
         {
             Miliseconds.push_back(App->dt * 1000);
         }
 
-        else if (Miliseconds.size() == 45)
+        else if (Miliseconds.size() == 60)
         {
-            for (int i = 0; i <= 43; i++)
+            for (int i = 0; i <= 58; i++)
             {
                 Miliseconds[i] = Miliseconds[i + 1];
 
             }
-            Miliseconds[44] = App->dt * 1000;
+            Miliseconds[59] = App->dt * 1000;
         }
 
         SDL_GetPerformanceCounter();

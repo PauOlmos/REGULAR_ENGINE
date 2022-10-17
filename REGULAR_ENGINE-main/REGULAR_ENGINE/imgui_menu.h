@@ -12,7 +12,8 @@ public:
 
 public:
 	bool KLK(bool* p_open);
-	float fps = 0.f;
+	float averageFps = 0.f;
+	float showDelay = 0.f;
 	float start_time = 0;
 	float frame_time = 0;
 	double delta = 0;
@@ -38,7 +39,6 @@ public:
 
 	float WindowHeightInit;
 	float WindowWidthInit;
-
 private:
 
 	std::vector<float> FPS;
