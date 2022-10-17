@@ -146,6 +146,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
+	const char* file_path;
+	file_path = ("Assets/Ganivet.fbx");
+	App->loadFBX->LoadFile(file_path);
+
 	return UPDATE_CONTINUE;
 }
 

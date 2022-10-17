@@ -43,6 +43,12 @@
     <Filter Include="Sources\Assimp\include">
       <UniqueIdentifier>{e34c3919-63f3-4dc9-b53a-562c669d00fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Glew">
+      <UniqueIdentifier>{a7c3f9a0-602b-4aaf-850c-c8e2b94ea13d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Glew\include">
+      <UniqueIdentifier>{3c94292b-45f6-4bb5-bf98-5f52ff28b986}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -398,6 +404,18 @@
     </ClInclude>
     <ClInclude Include="ModuleLoadFBX.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Glew\Glew\include\eglew.h">
+      <Filter>Sources\Glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Glew\Glew\include\glew.h">
+      <Filter>Sources\Glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Glew\Glew\include\glxew.h">
+      <Filter>Sources\Glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Glew\Glew\include\wglew.h">
+      <Filter>Sources\Glew\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
