@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleOpenGL_Primitives.h"
 #include "ModuleCamera3D.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -40,34 +41,73 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed *= 2;
+	
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+		newPos.x = App->primitives1->Objectx + 1;
+		newPos.y = App->primitives1->Objecty + 2;
+		newPos.z = App->primitives1->Objectz + 4;
+		freeMovement = true;
+	}
+	
+	SDL_Event event;
+	SDL_PollEvent(&event);
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	if (event.type == SDL_MOUSEWHEEL){
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+		if (event.wheel.y > 0) // scroll up
+		{
+			freeMovement = true;
+			newPos -= Z * 2;
+		}
+		else if (event.wheel.y < 0) // scroll down
+		{
+			freeMovement = true;
+			newPos += Z * 2;
+		}
+	}
+	
+	if(App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) newPos.y += speed;
+	if(App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) newPos.y -= speed;
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			freeMovement = true;
+			newPos -= Z * speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			freeMovement = true;
+			newPos += Z * speed;
+		} 
 
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			freeMovement = true;
+			newPos -= X * speed;
+		} 
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			freeMovement = true;
+			newPos += X * speed;
+		} 
+	}
+	
 
-	Position += newPos;
-	Reference += newPos;
+	Position = newPos;
+	Reference = newPos;
 
 	// Mouse motion ----------------
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
-
-		Position -= Reference;
+		newRef.x = App->primitives1->Objectx + 0.5;
+		newRef.y = App->primitives1->Objecty + 0.5;
+		newRef.z = App->primitives1->Objectz + 0.5;
 
 		if(dx != 0)
 		{
@@ -92,7 +132,15 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
-		Position = Reference + Z * length(Position);
+		Position = newRef + Z * length(Position);
+		//newPos = newRef;
+		freeMovement = false;
+	}
+	else if(freeMovement == false)
+	{
+		LookAt((newRef.x,newRef.y,newRef.z));
+
+		//Position = oldRef;
 	}
 
 	// Recalculate matrix -------------

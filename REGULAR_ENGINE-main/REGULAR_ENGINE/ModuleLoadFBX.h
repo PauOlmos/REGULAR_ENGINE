@@ -25,11 +25,10 @@ public:
 	void LoadFile(string file_path);
 	void LoadMesh(MyMesh* mesh);
 
-
 	update_status PostUpdate(float dt);
 	//bool Init();
 	bool CleanUp();
-
+	int width = 0, height = 0;
 private:
 	vector<MyMesh*> meshes;
 };

@@ -58,23 +58,25 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     }
 
     if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-        x++;
+        App->primitives1->Objectx++;
     }
     if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-        y++;
+        App->primitives1->Objecty++;
+
     }
     if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-        z++;
+        App->primitives1->Objectz++;
+
     }
 
     if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
-        x--;
+        App->primitives1->Objectx--;
     }
     if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
-        y--;
+        App->primitives1->Objecty--;
     }
     if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
-        z--;
+        App->primitives1->Objectz--;
     }
 
 
@@ -165,53 +167,53 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
 
 void ModuleOpenGL_Primitives::DrawCube() {
 
-    float Quad[] = { 0.f + x,1.f + y,0.f + z,//X    Plane 1
-                    0.f + x,0.f + y,0.f + z,//Y
-                    0.f + x,0.f + y,1.f + z,//Z
+    float Quad[] = { 0.f + Objectx,1.f + Objecty,0.f + Objectz,//Objectx    Plane 1
+                    0.f + Objectx,0.f + Objecty,0.f + Objectz,//Objecty
+                    0.f + Objectx,0.f + Objecty,1.f + Objectz,//Objectz
 
-                    0.0f + x,1.f + y,1.f + z,
-                    0.f + x,1.f + y,0.f + z,
-                    0.f + x,0.f + y,1.f + z,
+                    0.0f + Objectx,1.f + Objecty,1.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,0.f + Objectz,
+                    0.f + Objectx,0.f + Objecty,1.f + Objectz,
 
-                    1.f + x,1.f + y,0.f + z,
-                    0.f + x,1.f + y,0.f + z,
-                    0.f + x,1.f + y,1.f + z,
+                    1.f + Objectx,1.f + Objecty,0.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,0.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
 
-                    1.f + x,1.f + y,0.f + z,
-                    0.f + x,1.f + y,1.f + z,
-                    1.f + x,1.f + y,1.f + z,
+                    1.f + Objectx,1.f + Objecty,0.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
+                    1.f + Objectx,1.f + Objecty,1.f + Objectz,
 
-                    0.f + x,0.f + y,1.f + z,
-                    1.f + x,0.f + y,1.f + z,
-                    0.f + x,1.f + y,1.f + z,
+                    0.f + Objectx,0.f + Objecty,1.f + Objectz,
+                    1.f + Objectx,0.f + Objecty,1.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
 
-                    1.f + x,0.f + y,1.f + z,
-                    1.f + x,1.f + y,1.f + z,
-                    0.f + x,1.f + y,1.f + z,
+                    1.f + Objectx,0.f + Objecty,1.f + Objectz,
+                    1.f + Objectx,1.f + Objecty,1.f + Objectz,
+                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
 
-                    1.f + x, 0.f + y, 1.f + z,
-                    1.f + x, 0.f + y, 0.f + z,
-                    1.f + x, 1.f + y, 0.f + z,
+                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
+                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
 
-                    1.f + x, 0.f + y, 1.f + z,
-                    1.f + x, 1.f + y, 0.f + z,
-                    1.f + x, 1.f + y, 1.f + z,
+                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
+                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 1.f + Objecty, 1.f + Objectz,
 
-                    0.f + x, 0.f + y, 0.f + z,
-                    0.f + x, 1.f + y, 0.f + z,
-                    1.f + x, 1.f + y, 0.f + z,
+                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+                    0.f + Objectx, 1.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
 
-                    0.f + x, 0.f + y, 0.f + z,
-                    1.f + x, 1.f + y, 0.f + z,
-                    1.f + x, 0.f + y, 0.f + z,
+                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
 
-                    0.f + x, 0.f + y, 0.f + z,
-                    1.f + x, 0.f + y, 0.f + z,
-                    1.f + x, 0.f + y, 1.f + z,
+                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
 
-                    1.f + x, 0.f + y, 1.f + z,
-                    0.f + x, 0.f + y, 1.f + z,
-                    0.f + x, 0.f + y, 0.f + z,
+                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
+                    0.f + Objectx, 0.f + Objecty, 1.f + Objectz,
+                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
     };
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, Quad);

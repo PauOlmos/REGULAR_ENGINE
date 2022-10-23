@@ -24,9 +24,9 @@ public:
 	bool CleanUp();
 	void DrawCilindre(float radius, float leght);
 
-	float x = 0.f;
-	float y = 0.f;
-	float z = 0.f;
+	float Objectx = 0.f;
+	float Objecty = 0.f;
+	float Objectz = 0.f;
 	
 private:
 	bool wireFrameView = false;

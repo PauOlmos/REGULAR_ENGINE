@@ -49,6 +49,12 @@
     <Filter Include="Sources\Glew\include">
       <UniqueIdentifier>{3c94292b-45f6-4bb5-bf98-5f52ff28b986}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\DevIL">
+      <UniqueIdentifier>{1d0378f9-0cdd-4532-9f5a-788bdfb41beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\DevIL\include">
+      <UniqueIdentifier>{c0eac45a-1cff-4cc3-addb-29be5fa0e9f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -416,6 +422,30 @@
     </ClInclude>
     <ClInclude Include="Glew\Glew\include\wglew.h">
       <Filter>Sources\Glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\devil_cpp_wrapper.hpp">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\devil_internal_exports.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\il.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\il_wrap.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilu.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilu_region.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilut.h">
+      <Filter>Sources\DevIL\include</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilut_config.h">
+      <Filter>Sources\DevIL\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

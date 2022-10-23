@@ -6,6 +6,7 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "glew.h"
+#include "DevIL/include/ilut.h"
 #include <vector>
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
@@ -27,7 +28,7 @@ MyMesh::~MyMesh() {
 }
 void MyMesh::Render()
 {
-
+	/*
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -39,11 +40,12 @@ void MyMesh::Render()
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	// Unbind buffers
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);*/
 }
 
 void ModuleLoadFBX::LoadFile(string file_path)
 {
+	/*
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
@@ -84,6 +86,21 @@ void ModuleLoadFBX::LoadFile(string file_path)
 
 		aiReleaseImport(scene);
 	}
+	/*
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	GLuint textureId = ilutGLBindTexImage();
+
+	width = ilGetInteger(IL_IMAGE_WIDTH);
+	height = ilGetInteger(IL_IMAGE_HEIGHT);
+
+	glGenTextures(1, &textureId);
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);*/
 }
 
 bool ModuleLoadFBX::CleanUp()
@@ -94,7 +111,7 @@ bool ModuleLoadFBX::CleanUp()
 
 
 void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
-
+	/*
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 
@@ -109,8 +126,9 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	//Add mesh to meshes vector
-	meshes.push_back(mesh);
+	meshes.push_back(mesh);*/
 }
+
 
 update_status ModuleLoadFBX::PostUpdate(float dt)
 {

@@ -50,14 +50,14 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)Glew\include;$(SolutionDir)ImGui;$(SolutionDir)Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DevIL\include;$(SolutionDir)Glew\include;$(SolutionDir)ImGui;$(SolutionDir)Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Glew\Glew;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Glew\libx86;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\DevIL\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,6 +114,14 @@
     <ClInclude Include="Assimp (1)\Assimp\Assimp\include\vector3.h" />
     <ClInclude Include="Assimp (1)\Assimp\Assimp\include\version.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="DevIL\include\devil_cpp_wrapper.hpp" />
+    <ClInclude Include="DevIL\include\devil_internal_exports.h" />
+    <ClInclude Include="DevIL\include\il.h" />
+    <ClInclude Include="DevIL\include\ilu.h" />
+    <ClInclude Include="DevIL\include\ilut.h" />
+    <ClInclude Include="DevIL\include\ilut_config.h" />
+    <ClInclude Include="DevIL\include\ilu_region.h" />
+    <ClInclude Include="DevIL\include\il_wrap.h" />
     <ClInclude Include="Glew\Glew\include\eglew.h" />
     <ClInclude Include="Glew\Glew\include\glew.h" />
     <ClInclude Include="Glew\Glew\include\glxew.h" />
