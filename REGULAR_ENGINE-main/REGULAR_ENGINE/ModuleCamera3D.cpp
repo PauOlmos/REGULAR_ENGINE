@@ -48,14 +48,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
 	
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		newPos.x = App->primitives1->Objectx + 1;
-		newPos.y = App->primitives1->Objecty + 2;
-		newPos.z = App->primitives1->Objectz + 4;
-		Look(newPos, { App->primitives1->Objectx ,App->primitives1->Objecty ,App->primitives1->Objectz});
-		freeMovement = true;
-	}
-	
+
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
@@ -133,8 +126,9 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-
-		Position = newRef + Z * length(Position);
+		int klk;
+		klk = length(Position);
+		Position = newRef + Z * 4;
 
 		freeMovement = false;
 	}
@@ -142,6 +136,14 @@ update_status ModuleCamera3D::Update(float dt)
 	if (freeMovement == false) {
 		Look(Position, newRef);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+		newPos.x = App->primitives1->Objectx + 1;
+		newPos.y = App->primitives1->Objecty + 2;
+		newPos.z = App->primitives1->Objectz + 4;
+		Look(newPos, { App->primitives1->Objectx ,App->primitives1->Objecty ,App->primitives1->Objectz });
+		freeMovement = true;
+	}
+
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
