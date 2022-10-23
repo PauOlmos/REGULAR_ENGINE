@@ -45,27 +45,26 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	float speed = 3.0f * dt;
-	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
 		speed *= 2;
-	
+
+	}
 
 	SDL_Event event;
-	SDL_PollEvent(&event);
-
-	if (event.type == SDL_MOUSEWHEEL){
-
-		if (event.wheel.y > 0) // scroll up
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_MOUSEWHEEL)
 		{
-			freeMovement = true;
-			newPos -= Z * 2;
-		}
-		else if (event.wheel.y < 0) // scroll down
-		{
-			freeMovement = true;
-			newPos += Z * 2;
+			if (event.wheel.y > 0) // scroll up
+			{
+				// Put code for handling "scroll up" here!
+			}
+			else if (event.wheel.y < 0) // scroll down
+			{
+				// Put code for handling "scroll down" here!
+			}
 		}
 	}
-	
 	if(App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) newPos.y -= speed;
 
@@ -123,11 +122,8 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * 4;
 		freeMovement = true;
 	}
+
 	Position = newPos;
-
-	// Mouse motion ----------------
-
-
 
 	if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
