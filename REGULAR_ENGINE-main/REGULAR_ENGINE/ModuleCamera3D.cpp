@@ -23,6 +23,9 @@ bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
 	bool ret = true;
+	newRef.x = App->primitives1->Objectx + 0.5;
+	newRef.y = App->primitives1->Objecty + 0.5;
+	newRef.z = App->primitives1->Objectz + 0.5;
 
 	return ret;
 }
@@ -49,6 +52,7 @@ update_status ModuleCamera3D::Update(float dt)
 		newPos.x = App->primitives1->Objectx + 1;
 		newPos.y = App->primitives1->Objecty + 2;
 		newPos.z = App->primitives1->Objectz + 4;
+		Look(newPos, { App->primitives1->Objectx ,App->primitives1->Objecty ,App->primitives1->Objectz});
 		freeMovement = true;
 	}
 	
@@ -93,9 +97,7 @@ update_status ModuleCamera3D::Update(float dt)
 		} 
 	}
 	
-
 	Position = newPos;
-	Reference = newPos;
 
 	// Mouse motion ----------------
 
@@ -133,16 +135,13 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = newRef + Z * length(Position);
-		//newPos = newRef;
+
 		freeMovement = false;
 	}
-	else if(freeMovement == false)
-	{
-		LookAt((newRef.x,newRef.y,newRef.z));
 
-		//Position = oldRef;
+	if (freeMovement == false) {
+		Look(Position, newRef);
 	}
-
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 

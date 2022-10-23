@@ -10,7 +10,6 @@ public:
 	~ModuleCamera3D();
 	vec3 newPos = {0, 2, 4};
 	vec3 newRef = {0, 2, 4};
-	vec3 oldRef = {NULL};
 
 	bool Start();
 	update_status Update(float dt);
