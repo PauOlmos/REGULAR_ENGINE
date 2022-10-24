@@ -4,7 +4,9 @@
 #include <limits.h>         // INT_MIN, INT_MAX
 #include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
 #include <stdio.h>          // vsnprintf, sscanf, printf
-#include <stdlib.h>         // NULL, malloc, free, atoi
+#include <stdlib.h>    
+#include <vector>
+// NULL, malloc, free, atoi
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>         // intptr_t
 #else
@@ -120,7 +122,6 @@ bool imgui_menu::Start()
 {
     WindowHeight = App->window->height;
     WindowWidth = App->window->width;
-
     LOG("Setting up the camera");
     bool ret = true;
 
@@ -363,8 +364,13 @@ bool imgui_menu::KLK(bool* p_open)
             }
             if (ImGui::CollapsingHeader("Create")) {
                 if(ImGui::Checkbox("Cube",&CubeRenderer)) {
-                    Quad* Q = new Quad();
-                    App->primitives1->QuadList[App->primitives1->numQuads] = Q;
+                    if (CubeRenderer == true) {
+                        Quad* Q = new Quad();
+                        App->primitives1->QuadList.push_back(Q);
+                        App->primitives1->QuadList[App->primitives1->numQuads]->name = App->primitives1->numQuads * 10;
+
+                        App->primitives1->numQuads++;
+                    }
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
                     //App->primitives1->DrawCilindre(5,5);
@@ -377,8 +383,10 @@ bool imgui_menu::KLK(bool* p_open)
     }
     
     if (CubeRenderer) {
-        App->primitives1->DrawCube(App->primitives1->QuadList[0]);
-        
+        for (int i = 0; i < App->primitives1->numQuads; i++) {
+            App->primitives1->DrawCube(App->primitives1->QuadList[i]);
+
+        }
     }
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)

@@ -13,7 +13,7 @@ struct Quad {
 	Quad();
 	~Quad();
 
-	//char* name[25];
+	int name;
 	vec3 positon;
 	float v0[3] = { 0.f + positon.x, 1.f + positon.y, 0.f + positon.z };
 	float v1[3] = { 0.f + positon.x, 0.f + positon.y, 0.f + positon.z };
@@ -53,7 +53,7 @@ public:
 	float Objecty = 0.f;
 	float Objectz = 0.f;
 	int numQuads = 0;
-	vector<Quad*> QuadList = {NULL};
+	vector<Quad*> QuadList;
 
 private:
 	bool wireFrameView = false;
