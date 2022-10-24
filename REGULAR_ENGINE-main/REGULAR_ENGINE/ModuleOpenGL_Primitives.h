@@ -12,7 +12,7 @@ using namespace std;
 struct Quad {
 	Quad();
 	~Quad();
-	int name;
+	const char* name[25];
 	int numVertices = 8;
 	vec3 positon;
 	float v0[3] = { 0.f + positon.x, 1.f + positon.y, 0.f + positon.z };

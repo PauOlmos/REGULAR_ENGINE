@@ -364,14 +364,10 @@ bool imgui_menu::KLK(bool* p_open)
             }
             if (ImGui::CollapsingHeader("Create")) {
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
-                    if (CubeRenderer == true) {
-                       
-                    }
                 }
                 if (ImGui::Button("Generate Cube")) {
                     Quad* Q = new Quad();
                     App->primitives1->QuadList.push_back(Q);
-                    App->primitives1->QuadList[App->primitives1->numQuads]->name = App->primitives1->numQuads * 10;
                     App->primitives1->numQuads++;
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
@@ -382,8 +378,13 @@ bool imgui_menu::KLK(bool* p_open)
                 }
             }
         }
+        if (ImGui::CollapsingHeader("Inspector")) {
+            for (int i = 0; i < App->primitives1->numQuads; i++) {
+                ImGui::BulletText("Name: Cube (%d)", i);
+            }
+        }
     }
-
+    
     if (CubeRenderer) {
         for (int i = 0; i < App->primitives1->numQuads; i++) {
             App->primitives1->DrawCube(App->primitives1->QuadList[i]);
@@ -402,6 +403,7 @@ bool imgui_menu::KLK(bool* p_open)
     // End of ShowDemoWindow()
     ImGui::PopItemWidth();
     ImGui::End();
+
     //return UPDATE_CONTINUE;
 }
 
