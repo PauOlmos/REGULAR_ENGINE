@@ -167,58 +167,71 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
 
 void ModuleOpenGL_Primitives::DrawCube() {
 
-    float Quad[] = { 0.f + Objectx,1.f + Objecty,0.f + Objectz,//Objectx    Plane 1
-                    0.f + Objectx,0.f + Objecty,0.f + Objectz,//Objecty
-                    0.f + Objectx,0.f + Objecty,1.f + Objectz,//Objectz
+    if (wireFrameView == true) {
+        //Wireframe Mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(2);
+    }
+    /* glEnableClientState(GL_VERTEX_ARRAY);
+     glVertexPointer(3, GL_FLOAT, 0,Quad);
+     glDrawArrays(GL_TRIANGLES, 0, 36);
+     // front face =================
+     glEnd();*/
 
-                    0.0f + Objectx,1.f + Objecty,1.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,0.f + Objectz,
-                    0.f + Objectx,0.f + Objecty,1.f + Objectz,
+    Quad Q;
 
-                    1.f + Objectx,1.f + Objecty,0.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,0.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
+    glBegin(GL_TRIANGLES);  // draw a cube with 12 triangles
 
-                    1.f + Objectx,1.f + Objecty,0.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
-                    1.f + Objectx,1.f + Objecty,1.f + Objectz,
+    glVertex3fv(Q.v0);    //Cara1
+    glVertex3fv(Q.v1);
+    glVertex3fv(Q.v2);
 
-                    0.f + Objectx,0.f + Objecty,1.f + Objectz,
-                    1.f + Objectx,0.f + Objecty,1.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
+    glVertex3fv(Q.v2);    // v2-v3-v0
+    glVertex3fv(Q.v3);
+    glVertex3fv(Q.v0);
 
-                    1.f + Objectx,0.f + Objecty,1.f + Objectz,
-                    1.f + Objectx,1.f + Objecty,1.f + Objectz,
-                    0.f + Objectx,1.f + Objecty,1.f + Objectz,
+    glVertex3fv(Q.v0);    //Cara2
+    glVertex3fv(Q.v3);
+    glVertex3fv(Q.v4);
 
-                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
-                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
+    glVertex3fv(Q.v3);
+    glVertex3fv(Q.v5);
+    glVertex3fv(Q.v4);
 
-                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
-                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 1.f + Objecty, 1.f + Objectz,
 
-                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-                    0.f + Objectx, 1.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
+    glVertex3fv(Q.v2); //Cara3
+    glVertex3fv(Q.v5);
+    glVertex3fv(Q.v3);
 
-                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 1.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
+    glVertex3fv(Q.v2);
+    glVertex3fv(Q.v6);
+    glVertex3fv(Q.v5);
 
-                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
+    glVertex3fv(Q.v6);//Cara4
+    glVertex3fv(Q.v4);
+    glVertex3fv(Q.v5);
 
-                    1.f + Objectx, 0.f + Objecty, 1.f + Objectz,
-                    0.f + Objectx, 0.f + Objecty, 1.f + Objectz,
-                    0.f + Objectx, 0.f + Objecty, 0.f + Objectz,
-    };
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, Quad);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    glVertex3fv(Q.v6);
+    glVertex3fv(Q.v7);
+    glVertex3fv(Q.v4);
+
+    glVertex3fv(Q.v7);//Cara5
+    glVertex3fv(Q.v0);
+    glVertex3fv(Q.v4);
+
+    glVertex3fv(Q.v7);
+    glVertex3fv(Q.v1);
+    glVertex3fv(Q.v0);
+
+    glVertex3fv(Q.v1);//Cara6
+    glVertex3fv(Q.v6);
+    glVertex3fv(Q.v2);
+
+    glVertex3fv(Q.v1);
+    glVertex3fv(Q.v7);
+    glVertex3fv(Q.v6);
+
+    glEnd();
 }
 void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
 {

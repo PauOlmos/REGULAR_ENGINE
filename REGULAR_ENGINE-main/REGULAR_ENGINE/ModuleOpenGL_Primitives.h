@@ -2,6 +2,17 @@
 #include "Module.h"
 #include "Globals.h"
 
+struct Quad
+{
+	float v0[3] = { 0.f, 1.f, 0.f };
+	float v1[3] = { 0.f, 0.f, 0.f };
+	float v2[3] = { 0.f, 0.f, 1.f };
+	float v3[3] = { 0.f, 1.f, 1.f };
+	float v4[3] = { 1.f, 1.f, 0.f };
+	float v5[3] = { 1.f, 1.f, 1.f, };
+	float v6[3] = { 1.f, 0.f, 1.f, };
+	float v7[3] = { 1.f, 0.f, 0.f, };
+};
 class ModuleOpenGL_Primitives : public Module {
 	struct Triangle
 	{
