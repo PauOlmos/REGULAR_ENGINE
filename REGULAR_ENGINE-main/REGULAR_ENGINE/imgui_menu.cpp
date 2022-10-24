@@ -363,13 +363,16 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
             }
             if (ImGui::CollapsingHeader("Create")) {
-                if(ImGui::Checkbox("Cube",&CubeRenderer)) {
+                if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                     if (CubeRenderer == true) {
-                        Quad* Q = new Quad();
-                        App->primitives1->QuadList.push_back(Q);
-                        App->primitives1->QuadList[App->primitives1->numQuads]->name = App->primitives1->numQuads * 10;
-                        App->primitives1->numQuads++;
+                       
                     }
+                }
+                if (ImGui::Button("Generate Cube")) {
+                    Quad* Q = new Quad();
+                    App->primitives1->QuadList.push_back(Q);
+                    App->primitives1->QuadList[App->primitives1->numQuads]->name = App->primitives1->numQuads * 10;
+                    App->primitives1->numQuads++;
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
                     //App->primitives1->DrawCilindre(5,5);
