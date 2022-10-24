@@ -57,7 +57,7 @@
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Glew\libx86;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\libx86;C:\Users\Achichorrat\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\DevIL\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Glew\libx86;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\MathGeoLib\libx86;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\Assimp\libx86;C:\Users\pauos2\Documents\GitHub\REGULAR_ENGINE\REGULAR_ENGINE-main\REGULAR_ENGINE\DevIL\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

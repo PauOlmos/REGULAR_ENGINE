@@ -94,7 +94,12 @@ update_status ModuleInput::PreUpdate(float dt)
 		switch (e.type)
 		{
 		case SDL_MOUSEWHEEL:
-			mouse_z = e.wheel.y;
+			if (e.wheel.y < 0) {
+				App->camera->Z += App->camera->Z * 0.5f;
+			}
+			if (e.wheel.y > 0) {
+				App->camera->Z -= App->camera->Z * 0.5f;
+			}
 			break;
 
 		case SDL_MOUSEMOTION:

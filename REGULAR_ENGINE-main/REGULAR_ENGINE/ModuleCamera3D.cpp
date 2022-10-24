@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleOpenGL_Primitives.h"
 #include "ModuleCamera3D.h"
+#include <imgui_impl_sdl.h>
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -43,6 +44,8 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
+	SDL_Event e;
+	bool quit = false;
 
 	float speed = 3.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {

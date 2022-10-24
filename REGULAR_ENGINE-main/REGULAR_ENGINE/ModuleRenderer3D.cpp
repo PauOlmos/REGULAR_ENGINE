@@ -1,13 +1,14 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
-#include "imgui_menu.h"
 #include "ModuleLoadFBX.h"
+#include "Glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
+#include "Primitive.h"
+
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "imgui_menu.h"
-#include "ModuleOpenGL_Primitives.h"
+
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl3.h"
@@ -15,11 +16,14 @@
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <SDL_opengles2.h>
 #else
-#include "SDL/include/SDL_opengl.h"
+
 #endif
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "Glew/libx86/glew32.lib")
+
+
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -44,6 +48,8 @@ bool ModuleRenderer3D::Init()
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+
+	GLenum error = glewInit();
 
 	if (ret == true)
 	{
@@ -109,6 +115,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+
 	}
 
 	// Projection matrix for
@@ -146,9 +153,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	const char* file_path;
-	file_path = ("Assets/BakerHouse.fbx");
-	App->loadFBX->LoadFile(file_path);
+
 
 	return UPDATE_CONTINUE;
 }

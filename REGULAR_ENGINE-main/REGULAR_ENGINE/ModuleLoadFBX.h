@@ -1,11 +1,15 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "cimport.h"
+#include "scene.h"
+#include "postprocess.h"
+
 #include <string>
 using namespace std;
 struct MyMesh {
+	MyMesh();
 	~MyMesh();
-	MyMesh() {}
 
 	uint id_indices = 0; // index in VRAM
 	uint num_indices = 0;
@@ -20,15 +24,18 @@ struct MyMesh {
 class ModuleLoadFBX : public Module
 {
 public:
+
 	ModuleLoadFBX(Application* app, bool start_enabled = true);
 
+	bool Start();
 	void LoadFile(string file_path);
 	void LoadMesh(MyMesh* mesh);
+
 
 	update_status PostUpdate(float dt);
 	//bool Init();
 	bool CleanUp();
-	int width = 0, height = 0;
+
 private:
 	vector<MyMesh*> meshes;
 };
