@@ -362,15 +362,6 @@ bool imgui_menu::KLK(bool* p_open)
             }
             if (ImGui::CollapsingHeader("Create")) {
                 if(ImGui::Checkbox("Cube",&CubeRenderer)) {
-                    SDL_Window* window;
-                    window = SDL_CreateWindow(  // Create a window
-                        "SDL_DropEvent usage, please drop the file on window",
-                        SDL_WINDOWPOS_CENTERED,
-                        SDL_WINDOWPOS_CENTERED,
-                        640,
-                        480,
-                        SDL_WINDOW_OPENGL
-                    );
                     //App->primitives1->DrawCube();
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
