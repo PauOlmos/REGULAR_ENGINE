@@ -101,7 +101,14 @@ update_status ModuleInput::PreUpdate(float dt)
 				App->camera->Z -= App->camera->Z * 0.5f;
 			}
 			break;
-
+		case (SDL_DROPFILE):
+		{
+			//TODO: Change method name to duplicate on drop or something
+			App->loadFBX->LoadFile(e.drop.file);
+			SDL_free(e.drop.file);    // Free dropped_filedir memory
+			break;
+			SDL_EventState(SDL_DROPFILE, SDL_ENABLE); 
+		}
 		case SDL_MOUSEMOTION:
 			mouse_x = e.motion.x / SCREEN_SIZE;
 			mouse_y = e.motion.y / SCREEN_SIZE;
