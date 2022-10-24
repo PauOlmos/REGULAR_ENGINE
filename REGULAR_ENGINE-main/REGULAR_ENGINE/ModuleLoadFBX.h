@@ -7,6 +7,7 @@
 
 #include <string>
 using namespace std;
+
 struct MyMesh {
 	MyMesh();
 	~MyMesh();
@@ -30,8 +31,7 @@ public:
 	bool Start();
 	void LoadFile(string file_path);
 	void LoadMesh(MyMesh* mesh);
-
-
+	
 	update_status PostUpdate(float dt);
 	//bool Init();
 	bool CleanUp();

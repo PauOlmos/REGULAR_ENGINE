@@ -19,6 +19,7 @@
 #include "ModuleWindow.h"
 #include "imgui_menu.h"
 #include "Application.h"
+#include "ModuleOpenGL_Primitives.h"
 #include <gl/GL.h>
 // Visual Studio warnings
 #ifdef _MSC_VER
@@ -362,7 +363,8 @@ bool imgui_menu::KLK(bool* p_open)
             }
             if (ImGui::CollapsingHeader("Create")) {
                 if(ImGui::Checkbox("Cube",&CubeRenderer)) {
-                    //App->primitives1->DrawCube();
+                    Quad* Q = new Quad();
+                    App->primitives1->QuadList[App->primitives1->numQuads] = Q;
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
                     //App->primitives1->DrawCilindre(5,5);
@@ -374,7 +376,10 @@ bool imgui_menu::KLK(bool* p_open)
         }
     }
     
-
+    if (CubeRenderer) {
+        App->primitives1->DrawCube(App->primitives1->QuadList[0]);
+        
+    }
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
     //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);

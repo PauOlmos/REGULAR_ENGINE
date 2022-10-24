@@ -9,6 +9,7 @@
 #include "ModuleInput.h"
 #include "ModuleOpenGL_Primitives.h"
 
+#include <vector>
 #include <iostream>
 #include <ctype.h>          // toupper
 #include <limits.h>         // INT_MIN, INT_MAX
@@ -30,7 +31,6 @@ ModuleOpenGL_Primitives::~ModuleOpenGL_Primitives()
 bool ModuleOpenGL_Primitives::Start()
 {
     LOG("Loading Intro assets");
-    float Quad[] = { NULL };
 
     bool ret = true;
 
@@ -45,11 +45,6 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
 
 update_status ModuleOpenGL_Primitives::Update(float dt)
 {
-
-    if (App->close_app->CubeRenderer) {
-        DrawCube();
-    }
-
     if (App->close_app->CilindreRenderer) {
         DrawCilindre(2, 2);
     }
@@ -165,72 +160,66 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     return UPDATE_CONTINUE;
 }
 
-void ModuleOpenGL_Primitives::DrawCube() {
+void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
 
     if (wireFrameView == true) {
         //Wireframe Mode
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glLineWidth(2);
     }
-    /* glEnableClientState(GL_VERTEX_ARRAY);
-     glVertexPointer(3, GL_FLOAT, 0,Quad);
-     glDrawArrays(GL_TRIANGLES, 0, 36);
-     // front face =================
-     glEnd();*/
-
-    Quad Q;
-
     glBegin(GL_TRIANGLES);  // draw a cube with 12 triangles
+    Q->positon.x = 0;
+    Q->positon.y = 0;
+    Q->positon.z = 0;
 
-    glVertex3fv(Q.v0);    //Cara1
-    glVertex3fv(Q.v1);
-    glVertex3fv(Q.v2);
+    glVertex3fv(Q->v0);    //Cara1
+    glVertex3fv(Q->v1);
+    glVertex3fv(Q->v2);
 
-    glVertex3fv(Q.v2);    // v2-v3-v0
-    glVertex3fv(Q.v3);
-    glVertex3fv(Q.v0);
+    glVertex3fv(Q->v2);    // v2-v3-v0
+    glVertex3fv(Q->v3);
+    glVertex3fv(Q->v0);
 
-    glVertex3fv(Q.v0);    //Cara2
-    glVertex3fv(Q.v3);
-    glVertex3fv(Q.v4);
+    glVertex3fv(Q->v0);    //Cara2
+    glVertex3fv(Q->v3);
+    glVertex3fv(Q->v4);
 
-    glVertex3fv(Q.v3);
-    glVertex3fv(Q.v5);
-    glVertex3fv(Q.v4);
+    glVertex3fv(Q->v3);
+    glVertex3fv(Q->v5);
+    glVertex3fv(Q->v4);
 
 
-    glVertex3fv(Q.v2); //Cara3
-    glVertex3fv(Q.v5);
-    glVertex3fv(Q.v3);
+    glVertex3fv(Q->v2); //Cara3
+    glVertex3fv(Q->v5);
+    glVertex3fv(Q->v3);
 
-    glVertex3fv(Q.v2);
-    glVertex3fv(Q.v6);
-    glVertex3fv(Q.v5);
+    glVertex3fv(Q->v2);
+    glVertex3fv(Q->v6);
+    glVertex3fv(Q->v5);
 
-    glVertex3fv(Q.v6);//Cara4
-    glVertex3fv(Q.v4);
-    glVertex3fv(Q.v5);
+    glVertex3fv(Q->v6);//Cara4
+    glVertex3fv(Q->v4);
+    glVertex3fv(Q->v5);
 
-    glVertex3fv(Q.v6);
-    glVertex3fv(Q.v7);
-    glVertex3fv(Q.v4);
+    glVertex3fv(Q->v6);
+    glVertex3fv(Q->v7);
+    glVertex3fv(Q->v4);
 
-    glVertex3fv(Q.v7);//Cara5
-    glVertex3fv(Q.v0);
-    glVertex3fv(Q.v4);
+    glVertex3fv(Q->v7);//Cara5
+    glVertex3fv(Q->v0);
+    glVertex3fv(Q->v4);
 
-    glVertex3fv(Q.v7);
-    glVertex3fv(Q.v1);
-    glVertex3fv(Q.v0);
+    glVertex3fv(Q->v7);
+    glVertex3fv(Q->v1);
+    glVertex3fv(Q->v0);
 
-    glVertex3fv(Q.v1);//Cara6
-    glVertex3fv(Q.v6);
-    glVertex3fv(Q.v2);
+    glVertex3fv(Q->v1);//Cara6
+    glVertex3fv(Q->v6);
+    glVertex3fv(Q->v2);
 
-    glVertex3fv(Q.v1);
-    glVertex3fv(Q.v7);
-    glVertex3fv(Q.v6);
-
+    glVertex3fv(Q->v1);
+    glVertex3fv(Q->v7);
+    glVertex3fv(Q->v6);
     glEnd();
 }
 void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
@@ -331,3 +320,10 @@ bool ModuleOpenGL_Primitives::CleanUp()
     return true;
 }
 
+Quad::Quad()
+{
+}
+
+Quad::~Quad()
+{
+}
