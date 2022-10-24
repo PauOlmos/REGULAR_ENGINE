@@ -53,7 +53,8 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     }
 
     if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-        App->primitives1->Objectx++;
+        App->primitives1->QuadList[0]->positon.x++;
+        App->primitives1->QuadList[0]->v0[0] += App->primitives1->QuadList[0]->positon.x;
     }
     if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
         App->primitives1->Objecty++;
@@ -168,9 +169,6 @@ void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
         glLineWidth(2);
     }
     glBegin(GL_TRIANGLES);  // draw a cube with 12 triangles
-    Q->positon.x = 0;
-    Q->positon.y = 0;
-    Q->positon.z = 0;
 
     glVertex3fv(Q->v0);    //Cara1
     glVertex3fv(Q->v1);

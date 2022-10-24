@@ -12,8 +12,8 @@ using namespace std;
 struct Quad {
 	Quad();
 	~Quad();
-
 	int name;
+	int numVertices = 8;
 	vec3 positon;
 	float v0[3] = { 0.f + positon.x, 1.f + positon.y, 0.f + positon.z };
 	float v1[3] = { 0.f + positon.x, 0.f + positon.y, 0.f + positon.z };

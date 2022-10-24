@@ -368,7 +368,6 @@ bool imgui_menu::KLK(bool* p_open)
                         Quad* Q = new Quad();
                         App->primitives1->QuadList.push_back(Q);
                         App->primitives1->QuadList[App->primitives1->numQuads]->name = App->primitives1->numQuads * 10;
-
                         App->primitives1->numQuads++;
                     }
                 }
@@ -381,13 +380,13 @@ bool imgui_menu::KLK(bool* p_open)
             }
         }
     }
-    
+
     if (CubeRenderer) {
         for (int i = 0; i < App->primitives1->numQuads; i++) {
             App->primitives1->DrawCube(App->primitives1->QuadList[i]);
-
         }
     }
+
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
     //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);
