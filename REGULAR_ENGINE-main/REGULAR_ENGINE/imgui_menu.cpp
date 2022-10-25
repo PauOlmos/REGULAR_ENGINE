@@ -388,12 +388,12 @@ bool imgui_menu::KLK(bool* p_open)
                 if (ImGui::Selectable(buf, i == selected, 0)) {
                     selected = i;
                 }
-
+                if (i == selected) {
+                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
+                    ImGui::BulletText("Scale:       x: 1.0      y: 1.0      z: 1.0");
+                    ImGui::BulletText("Rotation:    x: 1.0      y: 1.0      z: 1.0");
+                }
             }
-           
-            /*if (i == selected) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
-            }*/
         }
     }
     
