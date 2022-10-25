@@ -31,7 +31,6 @@ ModuleOpenGL_Primitives::~ModuleOpenGL_Primitives()
 bool ModuleOpenGL_Primitives::Start()
 {
     LOG("Loading Intro assets");
-
     bool ret = true;
 
     return ret;
@@ -48,43 +47,122 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     if (App->close_app->CilindreRenderer) {
         DrawCilindre(2, 2);
     }
-    if (App->close_app->PiramidRenderer) {
-        DrawPiramid();
-    }
-    if (App->close_app->selected >= 0) {
-        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-            App->primitives1->QuadList[App->close_app->selected]->positon.x++;
-            App->primitives1->QuadList[App->close_app->selected]->v0[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v1[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v2[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v3[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v4[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v5[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v6[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
-            App->primitives1->QuadList[App->close_app->selected]->v7[0] += App->primitives1->QuadList[App->close_app->selected]->positon.x;
+    if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.x--;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[0] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[0] -= 1;
         }
-
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.y--;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[1] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[1] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.z--;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[2] -= 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[2] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.x++;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[0] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[0] += 1;
+        }
         if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-            App->primitives1->QuadList[App->close_app->selected]->positon.y++;
-            App->primitives1->QuadList[App->close_app->selected]->v0[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v1[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v2[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v3[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v4[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v5[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v6[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
-            App->primitives1->QuadList[App->close_app->selected]->v7[1] += App->primitives1->QuadList[App->close_app->selected]->positon.y;
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.y++;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[1] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[1] += 1;
         }
         if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
-            App->primitives1->QuadList[App->close_app->selected]->positon.z++;
-            App->primitives1->QuadList[App->close_app->selected]->v0[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v1[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v2[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v3[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v4[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v5[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v6[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
-            App->primitives1->QuadList[App->close_app->selected]->v7[2] += App->primitives1->QuadList[App->close_app->selected]->positon.z;
+            App->primitives1->QuadList[App->close_app->selectedQ]->positon.z++;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v0[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v1[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v2[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v3[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v4[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v5[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v6[2] += 1;
+            App->primitives1->QuadList[App->close_app->selectedQ]->v7[2] += 1;
+        }
+    }
+    if (App->close_app->selectedP >= 0 && App->close_app->selectedType == 1) {
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.x--;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[0] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[0] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[0] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[0] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[0] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.y--;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[1] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[1] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[1] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[1] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[1] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.z--;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[2] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[2] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[2] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[2] -= 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[2] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.x++;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[0] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[0] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[0] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[0] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[0] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.y++;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[1] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[1] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[1] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[1] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[1] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            App->primitives1->PyramideList[App->close_app->selectedP]->positon.z++;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v0[2] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v1[2] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v2[2] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v3[2] += 1;
+            App->primitives1->PyramideList[App->close_app->selectedP]->v4[2] += 1;
         }
     }
     
@@ -233,6 +311,53 @@ void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
     glVertex3fv(Q->v6);
     glEnd();
 }
+
+
+void ModuleOpenGL_Primitives::DrawPiramid(Pyramide* P)
+{
+    if (wireFrameView == true) {
+        //Wireframe Mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(2);
+    }
+
+    glBegin(GL_TRIANGLES);  // draw a triangle
+
+
+    glVertex3fv(P->v0);    //Cara1
+    glVertex3fv(P->v1);
+    glVertex3fv(P->v2);
+
+    glVertex3fv(P->v3);    //Cara2
+    glVertex3fv(P->v2);
+    glVertex3fv(P->v1);
+
+    glVertex3fv(P->v3);    //Cara3
+    glVertex3fv(P->v4);
+    glVertex3fv(P->v2);
+
+    glVertex3fv(P->v4);    //Cara4
+    glVertex3fv(P->v0);
+    glVertex3fv(P->v2);
+
+
+    glVertex3fv(P->v4);    //Cara 5(base)
+    glVertex3fv(P->v3);
+    glVertex3fv(P->v1);
+
+    glVertex3fv(P->v4); //Cara 6?
+    glVertex3fv(P->v1);
+    glVertex3fv(P->v0);
+
+
+
+
+
+
+    glEnd();
+}
+
+
 void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
 {
     int n = 30;
@@ -280,45 +405,6 @@ void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
     }
     glEnd();
 }
-void ModuleOpenGL_Primitives::DrawPiramid()
-{
-    if (wireFrameView == true) {
-        //Wireframe Mode
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glLineWidth(2);
-    }
-
-    Triangle T;
-
-    glBegin(GL_TRIANGLES);  // draw a triangle
-
-    glVertex3fv(T.v0);    //Cara1
-    glVertex3fv(T.v1);
-    glVertex3fv(T.v2);
-
-    glVertex3fv(T.v3);    //Cara2
-    glVertex3fv(T.v2);
-    glVertex3fv(T.v1);
-
-    glVertex3fv(T.v3);    //Cara3
-    glVertex3fv(T.v4);
-    glVertex3fv(T.v2);
-
-    glVertex3fv(T.v4);    //Cara4
-    glVertex3fv(T.v0);
-    glVertex3fv(T.v2);
-
-    glVertex3fv(T.v4);    //Base
-    glVertex3fv(T.v3);
-    glVertex3fv(T.v1);
-
-    glVertex3fv(T.v4);
-    glVertex3fv(T.v1);
-    glVertex3fv(T.v0);
-
-    glEnd();
-}
-
 
 bool ModuleOpenGL_Primitives::PostUpdate() {
 
@@ -336,5 +422,13 @@ Quad::Quad()
 }
 
 Quad::~Quad()
+{
+}
+
+Pyramide::Pyramide()
+{
+}
+
+Pyramide::~Pyramide()
 {
 }

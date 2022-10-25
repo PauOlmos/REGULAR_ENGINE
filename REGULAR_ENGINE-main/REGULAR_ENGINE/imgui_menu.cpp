@@ -372,24 +372,49 @@ bool imgui_menu::KLK(bool* p_open)
                 }
                 if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
                     //App->primitives1->DrawCilindre(5,5);
+                    
                 }
                 if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
-                    //App->primitives1->DrawCilindre(5,5);
+                }
+                if (ImGui::Button("Generate Pyramide")) {
+                    Pyramide* P = new Pyramide();
+                    App->primitives1->PyramideList.push_back(P);
+                    App->primitives1->numPyramides++;
                 }
             }
         }
         if (ImGui::CollapsingHeader("Inspector")) {
 
+            
             for (int i = 0; i < App->primitives1->numQuads; i++) {
 
                 char buf[32];
                 sprintf(buf, "Cube %d",i);
 
-                if (ImGui::Selectable(buf, i == selected, 0)) {
-                    selected = i;
+                if (ImGui::Selectable(buf, i == selectedQ, 0)) {
+                    selectedQ = i;
+                    selectedP = -1;
+                    selectedType = 0;
                 }
-                if (i == selected) {
+                if (i == selectedQ) {
                     ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
+                    ImGui::BulletText("Scale:       x: 1.0      y: 1.0      z: 1.0");
+                    ImGui::BulletText("Rotation:    x: 1.0      y: 1.0      z: 1.0");
+                }
+            }
+            for (int i = 0; i < App->primitives1->numPyramides; i++) {
+
+                char buf[32];
+                sprintf(buf, "Pyramide %d",i);
+
+                if (ImGui::Selectable(buf, i == selectedP, 0)) {
+                    selectedP = i;
+                    selectedQ = -1;
+                    selectedType = 1;
+
+                }
+                if (i == selectedP) {
+                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
                     ImGui::BulletText("Scale:       x: 1.0      y: 1.0      z: 1.0");
                     ImGui::BulletText("Rotation:    x: 1.0      y: 1.0      z: 1.0");
                 }
@@ -400,6 +425,11 @@ bool imgui_menu::KLK(bool* p_open)
     if (CubeRenderer) {
         for (int i = 0; i < App->primitives1->numQuads; i++) {
             App->primitives1->DrawCube(App->primitives1->QuadList[i]);
+        }
+    }
+    if (PiramidRenderer) {
+        for (int i = 0; i < App->primitives1->numPyramides; i++) {
+            App->primitives1->DrawPiramid(App->primitives1->PyramideList[i]);
         }
     }
 

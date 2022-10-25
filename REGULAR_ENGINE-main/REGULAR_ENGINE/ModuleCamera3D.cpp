@@ -91,6 +91,14 @@ update_status ModuleCamera3D::Update(float dt)
 			newPos += X * speed;
 		} 
 	}
+
+	if (App->input->GetMouseZ() >= 0) {
+		newPos -= Z * zoomSensitivity;
+	}
+	if (App->input->GetMouseZ() <= 0) {
+		newPos += Z * zoomSensitivity;
+	}
+
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == NULL)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -134,10 +142,16 @@ update_status ModuleCamera3D::Update(float dt)
 		int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
-		newRef.x = App->primitives1->Objectx + 0.5;
-		newRef.y = App->primitives1->Objecty + 0.5;
-		newRef.z = App->primitives1->Objectz + 0.5;
-
+		if (App->close_app->selectedType == 0) {
+			newRef.x = App->primitives1->QuadList[App->close_app->selectedQ]->positon.x + 0.5;
+			newRef.y = App->primitives1->QuadList[App->close_app->selectedQ]->positon.y + 0.5;
+			newRef.z = App->primitives1->QuadList[App->close_app->selectedQ]->positon.z + 0.5;
+		}
+		if (App->close_app->selectedType == 1) {
+			newRef.x = App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 1.5;
+			newRef.y = App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 0.5;
+			newRef.z = App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 1.5;
+		}
 		if(dx != 0)
 		{
 			float DeltaX = (float)dx * Sensitivity;
@@ -169,11 +183,21 @@ update_status ModuleCamera3D::Update(float dt)
 		Look(Position, newRef);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		newPos.x = App->primitives1->Objectx + 1;
-		newPos.y = App->primitives1->Objecty + 2;
-		newPos.z = App->primitives1->Objectz + 4;
-		Look(newPos, { App->primitives1->Objectx ,App->primitives1->Objecty ,App->primitives1->Objectz });
-		freeMovement = true;
+		if (App->close_app->selectedType == 0) {
+			newRef.x = App->primitives1->QuadList[App->close_app->selectedQ]->positon.x + 1;
+			newRef.y = App->primitives1->QuadList[App->close_app->selectedQ]->positon.y + 2;
+			newRef.z = App->primitives1->QuadList[App->close_app->selectedQ]->positon.z + 4;
+			Look(newPos, App->primitives1->QuadList[App->close_app->selectedQ]->positon);
+			freeMovement = true;
+		}
+		if (App->close_app->selectedType == 1) {
+			newRef.x = App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 1;
+			newRef.y = App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 2;
+			newRef.z = App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 4;
+			Look(newPos, { App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 0.5f,App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 1,App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 1 });
+			freeMovement = true;
+		}
+
 	}
 
 	// Recalculate matrix -------------

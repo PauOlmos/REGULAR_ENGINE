@@ -12,7 +12,9 @@ public:
 	void HistogramMs();
 
 public:
-	int selected;
+	int selectedQ;
+	int selectedP;
+	int selectedType;
 	bool testing = false;
 	bool KLK(bool* p_open);
 
