@@ -379,9 +379,21 @@ bool imgui_menu::KLK(bool* p_open)
             }
         }
         if (ImGui::CollapsingHeader("Inspector")) {
+
             for (int i = 0; i < App->primitives1->numQuads; i++) {
-                ImGui::BulletText("Name: Cube (%d)", i);
+
+                char buf[32];
+                sprintf(buf, "Cube %d",i);
+
+                if (ImGui::Selectable(buf, i == selected, 0)) {
+                    selected = i;
+                }
+
             }
+           
+            /*if (i == selected) {
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
+            }*/
         }
     }
     
