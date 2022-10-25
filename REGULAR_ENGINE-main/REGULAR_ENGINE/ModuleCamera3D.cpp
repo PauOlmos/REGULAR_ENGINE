@@ -174,7 +174,8 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-		Position = newRef + Z * 4;
+		App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale = (App->primitives1->QuadList[App->close_app->selectedQ]->scale.x + App->primitives1->QuadList[App->close_app->selectedQ]->scale.y + App->primitives1->QuadList[App->close_app->selectedQ]->scale.z);
+		Position = newRef + Z * (4+ App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale);
 
 		freeMovement = false;
 	}

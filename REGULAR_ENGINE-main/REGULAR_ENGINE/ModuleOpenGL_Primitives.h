@@ -17,6 +17,7 @@ struct Quad {
 	vec3 positon;
 
 	vec3 scale;
+	float Totalscale;
 	float v0[3] = { 0.f + positon.x + scale.x, 1.f + positon.y + scale.y, 0.f + positon.z + scale.z };
 	float v1[3] = { 0.f + positon.x + scale.x, 0.f + positon.y + scale.y, 0.f + positon.z + scale.y };
 	float v2[3] = { 0.f + positon.x + scale.x, 0.f + positon.y + scale.y, 1.f + positon.z + scale.y };
