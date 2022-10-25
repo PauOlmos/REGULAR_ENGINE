@@ -415,7 +415,7 @@ bool imgui_menu::KLK(bool* p_open)
                 }
                 if (i == selectedP) {
                     ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
-                    ImGui::BulletText("Scale:       x: 1.0      y: 1.0      z: 1.0");
+                    ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->scale.x, App->primitives1->PyramideList[i]->scale.y, App->primitives1->PyramideList[i]->scale.z);
                     ImGui::BulletText("Rotation:    x: 1.0      y: 1.0      z: 1.0");
                 }
             }

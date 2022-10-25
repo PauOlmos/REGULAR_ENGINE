@@ -174,9 +174,15 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-		App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale = (App->primitives1->QuadList[App->close_app->selectedQ]->scale.x + App->primitives1->QuadList[App->close_app->selectedQ]->scale.y + App->primitives1->QuadList[App->close_app->selectedQ]->scale.z);
-		Position = newRef + Z * (4+ App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale);
-
+		if (App->close_app->selectedType == 0) {
+			App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale = (App->primitives1->QuadList[App->close_app->selectedQ]->scale.x + App->primitives1->QuadList[App->close_app->selectedQ]->scale.y + App->primitives1->QuadList[App->close_app->selectedQ]->scale.z);
+			Position = newRef + Z * (4 + App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale);
+		}
+		if (App->close_app->selectedType == 1) {
+			App->primitives1->PyramideList[App->close_app->selectedP]->Totalscale = (App->primitives1->PyramideList[App->close_app->selectedP]->scale.x + App->primitives1->PyramideList[App->close_app->selectedP]->scale.y + App->primitives1->PyramideList[App->close_app->selectedP]->scale.z);
+			Position = newRef + Z * (4 + App->primitives1->PyramideList[App->close_app->selectedP]->Totalscale);
+		}
+		
 		freeMovement = false;
 	}
 

@@ -34,6 +34,9 @@ struct Pyramide {
 	const char* name[25];
 	int numVertices = 5;
 	vec3 positon;
+
+	vec3 scale;
+	float Totalscale;
 	float v0[3] = { 0.f + positon.x,0.f + positon.y,0.f + positon.z };
 	float v1[3] = { 2.f + positon.x,0.f + positon.y,0.f + positon.z };
 	float v2[3] = { 1.f + positon.x,2.f + positon.y,1.f + positon.z };

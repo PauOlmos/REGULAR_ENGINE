@@ -190,7 +190,6 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         }
         if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
             QuadList[App->close_app->selectedQ]->scale.z--;
-
             QuadList[App->close_app->selectedQ]->v2[2] -= 1;
             QuadList[App->close_app->selectedQ]->v3[2] -= 1;
             QuadList[App->close_app->selectedQ]->v6[2] -= 1;
@@ -245,6 +244,68 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PyramideList[App->close_app->selectedP]->v2[2] += 1;
             PyramideList[App->close_app->selectedP]->v3[2] += 1;
             PyramideList[App->close_app->selectedP]->v4[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            PyramideList[App->close_app->selectedP]->scale.x++;
+            PyramideList[App->close_app->selectedP]->scale.y++;
+            PyramideList[App->close_app->selectedP]->scale.z++;
+            PyramideList[App->close_app->selectedP]->v1[0] += 1;
+            PyramideList[App->close_app->selectedP]->v2[1] += 1;
+            PyramideList[App->close_app->selectedP]->v2[0] += 0.5f;
+            PyramideList[App->close_app->selectedP]->v2[2] += 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[0] += 1;
+            PyramideList[App->close_app->selectedP]->v3[2] += 1;
+            PyramideList[App->close_app->selectedP]->v4[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            PyramideList[App->close_app->selectedP]->scale.x--;
+            PyramideList[App->close_app->selectedP]->scale.y--;
+            PyramideList[App->close_app->selectedP]->scale.z--;
+            PyramideList[App->close_app->selectedP]->v1[0] -= 1;
+            PyramideList[App->close_app->selectedP]->v2[1] -= 1;
+            PyramideList[App->close_app->selectedP]->v2[0] -= 0.5f;
+            PyramideList[App->close_app->selectedP]->v2[2] -= 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[0] -= 1;
+            PyramideList[App->close_app->selectedP]->v3[2] -= 1;
+            PyramideList[App->close_app->selectedP]->v4[2] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.x++;
+            PyramideList[App->close_app->selectedP]->v1[0] += 1;
+            PyramideList[App->close_app->selectedP]->v2[0] += 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[0] += 1;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.x--;
+            PyramideList[App->close_app->selectedP]->v1[0] -= 1;
+            PyramideList[App->close_app->selectedP]->v2[0] -= 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[0] -= 1;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.y++;
+            PyramideList[App->close_app->selectedP]->v2[1] += 1;
+
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.y--;
+            PyramideList[App->close_app->selectedP]->v2[1] -= 1;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.z++;
+            PyramideList[App->close_app->selectedP]->v2[2] += 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[2] += 1;
+            PyramideList[App->close_app->selectedP]->v4[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            PyramideList[App->close_app->selectedP]->scale.z--;
+
+            PyramideList[App->close_app->selectedP]->v2[2] -= 0.5f;
+            PyramideList[App->close_app->selectedP]->v3[2] -= 1;
+            PyramideList[App->close_app->selectedP]->v4[2] -= 1;
         }
     }
 
