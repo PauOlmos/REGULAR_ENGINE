@@ -32,6 +32,7 @@ public:
 	bool CubeRenderer = false;
 	bool CilindreRenderer = false;
 	bool PiramidRenderer = false;
+	bool PPlaneRenderer = false;
 
 	bool Vsync = true;
 	float Brightness = 1.f;

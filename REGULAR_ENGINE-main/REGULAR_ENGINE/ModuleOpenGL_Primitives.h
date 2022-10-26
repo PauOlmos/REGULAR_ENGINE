@@ -44,6 +44,21 @@ struct Pyramide {
 	float v4[3] = { 0.f + positon.x, 0.f + positon.y, 2.f + positon.z };
 };
 
+struct PPlane {
+	PPlane();
+	~PPlane();
+	const char* name[25];
+	int numVertices = 4;
+	vec3 positon;
+
+	vec3 scale;
+	float Totalscale;
+	float v0[3] = { 0.f + positon.x,0.f + positon.y,0.f + positon.z };
+	float v1[3] = { 1.f + positon.x,0.0f + positon.y,1.f + positon.z };
+	float v2[3] = { 1.f + positon.x,0.f + positon.y,0.f + positon.z };
+	float v3[3] = { 0.f + positon.x, 0.f + positon.y, 1.f + positon.z };
+};
+
 class ModuleOpenGL_Primitives : public Module {
 
 public:
@@ -56,6 +71,7 @@ public:
 	bool PreUpdate();
 	bool CleanUp();
 	void DrawCube(Quad* Q);
+	void DrawPPlane(PPlane* PP);
 	void DrawPiramid(Pyramide* P);
 	void DrawCilindre(float radius, float leght);
 
@@ -64,8 +80,10 @@ public:
 	float Objectz = 0.f;
 	int numQuads = 0;
 	int numPyramides = 0;
+	int numPPlanes = 0;
 	vector<Quad*> QuadList;
 	vector<Pyramide*> PyramideList;
+	vector<PPlane*> PPlaneList;
 	vec3 X, Y, Z;
 
 

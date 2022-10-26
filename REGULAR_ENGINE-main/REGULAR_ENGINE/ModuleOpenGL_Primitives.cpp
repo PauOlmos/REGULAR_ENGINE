@@ -452,6 +452,25 @@ void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
     glVertex3fv(Q->v6);
     glEnd();
 }
+void ModuleOpenGL_Primitives::DrawPPlane(PPlane* PP) {
+
+    if (wireFrameView == true) {
+        //Wireframe Mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(2);
+    }
+    glBegin(GL_TRIANGLES);  // draw a cube with 12 triangles
+
+    glVertex3fv(PP->v0);    //Cara1
+    glVertex3fv(PP->v1);
+    glVertex3fv(PP->v2);
+    
+    glVertex3fv(PP->v0);    //Cara1
+    glVertex3fv(PP->v1);
+    glVertex3fv(PP->v3);
+
+    glEnd();
+}
 
 
 void ModuleOpenGL_Primitives::DrawPiramid(Pyramide* P)
@@ -565,5 +584,13 @@ Pyramide::Pyramide()
 }
 
 Pyramide::~Pyramide()
+{
+}
+
+PPlane::PPlane()
+{
+}
+
+PPlane::~PPlane()
 {
 }
