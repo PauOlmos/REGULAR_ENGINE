@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include<vector>
+#include <imgui.h>
 class imgui_menu : public Module {
 public:
 	bool Start();
@@ -54,6 +55,7 @@ public:
 
 	float WindowHeightInit;
 	float WindowWidthInit;
+
 private:
 
 	std::vector<float> FPS;

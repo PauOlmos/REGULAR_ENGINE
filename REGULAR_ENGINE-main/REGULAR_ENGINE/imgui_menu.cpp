@@ -419,9 +419,9 @@ bool imgui_menu::KLK(bool* p_open)
         // Early out if the window is collapsed, as an optimization.
     ImGui::End();
     
-    
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
     if (ImGui::CollapsingHeader("Inspector")) {
+        //App->renderer3D->io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         for (int i = 0; i < App->primitives1->numQuads; i++) {
 
             char buf[32];

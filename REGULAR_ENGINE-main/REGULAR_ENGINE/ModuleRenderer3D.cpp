@@ -123,10 +123,10 @@ bool ModuleRenderer3D::Init()
 	// Setup Dear ImGui context
 	//IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io = &ImGui::GetIO(); (void)io;
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
+	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 	//ImGui::StyleColorsClassic();
@@ -134,7 +134,6 @@ bool ModuleRenderer3D::Init()
 	// Setup Platform/Renderer backends
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, context);
 	ImGui_ImplOpenGL3_Init("#version 130");
-
 	return ret;
 }
 
@@ -154,6 +153,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		lights[i].Render();
 
 
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+
+	ImGuiWindowFlags Winflags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoNavFocus;
+
+	ImGui::Begin("Docking", nullptr, Winflags);
+
+	ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+	//ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+
+	ImGui::End();
 
 	return UPDATE_CONTINUE;
 }
@@ -162,9 +174,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame();
-	ImGui::NewFrame();
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 
 	bool close = App->close_app->KLK(NULL);
@@ -173,12 +182,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		return UPDATE_STOP;
 	}
 
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-
-	// Rendering
+	// Re
 	ImGui::Render();
-	glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	//glClearColor(1.0, 1.0, 1.0, 0.0);
 	//glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -6,8 +6,6 @@
 vector<DebugConsole> Console::logs;
 vector<DebugConsole> Console::logsCopy;
 
-
-
 void Console::PrintDebug()
 {
 	if (ImGui::BeginMenuBar())

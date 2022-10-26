@@ -90,7 +90,8 @@ public:
 	vector<Pyramide*> PyramideList;
 	vector<PPlane*> PPlaneList;
 	vec3 X, Y, Z;
-	//map<uint, GameObject*>* referenceGameObject;
+
+	map<uint, PrimitiveType*>* referenceGameObject;
 
 	bool wireFrameView = false;
 	bool depthTest = false;
