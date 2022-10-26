@@ -8,9 +8,9 @@
 #include "Primitive.h"
 #include "ModuleInput.h"
 #include "ModuleOpenGL_Primitives.h"
-
 #include <vector>
 #include <iostream>
+#include <list>
 #include <ctype.h>          // toupper
 #include <limits.h>         // INT_MIN, INT_MAX
 #include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
@@ -51,6 +51,16 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
 
 
     if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
+        if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+            if (App->close_app->selectedQ+1 != numQuads) {
+                for (int i = App->close_app->selectedQ; i == numQuads; i++) {
+                    QuadList.insert(QuadList.begin() + i, QuadList[i + 1]);
+                }
+            }
+            App->close_app->selectedQ = -1;
+            QuadList.pop_back();
+            numQuads--;
+        }
         if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
             QuadList[App->close_app->selectedQ]->positon.x--;
             QuadList[App->close_app->selectedQ]->v0[0] -= 1;
@@ -197,6 +207,17 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         }
     }
     if (App->close_app->selectedP >= 0 && App->close_app->selectedType == 1) {
+        if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+            if (App->close_app->selectedP + 1 != numPyramides) {
+                for (int i = App->close_app->selectedP; i == numPyramides; i++) {
+                    PyramideList.insert(PyramideList.begin() + i, PyramideList[i + 1]);
+                }
+            }
+            PyramideList.pop_back();
+            App->close_app->selectedP = -1;
+
+            numPyramides--;
+        }
         if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
             PyramideList[App->close_app->selectedP]->positon.x--;
             PyramideList[App->close_app->selectedP]->v0[0] -= 1;
@@ -311,6 +332,17 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
 
 
     if (App->close_app->selectedPP >= 0 && App->close_app->selectedType == 2) {
+        if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+            if (App->close_app->selectedPP + 1 != numPPlanes) {
+                for (int i = App->close_app->selectedPP; i == numPPlanes; i++) {
+                    PPlaneList.insert(PPlaneList.begin() + i, PPlaneList[i + 1]);
+                }
+            }
+            PPlaneList.pop_back();
+            App->close_app->selectedPP = -1;
+
+            numPPlanes--;
+        }
         if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
             PPlaneList[App->close_app->selectedPP]->positon.x--;
             PPlaneList[App->close_app->selectedPP]->v0[0] -= 1;
@@ -390,7 +422,6 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
         }
     }
-
     if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
         depthTest = !depthTest;
     }
