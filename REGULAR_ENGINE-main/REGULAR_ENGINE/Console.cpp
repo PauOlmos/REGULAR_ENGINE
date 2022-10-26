@@ -10,8 +10,6 @@ vector<DebugConsole> Console::logsCopy;
 
 void Console::PrintDebug()
 {
-	ImGui::Begin("Console",0);
-
 	if (ImGui::BeginMenuBar())
 	{
 		ImGui::Separator();
@@ -58,12 +56,11 @@ void Console::PrintDebug()
 		}
 	}
 
-	ImGui::End();
 }
 
 
-void Console::DebugConsole(string format, string file, LogType type)
+void Console::DebugConsole(string format, LogType type)
 {
-	logs.push_back(struct DebugConsole(format, file, type));
+	logs.push_back(struct DebugConsole(format, type));
 }
 

@@ -462,13 +462,18 @@ bool imgui_menu::KLK(bool* p_open)
     // End of ShowDemoWindow()
     ImGui::PopItemWidth();
     ImGui::End();
-    if (ImGui::Begin("Dear ImGui KLK", p_open, window_flags))
-    {
+    ImGui::Begin("Consola", p_open, ImGuiWindowFlags_MenuBar);
+    Console::PrintDebug();
+
         // Early out if the window is collapsed, as an optimization.
-        ImGui::End();
-        return true;
-    }
-    //Console::PrintDebug("Console", p_open);
+    ImGui::End();
+    
+    
+    ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar);
+    
+    // Early out if the window is collapsed, as an optimization.
+    ImGui::End();
+    
     return true;
 
 }
