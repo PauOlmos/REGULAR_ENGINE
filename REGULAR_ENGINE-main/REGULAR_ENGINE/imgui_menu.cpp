@@ -356,7 +356,12 @@ bool imgui_menu::KLK(bool* p_open)
                     SDL_GL_SetSwapInterval(0);
                 }
             }
-
+            if (ImGui::CollapsingHeader("Render")) {
+                ImGui::Checkbox("Wireframe", &App->primitives1->wireFrameView);
+                ImGui::Checkbox("DepthTest", &App->primitives1->depthTest);
+                ImGui::Checkbox("FaceCulling", &App->primitives1->cullFace);
+                ImGui::Checkbox("Lightning", &App->primitives1->lighting);
+            }
             if (ImGui::CollapsingHeader("Hardware")) {
                 ImGui::BulletText("SDL Version: %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
                 ImGui::BulletText("CPUs: %d", SDL_GetCPUCount());
@@ -372,9 +377,7 @@ bool imgui_menu::KLK(bool* p_open)
                     App->primitives1->QuadList.push_back(Q);
                     App->primitives1->numQuads++;
                 }
-                if(ImGui::Checkbox("Cilindre",&CilindreRenderer)) {
-                    //App->primitives1->DrawCilindre(5,5);                    
-                }
+                
                 if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
@@ -389,66 +392,14 @@ bool imgui_menu::KLK(bool* p_open)
                     App->primitives1->PPlaneList.push_back(PP);
                     App->primitives1->numPPlanes++;
                 }
-            }
-        }
-        if (ImGui::CollapsingHeader("Inspector")) {
-            for (int i = 0; i < App->primitives1->numQuads; i++) {
-
-                char buf[32];
-                sprintf(buf, "Cube %d",i);
-
-                if (ImGui::Selectable(buf, i == selectedQ, 0)) {
-                    selectedQ = i;
-                    selectedP = -1;
-                    selectedPP = -1;
-                    selectedType = 0;
-                }
-                if (i == selectedQ) {
-                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
-                    ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->scale.x, App->primitives1->QuadList[i]->scale.y, App->primitives1->QuadList[i]->scale.z);
-                    ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-                }
-            }
-            for (int i = 0; i < App->primitives1->numPyramides; i++) {
-
-                char buf[32];
-                sprintf(buf, "Pyramide %d",i);
-
-                if (ImGui::Selectable(buf, i == selectedP, 0)) {
-                    selectedP = i;
-                    selectedQ = -1;
-                    selectedPP = -1;
-                    selectedType = 1;
-
-                }
-                if (i == selectedP) {
-                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
-                    ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->scale.x, App->primitives1->PyramideList[i]->scale.y, App->primitives1->PyramideList[i]->scale.z);
-                    ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-                }
-            }
-            for (int i = 0; i < App->primitives1->numPPlanes; i++) {
-
-                char buf[32];
-                sprintf(buf, "Plane %d",i);
-
-                if (ImGui::Selectable(buf, i == selectedPP, 0)) {
-                    selectedPP = i;
-                    selectedQ = -1;
-                    selectedP = -1;
-                    selectedType = 2;
-
-                }
-                if (i == selectedP) {
-                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->positon.x, App->primitives1->PPlaneList[i]->positon.y, App->primitives1->PPlaneList[i]->positon.z);
-                    ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
-                    ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+                if (ImGui::Checkbox("Cilindre", &CilindreRenderer)) {
+                    //App->primitives1->DrawCilindre(5,5);                    
                 }
             }
         }
         
+        
     }
-
 
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
@@ -469,7 +420,62 @@ bool imgui_menu::KLK(bool* p_open)
     ImGui::End();
     
     
-    ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
+    if (ImGui::CollapsingHeader("Inspector")) {
+        for (int i = 0; i < App->primitives1->numQuads; i++) {
+
+            char buf[32];
+            sprintf(buf, "Cube %d", i);
+
+            if (ImGui::Selectable(buf, i == selectedQ, 0)) {
+                selectedQ = i;
+                selectedP = -1;
+                selectedPP = -1;
+                selectedType = 0;
+            }
+            if (i == selectedQ) {
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->scale.x, App->primitives1->QuadList[i]->scale.y, App->primitives1->QuadList[i]->scale.z);
+                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+            }
+        }
+        for (int i = 0; i < App->primitives1->numPyramides; i++) {
+
+            char buf[32];
+            sprintf(buf, "Pyramide %d", i);
+
+            if (ImGui::Selectable(buf, i == selectedP, 0)) {
+                selectedP = i;
+                selectedQ = -1;
+                selectedPP = -1;
+                selectedType = 1;
+
+            }
+            if (i == selectedP) {
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->scale.x, App->primitives1->PyramideList[i]->scale.y, App->primitives1->PyramideList[i]->scale.z);
+                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+            }
+        }
+        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
+
+            char buf[32];
+            sprintf(buf, "Plane %d", i);
+
+            if (ImGui::Selectable(buf, i == selectedPP, 0)) {
+                selectedPP = i;
+                selectedQ = -1;
+                selectedP = -1;
+                selectedType = 2;
+
+            }
+            if (i == selectedP) {
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->positon.x, App->primitives1->PPlaneList[i]->positon.y, App->primitives1->PPlaneList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
+                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+            }
+        }
+    }
     
     // Early out if the window is collapsed, as an optimization.
     ImGui::End();

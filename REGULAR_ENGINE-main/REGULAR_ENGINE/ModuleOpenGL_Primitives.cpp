@@ -437,19 +437,12 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
         }
     }
-    if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-        depthTest = !depthTest;
-    }
     if (depthTest == true) {
         glEnable(GL_DEPTH_TEST);
 
     }
     else {
         glDisable(GL_DEPTH_TEST);
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-        cullFace = !cullFace;
     }
     if (cullFace == true) {
         glEnable(GL_CULL_FACE);
@@ -459,59 +452,12 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         glDisable(GL_CULL_FACE);
     }
 
-    if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-        lighting = !lighting;
-    }
     if (lighting == true) {
         glEnable(GL_LIGHTING);
 
     }
     else {
         glDisable(GL_LIGHTING);
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-        colorMaterial = !colorMaterial;
-    }
-    if (colorMaterial == true) {
-        glEnable(GL_COLOR_MATERIAL);
-
-    }
-    else {
-        glDisable(GL_COLOR_MATERIAL);
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-        texture2D = !texture2D;
-    }
-    if (texture2D == true) {
-        glEnable(GL_TEXTURE_2D);
-
-    }
-    else {
-        glDisable(GL_TEXTURE_2D);
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
-        renderMode = !renderMode;
-    }
-    if (renderMode == true) {
-        glEnable(GL_RENDER_MODE);
-
-    }
-    else {
-        glDisable(GL_RENDER_MODE);
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-        normalize = !normalize;
-    }
-    if (normalize == true) {
-        glEnable(GL_NORMALIZE);
-
-    }
-    else {
-        glDisable(GL_NORMALIZE);
     }
     // front face =================
 
@@ -646,9 +592,7 @@ void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
 
     // Cylinder Bottom
     glBegin(GL_POLYGON);
-    if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
-        wireFrameView = !wireFrameView;
-    }
+    
     if (wireFrameView == true) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }

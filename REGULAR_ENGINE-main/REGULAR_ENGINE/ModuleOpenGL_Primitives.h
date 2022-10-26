@@ -5,11 +5,12 @@
 #include "cimport.h"
 #include "scene.h"
 #include "postprocess.h"
-
+#include <map>
 #include <string>
 using namespace std;
 
 struct Quad {
+	enum PrimitiveType QUAD;
 	Quad();
 	~Quad();
 	const char* name[25];
@@ -29,6 +30,8 @@ struct Quad {
 };
 
 struct Pyramide {
+	enum PrimitiveType PYRAMIDE;
+
 	Pyramide();
 	~Pyramide();
 	const char* name[25];
@@ -45,6 +48,8 @@ struct Pyramide {
 };
 
 struct PPlane {
+	enum PrimitiveType PPLANE;
+
 	PPlane();
 	~PPlane();
 	const char* name[25];
@@ -85,16 +90,13 @@ public:
 	vector<Pyramide*> PyramideList;
 	vector<PPlane*> PPlaneList;
 	vec3 X, Y, Z;
+	//map<uint, GameObject*>* referenceGameObject;
 
-
-private:
 	bool wireFrameView = false;
 	bool depthTest = false;
 	bool cullFace = false;
 	bool lighting = true;
-	bool colorMaterial = false;
-	bool texture2D = false;
-	bool renderMode = false;
-	bool normalize = false; 
+
+private:
 
 };
