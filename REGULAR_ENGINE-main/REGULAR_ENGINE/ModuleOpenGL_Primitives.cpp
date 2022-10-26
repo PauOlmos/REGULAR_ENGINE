@@ -48,7 +48,7 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
         DrawCilindre(2, 2);
     }
 
-    
+
 
     if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
         if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
@@ -306,6 +306,88 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PyramideList[App->close_app->selectedP]->v2[2] -= 0.5f;
             PyramideList[App->close_app->selectedP]->v3[2] -= 1;
             PyramideList[App->close_app->selectedP]->v4[2] -= 1;
+        }
+    }
+
+
+    if (App->close_app->selectedPP >= 0 && App->close_app->selectedType == 2) {
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->positon.x--;
+            PPlaneList[App->close_app->selectedPP]->v0[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v1[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v3[0] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->positon.y--;
+            PPlaneList[App->close_app->selectedPP]->v0[1] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v1[1] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v2[1] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v3[1] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->positon.z--;
+            PPlaneList[App->close_app->selectedPP]->v0[2] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v1[2] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v2[2] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            PPlaneList[App->close_app->selectedPP]->positon.x++;
+            PPlaneList[App->close_app->selectedPP]->v0[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v1[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v3[0] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            PPlaneList[App->close_app->selectedPP]->positon.y++;
+            PPlaneList[App->close_app->selectedPP]->v0[1] += 1;
+            PPlaneList[App->close_app->selectedPP]->v1[1] += 1;
+            PPlaneList[App->close_app->selectedPP]->v2[1] += 1;
+            PPlaneList[App->close_app->selectedPP]->v3[1] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            PPlaneList[App->close_app->selectedPP]->positon.z++;
+            PPlaneList[App->close_app->selectedPP]->v0[2] += 1;
+            PPlaneList[App->close_app->selectedPP]->v1[2] += 1;
+            PPlaneList[App->close_app->selectedPP]->v2[2] += 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            PPlaneList[App->close_app->selectedPP]->scale.x++;
+            PPlaneList[App->close_app->selectedPP]->scale.z++;
+            PPlaneList[App->close_app->selectedPP]->v1[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v1[2] += 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            PPlaneList[App->close_app->selectedPP]->scale.x--;
+            PPlaneList[App->close_app->selectedPP]->scale.z--;
+            PPlaneList[App->close_app->selectedPP]->v1[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v1[2] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->scale.x++;
+            PPlaneList[App->close_app->selectedPP]->v1[0] += 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->scale.x--;
+            PPlaneList[App->close_app->selectedPP]->v1[0] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v2[0] -= 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->scale.z++;
+            PPlaneList[App->close_app->selectedPP]->v1[2] += 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] += 1;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            PPlaneList[App->close_app->selectedPP]->scale.z--;
+            PPlaneList[App->close_app->selectedPP]->v1[2] -= 1;
+            PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
         }
     }
 

@@ -400,6 +400,7 @@ bool imgui_menu::KLK(bool* p_open)
                 if (ImGui::Selectable(buf, i == selectedQ, 0)) {
                     selectedQ = i;
                     selectedP = -1;
+                    selectedPP = -1;
                     selectedType = 0;
                 }
                 if (i == selectedQ) {
@@ -416,12 +417,31 @@ bool imgui_menu::KLK(bool* p_open)
                 if (ImGui::Selectable(buf, i == selectedP, 0)) {
                     selectedP = i;
                     selectedQ = -1;
+                    selectedPP = -1;
                     selectedType = 1;
 
                 }
                 if (i == selectedP) {
                     ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
                     ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->scale.x, App->primitives1->PyramideList[i]->scale.y, App->primitives1->PyramideList[i]->scale.z);
+                    ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+                }
+            }
+            for (int i = 0; i < App->primitives1->numPPlanes; i++) {
+
+                char buf[32];
+                sprintf(buf, "Plane %d",i);
+
+                if (ImGui::Selectable(buf, i == selectedPP, 0)) {
+                    selectedPP = i;
+                    selectedQ = -1;
+                    selectedP = -1;
+                    selectedType = 2;
+
+                }
+                if (i == selectedP) {
+                    ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->positon.x, App->primitives1->PPlaneList[i]->positon.y, App->primitives1->PPlaneList[i]->positon.z);
+                    ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
                     ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
                 }
             }

@@ -14,6 +14,7 @@ public:
 public:
 	int selectedQ;
 	int selectedP;
+	int selectedPP;
 	int selectedType;
 	bool testing = false;
 	bool KLK(bool* p_open);
