@@ -349,7 +349,7 @@ bool imgui_menu::KLK(bool* p_open)
                     fullscreen = false;
                     active16_9 = false;
                 }
-
+                
                 if (ImGui::Checkbox("Vsync", &Vsync)) {
                     SDL_GL_SetSwapInterval(0);
                 }
@@ -390,8 +390,6 @@ bool imgui_menu::KLK(bool* p_open)
             }
         }
         if (ImGui::CollapsingHeader("Inspector")) {
-
-            
             for (int i = 0; i < App->primitives1->numQuads; i++) {
 
                 char buf[32];
@@ -447,22 +445,6 @@ bool imgui_menu::KLK(bool* p_open)
             }
         }
     }
-    if (CubeRenderer) {
-        for (int i = 0; i < App->primitives1->numQuads; i++) {
-            App->primitives1->DrawCube(App->primitives1->QuadList[i]);
-        }
-    }
-    if (PiramidRenderer) {
-        for (int i = 0; i < App->primitives1->numPyramides; i++) {
-            App->primitives1->DrawPiramid(App->primitives1->PyramideList[i]);
-        }
-    }
-    if (PPlaneRenderer) {
-        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
-            App->primitives1->DrawPPlane(App->primitives1->PPlaneList[i]);
-        }
-    }
-
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
     //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);

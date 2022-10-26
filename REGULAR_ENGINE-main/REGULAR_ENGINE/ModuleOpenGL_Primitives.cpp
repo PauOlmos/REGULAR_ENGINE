@@ -44,11 +44,26 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
 
 update_status ModuleOpenGL_Primitives::Update(float dt)
 {
+
+    if (App->close_app->CubeRenderer) {
+        for (int i = 0; i < App->primitives1->numQuads; i++) {
+            App->primitives1->DrawCube(App->primitives1->QuadList[i]);
+        }
+    }
+    if (App->close_app->PiramidRenderer) {
+        for (int i = 0; i < App->primitives1->numPyramides; i++) {
+            App->primitives1->DrawPiramid(App->primitives1->PyramideList[i]);
+        }
+    }
+    if (App->close_app->PPlaneRenderer) {
+        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
+            App->primitives1->DrawPPlane(App->primitives1->PPlaneList[i]);
+        }
+    }
+
     if (App->close_app->CilindreRenderer) {
         DrawCilindre(2, 2);
     }
-
-
 
     if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
         if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
