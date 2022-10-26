@@ -30,7 +30,7 @@ ModuleOpenGL_Primitives::~ModuleOpenGL_Primitives()
 
 bool ModuleOpenGL_Primitives::Start()
 {
-    LOG("Loading Intro assets");
+    LOG(LogType::LOGS, "Loading Intro assets");
     bool ret = true;
 
     return ret;

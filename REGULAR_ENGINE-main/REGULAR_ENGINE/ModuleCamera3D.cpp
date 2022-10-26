@@ -22,7 +22,7 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	LOG("Setting up the camera");
+	LOG(LogType::LOGS, "Setting up the camera");
 	bool ret = true;
 	newRef.x = App->primitives1->Objectx + 0.5;
 	newRef.y = App->primitives1->Objecty + 0.5;
@@ -34,7 +34,7 @@ bool ModuleCamera3D::Start()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
-	LOG("Cleaning camera");
+	LOG(LogType::LOGS, "Cleaning camera");
 
 	return true;
 }

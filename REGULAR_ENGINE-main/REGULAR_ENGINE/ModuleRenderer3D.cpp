@@ -36,7 +36,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
-	LOG("Creating 3D Renderer context");
+	LOG(LogType::LOGS, "Creating 3D Renderer context");
 	bool ret = true;
 
 
@@ -65,7 +65,7 @@ bool ModuleRenderer3D::Init()
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG(LogType::ERRORS, "Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -77,7 +77,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG(LogType::ERRORS, "Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -91,7 +91,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG(LogType::LOGS, "Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -189,7 +189,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 // Called before quitting
 bool ModuleRenderer3D::CleanUp()
 {
-	LOG("Destroying 3D Renderer");
+	LOG(LogType::LOGS, "Destroying 3D Renderer");
 
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();

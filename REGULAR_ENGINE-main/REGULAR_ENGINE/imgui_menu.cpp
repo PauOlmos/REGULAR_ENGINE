@@ -1,11 +1,6 @@
+#include "Application.h"
 #include "imgui.h"
 // System includes
-#include <ctype.h>          // toupper
-#include <limits.h>         // INT_MIN, INT_MAX
-#include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
-#include <stdio.h>          // vsnprintf, sscanf, printf
-#include <stdlib.h>    
-#include <vector>
 // NULL, malloc, free, atoi
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>         // intptr_t
@@ -20,9 +15,15 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "imgui_menu.h"
-#include "Application.h"
+#include "Console.h"
 #include "ModuleOpenGL_Primitives.h"
 #include <gl/GL.h>
+#include <ctype.h>          // toupper
+#include <limits.h>         // INT_MIN, INT_MAX
+#include <math.h>           // sqrtf, powf, cosf, sinf, floorf, ceilf
+#include <stdio.h>          // vsnprintf, sscanf, printf
+#include <stdlib.h>    
+#include <vector>
 // Visual Studio warnings
 #ifdef _MSC_VER
 #pragma warning (disable: 4127)     // condition expression is constant
@@ -122,7 +123,7 @@ bool imgui_menu::Start()
 {
     WindowHeight = App->window->height;
     WindowWidth = App->window->width;
-    LOG("Setting up the camera");
+    LOG(LogType::LOGS, "Setting up the camera");
     bool ret = true;
 
     return ret;
@@ -203,11 +204,12 @@ bool imgui_menu::KLK(bool* p_open)
     ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 650, main_viewport->WorkPos.y + 20), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
     // Main body of the Demo window starts here.
+    
     if (!ImGui::Begin("Menu", p_open, window_flags))
     {
         // Early out if the window is collapsed, as an optimization.
         ImGui::End();
-        return UPDATE_CONTINUE;
+        return true;
     }
     if (ImGui::BeginMenuBar())
     {
@@ -444,7 +446,10 @@ bool imgui_menu::KLK(bool* p_open)
                 }
             }
         }
+        
     }
+
+
     // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
     // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
     //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);
@@ -453,12 +458,19 @@ bool imgui_menu::KLK(bool* p_open)
 
     // Menu Bar
    
-
+  
     // End of ShowDemoWindow()
     ImGui::PopItemWidth();
     ImGui::End();
+    if (ImGui::Begin("Dear ImGui KLK", p_open, window_flags))
+    {
+        // Early out if the window is collapsed, as an optimization.
+        ImGui::End();
+        return true;
+    }
+    //Console::PrintDebug("Console", p_open);
+    return true;
 
-    //return UPDATE_CONTINUE;
 }
 
 void imgui_menu::HistogramFps()

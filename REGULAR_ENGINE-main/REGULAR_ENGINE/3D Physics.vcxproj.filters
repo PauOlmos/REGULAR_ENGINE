@@ -447,6 +447,9 @@
     <ClInclude Include="DevIL\include\ilut_config.h">
       <Filter>Sources\DevIL\include</Filter>
     </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -613,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="ModuleLoadFBX.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
