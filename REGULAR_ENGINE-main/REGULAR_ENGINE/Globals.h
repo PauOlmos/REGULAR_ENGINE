@@ -14,6 +14,12 @@ enum class LogType
 	ERRORS,
 	WARNING,
 };
+enum class GameObjectType
+{
+	PPLANE,
+	QUAD,
+	PYRAMIDE,
+};
 void log(const char file[], int line, const char* format,LogType type, ...);
 
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)

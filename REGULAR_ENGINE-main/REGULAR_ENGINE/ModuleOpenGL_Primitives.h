@@ -9,8 +9,11 @@
 #include <string>
 using namespace std;
 
+class GameObject {
+	GameObjectType Type;
+};
+
 struct Quad {
-	enum PrimitiveType QUAD;
 	Quad();
 	~Quad();
 	const char* name[25];
@@ -30,7 +33,6 @@ struct Quad {
 };
 
 struct Pyramide {
-	enum PrimitiveType PYRAMIDE;
 
 	Pyramide();
 	~Pyramide();
@@ -48,7 +50,6 @@ struct Pyramide {
 };
 
 struct PPlane {
-	enum PrimitiveType PPLANE;
 
 	PPlane();
 	~PPlane();
@@ -86,12 +87,17 @@ public:
 	int numQuads = 0;
 	int numPyramides = 0;
 	int numPPlanes = 0;
+	int numTrees = 0;
+	int selectedTree;
 	vector<Quad*> QuadList;
 	vector<Pyramide*> PyramideList;
 	vector<PPlane*> PPlaneList;
 	vec3 X, Y, Z;
 
-	map<uint, PrimitiveType*>* referenceGameObject;
+	map<uint, GameObjectType*>* GameObjectTree;
+
+	vector<map<uint, GameObjectType*>*> GameObjectList;
+
 
 	bool wireFrameView = false;
 	bool depthTest = false;
