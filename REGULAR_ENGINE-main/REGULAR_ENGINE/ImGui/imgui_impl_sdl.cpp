@@ -896,7 +896,7 @@ static void ImGui_ImplSDL2_SwapBuffers(ImGuiViewport* viewport, void*)
 
 // Vulkan support (the Vulkan renderer needs to call a platform-side support function to create the surface)
 // SDL is graceful enough to _not_ need <vulkan/vulkan.h> so we can safely include this.
-#if SDL_HAS_VULKAN
+/*#if SDL_HAS_VULKAN
 #include <SDL_vulkan.h>
 static int ImGui_ImplSDL2_CreateVkSurface(ImGuiViewport* viewport, ImU64 vk_instance, const void* vk_allocator, ImU64* out_vk_surface)
 {
@@ -905,7 +905,7 @@ static int ImGui_ImplSDL2_CreateVkSurface(ImGuiViewport* viewport, ImU64 vk_inst
     SDL_bool ret = SDL_Vulkan_CreateSurface(vd->Window, (VkInstance)vk_instance, (VkSurfaceKHR*)out_vk_surface);
     return ret ? 0 : 1; // ret ? VK_SUCCESS : VK_NOT_READY
 }
-#endif // SDL_HAS_VULKAN
+#endif*/ // SDL_HAS_VULKAN
 
 static void ImGui_ImplSDL2_InitPlatformInterface(SDL_Window* window, void* sdl_gl_context)
 {
@@ -927,9 +927,9 @@ static void ImGui_ImplSDL2_InitPlatformInterface(SDL_Window* window, void* sdl_g
 #if SDL_HAS_WINDOW_ALPHA
     platform_io.Platform_SetWindowAlpha = ImGui_ImplSDL2_SetWindowAlpha;
 #endif
-#if SDL_HAS_VULKAN
+/*#if SDL_HAS_VULKAN
     platform_io.Platform_CreateVkSurface = ImGui_ImplSDL2_CreateVkSurface;
-#endif
+#endif*/
 
     // Register main window handle (which is owned by the main application, not by us)
     // This is mostly for simplicity and consistency, so that our code (e.g. mouse handling etc.) can use same logic for main and secondary viewports.
