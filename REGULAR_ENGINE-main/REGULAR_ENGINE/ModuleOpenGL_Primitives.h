@@ -102,7 +102,7 @@ public:
 	bool wireFrameView = false;
 	bool depthTest = false;
 	bool cullFace = false;
-	bool lighting = true;
+	bool lighting = false;
 
 private:
 

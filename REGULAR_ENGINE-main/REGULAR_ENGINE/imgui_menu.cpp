@@ -425,18 +425,8 @@ bool imgui_menu::KLK(bool* p_open)
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
     if (ImGui::CollapsingHeader("Inspector")) {
 
-        for (int i = 0; i < App->primitives1->numTrees; i++) {
-            char buf[32];
-            sprintf(buf, "GameObject %d", i);
-
-            if (ImGui::Selectable(buf, i == App->primitives1->selectedTree, 0)) {
-                               
-            }
-
-        }
-
         //App->renderer3D->io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        /*for (int i = 0; i < App->primitives1->numQuads; i++) {
+        for (int i = 0; i < App->primitives1->numQuads; i++) {
 
             char buf[32];
             sprintf(buf, "Cube %d", i);
@@ -488,7 +478,7 @@ bool imgui_menu::KLK(bool* p_open)
                 ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
-        }*/
+        }
     }
     
     // Early out if the window is collapsed, as an optimization.
