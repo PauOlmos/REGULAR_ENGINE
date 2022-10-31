@@ -65,6 +65,18 @@ struct PPlane {
 	float v3[3] = { 0.f + positon.x, 0.f + positon.y, 1.f + positon.z };
 };
 
+struct Cilindre {
+
+	Cilindre();
+	~Cilindre();
+
+
+	const char* name[25];
+	vec3 positon;
+	vec3 scale;
+
+};
+
 class ModuleOpenGL_Primitives : public Module {
 
 public:
@@ -75,28 +87,27 @@ public:
 	bool PostUpdate();
 	update_status Update(float dt);
 	bool PreUpdate();
+	void ModifyQuad();
+	void ModifyPyramide();
+	void ModifyPPlanes();
+	void ModifyCilindres();
+	void DrawPrimitives();
 	bool CleanUp();
+
 	void DrawCube(Quad* Q);
 	void DrawPPlane(PPlane* PP);
 	void DrawPiramid(Pyramide* P);
-	void DrawCilindre(float radius, float leght);
+	void DrawCilindre(Cilindre* C, float radius, float leght);
 
-	float Objectx = 0.f;
-	float Objecty = 0.f;
-	float Objectz = 0.f;
 	int numQuads = 0;
 	int numPyramides = 0;
 	int numPPlanes = 0;
-	int numTrees = 0;
-	int selectedTree;
+	int numCilindres = 0;
 	vector<Quad*> QuadList;
 	vector<Pyramide*> PyramideList;
 	vector<PPlane*> PPlaneList;
+	vector<Cilindre*> CilindreList;
 	vec3 X, Y, Z;
-
-	map<uint, GameObjectType*>* GameObjectTree;
-
-	vector<map<uint, GameObjectType*>*> GameObjectList;
 
 
 	bool wireFrameView = false;

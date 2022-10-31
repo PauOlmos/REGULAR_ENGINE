@@ -24,10 +24,6 @@ bool ModuleCamera3D::Start()
 {
 	LOG(LogType::LOGS, "Setting up the camera");
 	bool ret = true;
-	newRef.x = App->primitives1->Objectx + 0.5;
-	newRef.y = App->primitives1->Objecty + 0.5;
-	newRef.z = App->primitives1->Objectz + 0.5;
-
 	return ret;
 }
 

@@ -42,32 +42,10 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
     return true;
 }
 
-update_status ModuleOpenGL_Primitives::Update(float dt)
-{
-
-    if (App->close_app->CubeRenderer) {
-        for (int i = 0; i < App->primitives1->numQuads; i++) {
-            App->primitives1->DrawCube(App->primitives1->QuadList[i]);
-        }
-    }
-    if (App->close_app->PiramidRenderer) {
-        for (int i = 0; i < App->primitives1->numPyramides; i++) {
-            App->primitives1->DrawPiramid(App->primitives1->PyramideList[i]);
-        }
-    }
-    if (App->close_app->PPlaneRenderer) {
-        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
-            App->primitives1->DrawPPlane(App->primitives1->PPlaneList[i]);
-        }
-    }
-
-    if (App->close_app->CilindreRenderer) {
-        DrawCilindre(2, 2);
-    }
-
+void ModuleOpenGL_Primitives::ModifyQuad(){
     if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
         if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
-            if (App->close_app->selectedQ+1 != numQuads) {
+            if (App->close_app->selectedQ + 1 != numQuads) {
                 for (int i = App->close_app->selectedQ; i == numQuads; i++) {
                     QuadList.insert(QuadList.begin() + i, QuadList[i + 1]);
                 }
@@ -221,6 +199,9 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             QuadList[App->close_app->selectedQ]->v5[2] -= 1;
         }
     }
+}
+
+void ModuleOpenGL_Primitives::ModifyPyramide() {
     if (App->close_app->selectedP >= 0 && App->close_app->selectedType == 1) {
         if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
             if (App->close_app->selectedP + 1 != numPyramides) {
@@ -344,8 +325,9 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PyramideList[App->close_app->selectedP]->v4[2] -= 1;
         }
     }
+}
 
-
+void ModuleOpenGL_Primitives::ModifyPPlanes() {
     if (App->close_app->selectedPP >= 0 && App->close_app->selectedType == 2) {
         if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
             if (App->close_app->selectedPP + 1 != numPPlanes) {
@@ -437,6 +419,87 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
             PPlaneList[App->close_app->selectedPP]->v3[2] -= 1;
         }
     }
+}
+
+void ModuleOpenGL_Primitives::ModifyCilindres() {
+    if (App->close_app->selectedC >= 0 && App->close_app->selectedType == 3) {
+        if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+            if (App->close_app->selectedC + 1 != numCilindres) {
+                for (int i = App->close_app->selectedC; i == numCilindres; i++) {
+                    CilindreList.insert(CilindreList.begin() + i, CilindreList[i + 1]);
+                }
+            }
+            CilindreList.pop_back();
+            App->close_app->selectedC = -1;
+
+            numCilindres--;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->positon.x--;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->positon.y--;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->positon.z--;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            CilindreList[App->close_app->selectedC]->positon.x++;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            CilindreList[App->close_app->selectedC]->positon.y++;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_IDLE) {
+            CilindreList[App->close_app->selectedC]->positon.z++;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            CilindreList[App->close_app->selectedC]->scale.x++;
+            CilindreList[App->close_app->selectedC]->scale.y++;
+            CilindreList[App->close_app->selectedC]->scale.z++;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == NULL && App->input->GetKey(SDL_SCANCODE_Y) == NULL && App->input->GetKey(SDL_SCANCODE_Z) == NULL) {
+            CilindreList[App->close_app->selectedC]->scale.x--;
+            CilindreList[App->close_app->selectedC]->scale.y--;
+            CilindreList[App->close_app->selectedC]->scale.z--;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.x++;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.x--;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.y++;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.y--;
+        }
+        if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.z++;
+
+        }
+        if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT) {
+            CilindreList[App->close_app->selectedC]->scale.z--;
+
+        }
+    }
+}
+
+update_status ModuleOpenGL_Primitives::Update(float dt)
+{
+
+    DrawPrimitives();
+
+    ModifyQuad();
+    ModifyPyramide();
+    ModifyPPlanes();
+    ModifyCilindres();
+
     if (depthTest == true) {
         glEnable(GL_DEPTH_TEST);
 
@@ -459,12 +522,33 @@ update_status ModuleOpenGL_Primitives::Update(float dt)
     else {
         glDisable(GL_LIGHTING);
     }
-    // front face =================
-
-
 
     glEnd();
     return UPDATE_CONTINUE;
+}
+
+void ModuleOpenGL_Primitives::DrawPrimitives() {
+    if (App->close_app->CubeRenderer) {
+        for (int i = 0; i < App->primitives1->numQuads; i++) {
+            App->primitives1->DrawCube(App->primitives1->QuadList[i]);
+        }
+    }
+    if (App->close_app->PiramidRenderer) {
+        for (int i = 0; i < App->primitives1->numPyramides; i++) {
+            App->primitives1->DrawPiramid(App->primitives1->PyramideList[i]);
+        }
+    }
+    if (App->close_app->PPlaneRenderer) {
+        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
+            App->primitives1->DrawPPlane(App->primitives1->PPlaneList[i]);
+        }
+    }
+
+    if (App->close_app->CilindreRenderer) {
+        for (int i = 0; i < App->primitives1->numCilindres; i++) {
+            DrawCilindre(App->primitives1->CilindreList[i], 2, 2);
+        }
+    }
 }
 
 void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
@@ -526,6 +610,7 @@ void ModuleOpenGL_Primitives::DrawCube(Quad* Q) {
     glVertex3fv(Q->v6);
     glEnd();
 }
+
 void ModuleOpenGL_Primitives::DrawPPlane(PPlane* PP) {
 
     if (wireFrameView == true) {
@@ -545,7 +630,6 @@ void ModuleOpenGL_Primitives::DrawPPlane(PPlane* PP) {
 
     glEnd();
 }
-
 
 void ModuleOpenGL_Primitives::DrawPiramid(Pyramide* P)
 {
@@ -585,12 +669,10 @@ void ModuleOpenGL_Primitives::DrawPiramid(Pyramide* P)
     glEnd();
 }
 
-
-void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
+void ModuleOpenGL_Primitives::DrawCilindre(Cilindre* C, float radius, float leght)
 {
     int n = 30;
 
-    // Cylinder Bottom
     glBegin(GL_POLYGON);
     
     if (wireFrameView == true) {
@@ -601,10 +683,10 @@ void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
     for (int i = 360; i >= 0; i -= (360 / n))
     {
         float a = i * M_PI / 180; // degrees to radians
-        float X = -leght * 0.5f;
-        float Y = radius * cos(a);
-        float Z = radius * sin(a);
-        glVertex3f(X, Y, Z);
+        float X = -(leght + C->scale.x) * 0.5f;
+        float Y = (radius + C->scale.y)* cos(a);
+        float Z = (radius + C->scale.z) * sin(a);
+        glVertex3f(X + C->positon.x, Y +C->positon.y, Z + C->positon.z);
     }
     glEnd();
     // Cylinder Top
@@ -613,10 +695,10 @@ void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
     for (int i = 360; i >= 0; i -= (360 / n))
     {
         float a = i * M_PI / 180; // degrees to radians
-        float X = leght * 0.5f;
-        float Y = radius * cos(a);
-        float Z = -radius * sin(a);
-        glVertex3f(X, Y, Z);
+        float X = (leght + C->scale.x)* 0.5f;
+        float Y = (radius + C->scale.y) * cos(a);
+        float Z = -(radius + C->scale.z) * sin(a);
+        glVertex3f(X + C->positon.x, Y + C->positon.y, Z + C->positon.z);
     }
     glEnd();
 
@@ -626,8 +708,8 @@ void ModuleOpenGL_Primitives::DrawCilindre(float radius, float leght)
     {
         float a = i * M_PI / 180; // degrees to radians
 
-        glVertex3f(leght * 0.5f, radius * cos(a), radius * sin(a));
-        glVertex3f(-leght * 0.5f, radius * cos(a), radius * sin(a));
+        glVertex3f((leght + C->scale.x) * 0.5f + C->positon.x, (radius + C->scale.y) * cos(a) + C->positon.y, (radius + C->scale.z) * sin(a) +C->positon.z);
+        glVertex3f(-(leght + C->scale.x) * 0.5f + C->positon.x, (radius + C->scale.y) * cos(a) + C->positon.y, (radius + C->scale.z) * sin(a) + C->positon.z);
     }
     glEnd();
 }
@@ -664,5 +746,13 @@ PPlane::PPlane()
 }
 
 PPlane::~PPlane()
+{
+}
+
+Cilindre::Cilindre()
+{
+}
+
+Cilindre::~Cilindre()
 {
 }

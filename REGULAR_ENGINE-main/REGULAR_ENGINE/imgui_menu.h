@@ -16,10 +16,11 @@ public:
 	int selectedQ;
 	int selectedP;
 	int selectedPP;
+	int selectedC;
 	int selectedType;
 	bool testing = false;
 	bool KLK(bool* p_open);
-
+	void CreatePrimitives(int Type);
 	float FPSStart;
 	float averageFps = 0.f;
 	float frameTicks = 0.f;

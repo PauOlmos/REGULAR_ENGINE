@@ -373,30 +373,24 @@ bool imgui_menu::KLK(bool* p_open)
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                 }
                 if (ImGui::Button("Generate Cube")) {
-                    map<uint, GameObjectType*>* Q_;
-                    App->primitives1->numTrees++;
-                    App->primitives1->GameObjectList.push_back(Q_);
-                    Quad* Q = new Quad();
-                    App->primitives1->QuadList.push_back(Q);
-                    App->primitives1->numQuads++;
+                    CreatePrimitives(0);
                 }
                 
                 if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
-                    Pyramide* P = new Pyramide();
-                    App->primitives1->PyramideList.push_back(P);
-                    App->primitives1->numPyramides++;
+                    CreatePrimitives(1);
+
                 }
                 if (ImGui::Checkbox("Plane", &PPlaneRenderer)) {
                 }
                 if (ImGui::Button("Generate Plane")) {
-                    PPlane* PP = new PPlane();
-                    App->primitives1->PPlaneList.push_back(PP);
-                    App->primitives1->numPPlanes++;
+                    CreatePrimitives(2);
                 }
-                if (ImGui::Checkbox("Cilindre", &CilindreRenderer)) {
-                    //App->primitives1->DrawCilindre(5,5);                    
+                if (ImGui::Checkbox("Cilindre", &CilindreRenderer)) {             
+                }
+                if (ImGui::Button("Generate Cilindre")) {
+                    CreatePrimitives(3);
                 }
             }
         }
@@ -435,6 +429,7 @@ bool imgui_menu::KLK(bool* p_open)
                 selectedQ = i;
                 selectedP = -1;
                 selectedPP = -1;
+                selectedC = -1;
                 selectedType = 0;
             }
             if (i == selectedQ) {
@@ -452,6 +447,7 @@ bool imgui_menu::KLK(bool* p_open)
                 selectedP = i;
                 selectedQ = -1;
                 selectedPP = -1;
+                selectedC = -1;
                 selectedType = 1;
 
             }
@@ -469,13 +465,33 @@ bool imgui_menu::KLK(bool* p_open)
             if (ImGui::Selectable(buf, i == selectedPP, 0)) {
                 selectedPP = i;
                 selectedQ = -1;
+                selectedC = -1;
                 selectedP = -1;
                 selectedType = 2;
 
             }
-            if (i == selectedP) {
+            if (i == selectedPP) {
                 ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->positon.x, App->primitives1->PPlaneList[i]->positon.y, App->primitives1->PPlaneList[i]->positon.z);
                 ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
+                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
+            }
+        }
+        for (int i = 0; i < App->primitives1->numCilindres; i++) {
+
+            char buf[32];
+            sprintf(buf, "Cilindre %d", i);
+
+            if (ImGui::Selectable(buf, i == selectedC, 0)) {
+                selectedC = i;
+                selectedQ = -1;
+                selectedP = -1;
+                selectedPP = -1;
+                selectedType = 3;
+
+            }
+            if (i == selectedC) {
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->CilindreList[i]->positon.x, App->primitives1->CilindreList[i]->positon.y, App->primitives1->CilindreList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->CilindreList[i]->scale.x, App->primitives1->CilindreList[i]->scale.y, App->primitives1->CilindreList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
@@ -549,5 +565,28 @@ void imgui_menu::HistogramMs()
         SDL_GetPerformanceCounter();
 
         ImGui::PlotHistogram("##Milisecods", Miliseconds.data(), Miliseconds.size(), 0, NULL, 0.f, 80.f, ImVec2(310, 100));
+    }
+}
+
+void imgui_menu::CreatePrimitives(int Type) {
+    if (Type == 0) {
+        Quad* Q = new Quad();
+        App->primitives1->QuadList.push_back(Q);
+        App->primitives1->numQuads++;
+    }
+    if (Type == 1) {
+        Pyramide* P = new Pyramide();
+        App->primitives1->PyramideList.push_back(P);
+        App->primitives1->numPyramides++;
+    }
+    if (Type == 2) {
+        PPlane* PP = new PPlane();
+        App->primitives1->PPlaneList.push_back(PP);
+        App->primitives1->numPPlanes++;
+    }
+    if (Type == 3) {
+        Cilindre* C = new Cilindre();
+        App->primitives1->CilindreList.push_back(C);
+        App->primitives1->numCilindres++;
     }
 }
