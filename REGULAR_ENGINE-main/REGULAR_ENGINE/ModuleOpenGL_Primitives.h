@@ -5,13 +5,8 @@
 #include "cimport.h"
 #include "scene.h"
 #include "postprocess.h"
-#include <map>
 #include <string>
 using namespace std;
-
-class GameObject {
-	GameObjectType Type;
-};
 
 struct Quad {
 	Quad();
@@ -69,7 +64,6 @@ struct Cilindre {
 
 	Cilindre();
 	~Cilindre();
-
 
 	const char* name[25];
 	vec3 positon;

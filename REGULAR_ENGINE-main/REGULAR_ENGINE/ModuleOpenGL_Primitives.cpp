@@ -42,7 +42,44 @@ bool ModuleOpenGL_Primitives::PreUpdate() {
     return true;
 }
 
-void ModuleOpenGL_Primitives::ModifyQuad(){
+update_status ModuleOpenGL_Primitives::Update(float dt)
+{
+
+    DrawPrimitives();
+
+    ModifyQuad();
+    ModifyPyramide();
+    ModifyPPlanes();
+    ModifyCilindres();
+
+    if (depthTest == true) {
+        glEnable(GL_DEPTH_TEST);
+
+    }
+    else {
+        glDisable(GL_DEPTH_TEST);
+    }
+    if (cullFace == true) {
+        glEnable(GL_CULL_FACE);
+
+    }
+    else {
+        glDisable(GL_CULL_FACE);
+    }
+
+    if (lighting == true) {
+        glEnable(GL_LIGHTING);
+
+    }
+    else {
+        glDisable(GL_LIGHTING);
+    }
+
+    glEnd();
+    return UPDATE_CONTINUE;
+}
+
+void ModuleOpenGL_Primitives::ModifyQuad() {
     if (App->close_app->selectedQ >= 0 && App->close_app->selectedType == 0) {
         if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
             if (App->close_app->selectedQ + 1 != numQuads) {
@@ -488,43 +525,6 @@ void ModuleOpenGL_Primitives::ModifyCilindres() {
 
         }
     }
-}
-
-update_status ModuleOpenGL_Primitives::Update(float dt)
-{
-
-    DrawPrimitives();
-
-    ModifyQuad();
-    ModifyPyramide();
-    ModifyPPlanes();
-    ModifyCilindres();
-
-    if (depthTest == true) {
-        glEnable(GL_DEPTH_TEST);
-
-    }
-    else {
-        glDisable(GL_DEPTH_TEST);
-    }
-    if (cullFace == true) {
-        glEnable(GL_CULL_FACE);
-
-    }
-    else {
-        glDisable(GL_CULL_FACE);
-    }
-
-    if (lighting == true) {
-        glEnable(GL_LIGHTING);
-
-    }
-    else {
-        glDisable(GL_LIGHTING);
-    }
-
-    glEnd();
-    return UPDATE_CONTINUE;
 }
 
 void ModuleOpenGL_Primitives::DrawPrimitives() {

@@ -12,6 +12,7 @@
 #include "imgui_menu.h"
 #include "ModuleOpenGL_Primitives.h"
 #include "ModuleLoadFBX.h"
+#include "ModuleGameObjects.h"
 
 
 class Application
@@ -25,6 +26,7 @@ public:
 	imgui_menu* close_app;
 	ModuleOpenGL_Primitives* primitives1;
 	ModuleLoadFBX* loadFBX;
+	ModuleGameObjects* gameObjects;
 
 private:
 
