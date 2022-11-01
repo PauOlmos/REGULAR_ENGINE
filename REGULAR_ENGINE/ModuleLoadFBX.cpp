@@ -14,6 +14,7 @@ bool ModuleLoadFBX::Start()
 {
 	bool ret = true;
 	LoadFile("Assets/BakerHouse.fbx");
+	LoadFile("Assets/GiantSphere.fbx");
 	return ret;
 }
 
@@ -106,11 +107,17 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 
 update_status ModuleLoadFBX::PostUpdate(float dt)
 {
-	if (App->ImGui_menu->BakerHouseRenderer == true) {
-		for (int i = 0; i < meshes.size(); i++) {
+	for (int i = 0; i < meshes.size(); i++) {
+		if (App->ImGui_menu->BakerHouseRenderer == true && i < 2) {
+
 			meshes[i]->Render();
 		}
+		if (App->ImGui_menu->GiantShpereRenderer == true && i >= 2) {
+			meshes[i]->Render();
+
+		}
 	}
+	
 
 	return UPDATE_CONTINUE;
 }

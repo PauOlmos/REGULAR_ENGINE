@@ -17,7 +17,7 @@ public:
 	int selectedP;
 	int selectedPP;
 	int selectedC;
-	int selectedType;
+	int selectedType = -1;
 	bool testing = false;
 	bool DrawGui(bool* p_open);
 	float FPSStart;
@@ -32,6 +32,7 @@ public:
 	bool active16_9 = false;
 
 	bool BakerHouseRenderer = true;
+	bool GiantShpereRenderer = false;
 	bool CubeRenderer = false;
 	bool CilindreRenderer = false;
 	bool PiramidRenderer = false;

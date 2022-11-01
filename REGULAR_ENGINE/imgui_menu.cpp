@@ -368,6 +368,8 @@ bool imgui_menu::DrawGui(bool* p_open)
             if (ImGui::CollapsingHeader("Create")) {
                 if (ImGui::Checkbox("Baker House Active", &BakerHouseRenderer)) {
                 }
+                if (ImGui::Checkbox("Giant Shpere Active", &GiantShpereRenderer)) {
+                }
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                 }
                 if (ImGui::Button("Generate Cube")) {

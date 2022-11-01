@@ -158,6 +158,11 @@ update_status ModuleCamera3D::Update(float dt)
 			newRef.y = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.y + 0.5;
 			newRef.z = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.z + 1.5;
 		}
+		if (App->ImGui_menu->selectedType == -1) {
+			newRef.x = 0;
+			newRef.y = 0;
+			newRef.z = 0;
+		}
 		if(dx != 0)
 		{
 			float DeltaX = (float)dx * Sensitivity;
