@@ -68,6 +68,8 @@ struct Cilindre {
 	const char* name[25];
 	vec3 positon;
 	vec3 scale;
+	float Totalscale;
+
 
 };
 

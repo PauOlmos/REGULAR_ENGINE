@@ -88,9 +88,6 @@ void ModuleLoadFBX::LoadFile(string file_path)
 	}
 }
 
-
-
-
 void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
