@@ -23,7 +23,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleSceneIntro* scene_intro;
-	imgui_menu* close_app;
+	imgui_menu* ImGui_menu;
 	ModuleOpenGL_Primitives* primitives1;
 	ModuleLoadFBX* loadFBX;
 	ModuleGameObjects* gameObjects;

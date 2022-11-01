@@ -129,7 +129,7 @@ bool imgui_menu::Start()
     return ret;
 }
 
-bool imgui_menu::KLK(bool* p_open)
+bool imgui_menu::DrawGui(bool* p_open)
 {
     //Button("Close");
     // Exceptionally add an extra assert here for people confused about initial Dear ImGui setup
@@ -198,16 +198,12 @@ bool imgui_menu::KLK(bool* p_open)
     if (unsaved_document)   window_flags |= ImGuiWindowFlags_UnsavedDocument;
     if (no_close)           p_open = NULL; // Don't pass our bool* to Begin
 
-    // We specify a default position/size in case there's no data in the .ini file.
-    // We only do it to make the demo applications a little more welcoming, but typically this isn't required.
     const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 650, main_viewport->WorkPos.y + 20), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-    // Main body of the Demo window starts here.
     
     if (!ImGui::Begin("Menu", p_open, window_flags))
     {
-        // Early out if the window is collapsed, as an optimization.
         ImGui::End();
         return true;
     }
@@ -373,24 +369,24 @@ bool imgui_menu::KLK(bool* p_open)
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                 }
                 if (ImGui::Button("Generate Cube")) {
-                    CreatePrimitives(0);
+                    App->primitives1->CreatePrimitives(0);
                 }
                 
                 if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
-                    CreatePrimitives(1);
+                    App->primitives1->CreatePrimitives(1);
 
                 }
                 if (ImGui::Checkbox("Plane", &PPlaneRenderer)) {
                 }
                 if (ImGui::Button("Generate Plane")) {
-                    CreatePrimitives(2);
+                    App->primitives1->CreatePrimitives(2);
                 }
                 if (ImGui::Checkbox("Cilindre", &CilindreRenderer)) {             
                 }
                 if (ImGui::Button("Generate Cilindre")) {
-                    CreatePrimitives(3);
+                    App->primitives1->CreatePrimitives(3);
                 }
             }
         }
@@ -398,14 +394,7 @@ bool imgui_menu::KLK(bool* p_open)
         
     }
 
-    // Most "big" widgets share a common width settings by default. See 'Demo->Layout->Widgets Width' for details.
-    // e.g. Use 2/3 of the space for widgets and 1/3 for labels (right align)
-    //ImGui::PushItemWidth(-ImGui::GetWindowWidth() * 0.35f);
-    // e.g. Leave a fixed amount of width for labels (by passing a negative value), the rest goes to widgets.
     ImGui::PushItemWidth(ImGui::GetFontSize() * -12);
-
-    // Menu Bar
-   
   
     // End of ShowDemoWindow()
     ImGui::PopItemWidth();
@@ -413,14 +402,12 @@ bool imgui_menu::KLK(bool* p_open)
     ImGui::Begin("Consola", p_open, ImGuiWindowFlags_MenuBar);
     Console::PrintDebug();
 
-        // Early out if the window is collapsed, as an optimization.
     ImGui::End();
     
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
     if (ImGui::CollapsingHeader("Inspector")) {
 
-        //App->renderer3D->io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        for (int i = 0; i < App->primitives1->numQuads; i++) {
+        for (int i = 0; i < App->gameObjects->numQuads; i++) {
 
             char buf[32];
             sprintf(buf, "Cube %d", i);
@@ -433,12 +420,12 @@ bool imgui_menu::KLK(bool* p_open)
                 selectedType = 0;
             }
             if (i == selectedQ) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->positon.x, App->primitives1->QuadList[i]->positon.y, App->primitives1->QuadList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->QuadList[i]->scale.x, App->primitives1->QuadList[i]->scale.y, App->primitives1->QuadList[i]->scale.z);
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->QuadList[i]->positon.x, App->gameObjects->QuadList[i]->positon.y, App->gameObjects->QuadList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->QuadList[i]->scale.x, App->gameObjects->QuadList[i]->scale.y, App->gameObjects->QuadList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
-        for (int i = 0; i < App->primitives1->numPyramides; i++) {
+        for (int i = 0; i < App->gameObjects->numPyramides; i++) {
 
             char buf[32];
             sprintf(buf, "Pyramide %d", i);
@@ -452,12 +439,12 @@ bool imgui_menu::KLK(bool* p_open)
 
             }
             if (i == selectedP) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->positon.x, App->primitives1->PyramideList[i]->positon.y, App->primitives1->PyramideList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PyramideList[i]->scale.x, App->primitives1->PyramideList[i]->scale.y, App->primitives1->PyramideList[i]->scale.z);
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PyramideList[i]->positon.x, App->gameObjects->PyramideList[i]->positon.y, App->gameObjects->PyramideList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PyramideList[i]->scale.x, App->gameObjects->PyramideList[i]->scale.y, App->gameObjects->PyramideList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
-        for (int i = 0; i < App->primitives1->numPPlanes; i++) {
+        for (int i = 0; i < App->gameObjects->numPPlanes; i++) {
 
             char buf[32];
             sprintf(buf, "Plane %d", i);
@@ -471,12 +458,12 @@ bool imgui_menu::KLK(bool* p_open)
 
             }
             if (i == selectedPP) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->positon.x, App->primitives1->PPlaneList[i]->positon.y, App->primitives1->PPlaneList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->PPlaneList[i]->scale.x, App->primitives1->PPlaneList[i]->scale.y, App->primitives1->PPlaneList[i]->scale.z);
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PPlaneList[i]->positon.x, App->gameObjects->PPlaneList[i]->positon.y, App->gameObjects->PPlaneList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PPlaneList[i]->scale.x, App->gameObjects->PPlaneList[i]->scale.y, App->gameObjects->PPlaneList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
-        for (int i = 0; i < App->primitives1->numCilindres; i++) {
+        for (int i = 0; i < App->gameObjects->numCilindres; i++) {
 
             char buf[32];
             sprintf(buf, "Cilindre %d", i);
@@ -490,14 +477,13 @@ bool imgui_menu::KLK(bool* p_open)
 
             }
             if (i == selectedC) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->primitives1->CilindreList[i]->positon.x, App->primitives1->CilindreList[i]->positon.y, App->primitives1->CilindreList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->primitives1->CilindreList[i]->scale.x, App->primitives1->CilindreList[i]->scale.y, App->primitives1->CilindreList[i]->scale.z);
+                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->CilindreList[i]->positon.x, App->gameObjects->CilindreList[i]->positon.y, App->gameObjects->CilindreList[i]->positon.z);
+                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->CilindreList[i]->scale.x, App->gameObjects->CilindreList[i]->scale.y, App->gameObjects->CilindreList[i]->scale.z);
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
     }
-    
-    // Early out if the window is collapsed, as an optimization.
+
     ImGui::End();
     
     return true;
@@ -568,25 +554,25 @@ void imgui_menu::HistogramMs()
     }
 }
 
-void imgui_menu::CreatePrimitives(int Type) {
+void ModuleOpenGL_Primitives::CreatePrimitives(int Type) {
     if (Type == 0) {
         Quad* Q = new Quad();
-        App->primitives1->QuadList.push_back(Q);
-        App->primitives1->numQuads++;
+        App->gameObjects->QuadList.push_back(Q);
+        App->gameObjects->numQuads++;
     }
     if (Type == 1) {
         Pyramide* P = new Pyramide();
-        App->primitives1->PyramideList.push_back(P);
-        App->primitives1->numPyramides++;
+        App->gameObjects->PyramideList.push_back(P);
+        App->gameObjects->numPyramides++;
     }
     if (Type == 2) {
         PPlane* PP = new PPlane();
-        App->primitives1->PPlaneList.push_back(PP);
-        App->primitives1->numPPlanes++;
+        App->gameObjects->PPlaneList.push_back(PP);
+        App->gameObjects->numPPlanes++;
     }
     if (Type == 3) {
         Cilindre* C = new Cilindre();
-        App->primitives1->CilindreList.push_back(C);
-        App->primitives1->numCilindres++;
+        App->gameObjects->CilindreList.push_back(C);
+        App->gameObjects->numCilindres++;
     }
 }

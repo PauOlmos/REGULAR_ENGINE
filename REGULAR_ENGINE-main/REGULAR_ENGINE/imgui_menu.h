@@ -19,8 +19,7 @@ public:
 	int selectedC;
 	int selectedType;
 	bool testing = false;
-	bool KLK(bool* p_open);
-	void CreatePrimitives(int Type);
+	bool DrawGui(bool* p_open);
 	float FPSStart;
 	float averageFps = 0.f;
 	float frameTicks = 0.f;

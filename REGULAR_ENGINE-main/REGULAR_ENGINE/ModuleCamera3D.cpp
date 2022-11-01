@@ -138,15 +138,15 @@ update_status ModuleCamera3D::Update(float dt)
 		int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
-		if (App->close_app->selectedType == 0) {
-			newRef.x = App->primitives1->QuadList[App->close_app->selectedQ]->positon.x + 0.5;
-			newRef.y = App->primitives1->QuadList[App->close_app->selectedQ]->positon.y + 0.5;
-			newRef.z = App->primitives1->QuadList[App->close_app->selectedQ]->positon.z + 0.5;
+		if (App->ImGui_menu->selectedType == 0) {
+			newRef.x = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.x + 0.5;
+			newRef.y = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.y + 0.5;
+			newRef.z = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.z + 0.5;
 		}
-		if (App->close_app->selectedType == 1) {
-			newRef.x = App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 1.5;
-			newRef.y = App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 0.5;
-			newRef.z = App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 1.5;
+		if (App->ImGui_menu->selectedType == 1) {
+			newRef.x = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 1.5;
+			newRef.y = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 0.5;
+			newRef.z = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 1.5;
 		}
 		if(dx != 0)
 		{
@@ -170,13 +170,13 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-		if (App->close_app->selectedType == 0) {
-			App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale = (App->primitives1->QuadList[App->close_app->selectedQ]->scale.x + App->primitives1->QuadList[App->close_app->selectedQ]->scale.y + App->primitives1->QuadList[App->close_app->selectedQ]->scale.z);
-			Position = newRef + Z * (4 + App->primitives1->QuadList[App->close_app->selectedQ]->Totalscale);
+		if (App->ImGui_menu->selectedType == 0) {
+			App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->Totalscale = (App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.x + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.y + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.z);
+			Position = newRef + Z * (4 + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->Totalscale);
 		}
-		if (App->close_app->selectedType == 1) {
-			App->primitives1->PyramideList[App->close_app->selectedP]->Totalscale = (App->primitives1->PyramideList[App->close_app->selectedP]->scale.x + App->primitives1->PyramideList[App->close_app->selectedP]->scale.y + App->primitives1->PyramideList[App->close_app->selectedP]->scale.z);
-			Position = newRef + Z * (4 + App->primitives1->PyramideList[App->close_app->selectedP]->Totalscale);
+		if (App->ImGui_menu->selectedType == 1) {
+			App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->Totalscale = (App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.x + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.y + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.z);
+			Position = newRef + Z * (4 + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->Totalscale);
 		}
 		
 		freeMovement = false;
@@ -186,18 +186,18 @@ update_status ModuleCamera3D::Update(float dt)
 		Look(Position, newRef);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		if (App->close_app->selectedType == 0) {
-			newRef.x = App->primitives1->QuadList[App->close_app->selectedQ]->positon.x + 1;
-			newRef.y = App->primitives1->QuadList[App->close_app->selectedQ]->positon.y + 2;
-			newRef.z = App->primitives1->QuadList[App->close_app->selectedQ]->positon.z + 4;
-			Look(newPos, App->primitives1->QuadList[App->close_app->selectedQ]->positon);
+		if (App->ImGui_menu->selectedType == 0) {
+			newRef.x = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.x + 1;
+			newRef.y = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.y + 2;
+			newRef.z = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.z + 4;
+			Look(newPos, App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon);
 			freeMovement = true;
 		}
-		if (App->close_app->selectedType == 1) {
-			newRef.x = App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 1;
-			newRef.y = App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 2;
-			newRef.z = App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 4;
-			Look(newPos, { App->primitives1->PyramideList[App->close_app->selectedP]->positon.x + 0.5f,App->primitives1->PyramideList[App->close_app->selectedP]->positon.y + 1,App->primitives1->PyramideList[App->close_app->selectedP]->positon.z + 1 });
+		if (App->ImGui_menu->selectedType == 1) {
+			newRef.x = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 1;
+			newRef.y = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 2;
+			newRef.z = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 4;
+			Look(newPos, { App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 0.5f,App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 1,App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 1 });
 			freeMovement = true;
 		}
 

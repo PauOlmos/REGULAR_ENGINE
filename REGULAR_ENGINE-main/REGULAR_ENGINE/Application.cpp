@@ -9,7 +9,7 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro(this);
 	primitives1 = new ModuleOpenGL_Primitives(this);
 	loadFBX = new ModuleLoadFBX(this);
-	close_app = new imgui_menu(this);
+	ImGui_menu = new imgui_menu(this);
 	gameObjects = new ModuleGameObjects(this);
 
 
@@ -21,7 +21,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(close_app);
+	AddModule(ImGui_menu);
 	AddModule(scene_intro);
 	AddModule(primitives1);
 	AddModule(loadFBX);

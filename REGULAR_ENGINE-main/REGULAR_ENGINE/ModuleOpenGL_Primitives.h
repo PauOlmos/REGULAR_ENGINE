@@ -81,28 +81,15 @@ public:
 	bool PostUpdate();
 	update_status Update(float dt);
 	bool PreUpdate();
-	void ModifyQuad();
-	void ModifyPyramide();
-	void ModifyPPlanes();
-	void ModifyCilindres();
+	void CreatePrimitives(int Type);
+
 	void DrawPrimitives();
-	bool CleanUp();
 
 	void DrawCube(Quad* Q);
 	void DrawPPlane(PPlane* PP);
 	void DrawPiramid(Pyramide* P);
 	void DrawCilindre(Cilindre* C, float radius, float leght);
-
-	int numQuads = 0;
-	int numPyramides = 0;
-	int numPPlanes = 0;
-	int numCilindres = 0;
-	vector<Quad*> QuadList;
-	vector<Pyramide*> PyramideList;
-	vector<PPlane*> PPlaneList;
-	vector<Cilindre*> CilindreList;
-	vec3 X, Y, Z;
-
+	bool CleanUp();
 
 	bool wireFrameView = false;
 	bool depthTest = false;
