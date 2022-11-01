@@ -201,6 +201,10 @@ update_status ModuleCamera3D::Update(float dt)
 			App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->Totalscale = (App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.x + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.y + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.z);
 			Position = newRef + Z * (4 + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->Totalscale);
 		}
+		if (App->ImGui_menu->selectedType == -1) {
+			
+			Position = newRef + Z * (6);
+		}
 		
 		freeMovement = false;
 	}
@@ -235,6 +239,13 @@ update_status ModuleCamera3D::Update(float dt)
 			newRef.y = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.y + 2;
 			newRef.z = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.z + 4;
 			Look(newPos, App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon);
+			freeMovement = true;
+		}
+		if (App->ImGui_menu->selectedType == -1) {
+			newRef.x = 1;
+			newRef.y =  2;
+			newRef.z =  4;
+			Look(newPos, {0,0,0});
 			freeMovement = true;
 		}
 
