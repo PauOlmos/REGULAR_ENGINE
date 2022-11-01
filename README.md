@@ -58,6 +58,5 @@ REGULAR ENGINE currently enables de user to create, destroy and modify different
 * Just Up Arrow: Scales the whole primitive.
 * Just Down Arrow: Reducts the whole primitive.
 * Supr: Deletes the current primitve.
-
-###EXTRA
+### EXTRA
 * ESC: Close the engine.
