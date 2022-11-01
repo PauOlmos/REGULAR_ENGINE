@@ -13,7 +13,7 @@ ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app,
 bool ModuleLoadFBX::Start()
 {
 	bool ret = true;
-	//LoadFile(file_path);
+	LoadFile("Assets/BakerHouse.fbx");
 	return ret;
 }
 
@@ -77,7 +77,6 @@ void ModuleLoadFBX::LoadFile(string file_path)
 					}
 				}
 
-
 				LoadMesh(mesh);
 			}
 			else {
@@ -110,8 +109,10 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 
 update_status ModuleLoadFBX::PostUpdate(float dt)
 {
-	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
+	if (App->ImGui_menu->BakerHouseRenderer == true) {
+		for (int i = 0; i < meshes.size(); i++) {
+			meshes[i]->Render();
+		}
 	}
 
 	return UPDATE_CONTINUE;

@@ -366,24 +366,26 @@ bool imgui_menu::DrawGui(bool* p_open)
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
             }
             if (ImGui::CollapsingHeader("Create")) {
+                if (ImGui::Checkbox("Baker House Active", &BakerHouseRenderer)) {
+                }
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                 }
                 if (ImGui::Button("Generate Cube")) {
                     App->primitives1->CreatePrimitives(0);
                 }
                 
-                if(ImGui::Checkbox("Piramid",&PiramidRenderer)) {
+                if(ImGui::Checkbox("Piramid Active",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
                     App->primitives1->CreatePrimitives(1);
 
                 }
-                if (ImGui::Checkbox("Plane", &PPlaneRenderer)) {
+                if (ImGui::Checkbox("Plane Active", &PPlaneRenderer)) {
                 }
                 if (ImGui::Button("Generate Plane")) {
                     App->primitives1->CreatePrimitives(2);
                 }
-                if (ImGui::Checkbox("Cilindre", &CilindreRenderer)) {             
+                if (ImGui::Checkbox("Cilindre Active", &CilindreRenderer)) {             
                 }
                 if (ImGui::Button("Generate Cilindre")) {
                     App->primitives1->CreatePrimitives(3);

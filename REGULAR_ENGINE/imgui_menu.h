@@ -31,6 +31,7 @@ public:
 	bool fullscreen = false;
 	bool active16_9 = false;
 
+	bool BakerHouseRenderer = true;
 	bool CubeRenderer = false;
 	bool CilindreRenderer = false;
 	bool PiramidRenderer = false;
