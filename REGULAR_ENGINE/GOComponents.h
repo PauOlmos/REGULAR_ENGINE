@@ -15,5 +15,4 @@ public:
 	Type KLK;
 	GameObject* MyFirstGO = nullptr;
 
-
 };

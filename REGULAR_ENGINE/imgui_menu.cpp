@@ -377,6 +377,9 @@ bool imgui_menu::DrawGui(bool* p_open)
                     if(firstGO != nullptr){
                         GameObject* child = new GameObject(App->ImGui_menu->firstGO);
                     }
+                    else {
+                        GameObject* child = new GameObject(rootGO);
+                    }
                 }
                 if (ImGui::Button("Generate Cube")) {
                 }
@@ -401,9 +404,10 @@ bool imgui_menu::DrawGui(bool* p_open)
     Console::PrintDebug();
 
     ImGui::End();
-    ImGui::Begin("Hierarchy", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
-
-    HierarchyTree(rootGO);
+    if (ImGui::Begin("Hierarchy", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar)) {
+        HierarchyTree(rootGO);
+    }
+    
 
 
     ImGui::End();

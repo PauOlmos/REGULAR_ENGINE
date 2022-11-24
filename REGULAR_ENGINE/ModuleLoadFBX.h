@@ -8,6 +8,8 @@
 #include <string>
 using namespace std;
 
+class GameObject;
+
 struct MyMesh {
 	MyMesh();
 	~MyMesh();
@@ -18,6 +20,7 @@ struct MyMesh {
 	uint id_vertices = 0; // unique vertex in VRAM
 	uint num_vertices = 0;
 	float* vertices = nullptr;
+	GameObject* meshK = nullptr;
 
 	void Render();
 };
@@ -29,7 +32,7 @@ public:
 	ModuleLoadFBX(Application* app, bool start_enabled = true);
 
 	bool Start();
-	void LoadFile(string file_path);
+	GameObject* LoadFile(string file_path);
 	void LoadMesh(MyMesh* mesh);
 	
 	update_status PostUpdate(float dt);

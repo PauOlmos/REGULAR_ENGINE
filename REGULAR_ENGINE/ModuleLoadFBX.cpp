@@ -4,6 +4,7 @@
 #include "scene.h"
 #include <vector>
 #include "Glew/include/glew.h"
+#include "Mesh.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
@@ -47,7 +48,7 @@ void MyMesh::Render()
 
 }
 
-void ModuleLoadFBX::LoadFile(string file_path)
+GameObject* ModuleLoadFBX::LoadFile(string file_path)
 {
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -78,8 +79,13 @@ void ModuleLoadFBX::LoadFile(string file_path)
 						memcpy(&mesh->indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
 					}
 				}
-
 				LoadMesh(mesh);
+				Meshes* component = new Meshes(GO);
+				mesh->meshK = GO;
+				component->Mesh = mesh;
+				if (GO->ComponentsList.size() == 1) {
+					GO->ComponentsList.push_back(component);
+				}
 			}
 			else {
 				delete mesh;
@@ -87,6 +93,7 @@ void ModuleLoadFBX::LoadFile(string file_path)
 		}
 
 		aiReleaseImport(scene);
+		return GO;
 	}
 }
 
@@ -109,17 +116,8 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 update_status ModuleLoadFBX::PostUpdate(float dt)
 {
 	for (int i = 0; i < meshes.size(); i++) {
-		if (App->ImGui_menu->BakerHouseRenderer == true && i < 2) {
-
-			meshes[i]->Render();
-		}
-		if (App->ImGui_menu->GiantShpereRenderer == true && i >= 2) {
-			meshes[i]->Render();
-
-		}
+		meshes[i]->Render();
 	}
-	
-
 	return UPDATE_CONTINUE;
 }
 bool ModuleLoadFBX::CleanUp()
