@@ -373,24 +373,24 @@ bool imgui_menu::DrawGui(bool* p_open)
                 if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
                 }
                 if (ImGui::Button("Generate Cube")) {
-                    App->primitives1->CreatePrimitives(0);
+
                 }
                 
                 if(ImGui::Checkbox("Piramid Active",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
-                    App->primitives1->CreatePrimitives(1);
+
 
                 }
                 if (ImGui::Checkbox("Plane Active", &PPlaneRenderer)) {
                 }
                 if (ImGui::Button("Generate Plane")) {
-                    App->primitives1->CreatePrimitives(2);
+
                 }
                 if (ImGui::Checkbox("Cilindre Active", &CilindreRenderer)) {             
                 }
                 if (ImGui::Button("Generate Cilindre")) {
-                    App->primitives1->CreatePrimitives(3);
+
                 }
             }
         }
@@ -409,7 +409,7 @@ bool imgui_menu::DrawGui(bool* p_open)
     ImGui::End();
     
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
-    if (ImGui::CollapsingHeader("Inspector")) {
+    /*if (ImGui::CollapsingHeader("Inspector")) {
 
         for (int i = 0; i < App->gameObjects->numQuads; i++) {
 
@@ -486,7 +486,7 @@ bool imgui_menu::DrawGui(bool* p_open)
                 ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
             }
         }
-    }
+    }*/
 
     ImGui::End();
     
@@ -558,25 +558,3 @@ void imgui_menu::HistogramMs()
     }
 }
 
-void ModuleOpenGL_Primitives::CreatePrimitives(int Type) {
-    if (Type == 0) {
-        Quad* Q = new Quad();
-        App->gameObjects->QuadList.push_back(Q);
-        App->gameObjects->numQuads++;
-    }
-    if (Type == 1) {
-        Pyramide* P = new Pyramide();
-        App->gameObjects->PyramideList.push_back(P);
-        App->gameObjects->numPyramides++;
-    }
-    if (Type == 2) {
-        PPlane* PP = new PPlane();
-        App->gameObjects->PPlaneList.push_back(PP);
-        App->gameObjects->numPPlanes++;
-    }
-    if (Type == 3) {
-        Cilindre* C = new Cilindre();
-        App->gameObjects->CilindreList.push_back(C);
-        App->gameObjects->numCilindres++;
-    }
-}

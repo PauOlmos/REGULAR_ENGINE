@@ -10,7 +10,6 @@ Application::Application()
 	primitives1 = new ModuleOpenGL_Primitives(this);
 	loadFBX = new ModuleLoadFBX(this);
 	ImGui_menu = new imgui_menu(this);
-	gameObjects = new ModuleGameObjects(this);
 
 
 	// The order of calls is very important!
@@ -25,7 +24,6 @@ Application::Application()
 	AddModule(scene_intro);
 	AddModule(primitives1);
 	AddModule(loadFBX);
-	AddModule(gameObjects);
 	// Renderer last!
 	AddModule(renderer3D);
 }

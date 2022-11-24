@@ -138,31 +138,11 @@ update_status ModuleCamera3D::Update(float dt)
 		int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
-		if (App->ImGui_menu->selectedType == 0) {
-			newRef.x = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.x + 0.5;
-			newRef.y = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.y + 0.5;
-			newRef.z = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.z + 0.5;
-		}
-		if (App->ImGui_menu->selectedType == 1) {
-			newRef.x = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 1.5;
-			newRef.y = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 0.5;
-			newRef.z = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 1.5;
-		}
-		if (App->ImGui_menu->selectedType == 2) {
-			newRef.x = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.x + 1.5;
-			newRef.y = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.y + 0.5;
-			newRef.z = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.z + 1.5;
-		}
-		if (App->ImGui_menu->selectedType == 3) {
-			newRef.x = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.x + 1.5;
-			newRef.y = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.y + 0.5;
-			newRef.z = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.z + 1.5;
-		}
-		if (App->ImGui_menu->selectedType == -1) {
-			newRef.x = 0;
-			newRef.y = 0;
-			newRef.z = 0;
-		}
+
+		newRef.x = 0;
+		newRef.y = 0;
+		newRef.z = 0;
+		
 		if(dx != 0)
 		{
 			float DeltaX = (float)dx * Sensitivity;
@@ -185,26 +165,10 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-		if (App->ImGui_menu->selectedType == 0) {
-			App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->Totalscale = (App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.x + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.y + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->scale.z);
-			Position = newRef + Z * (4 + App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->Totalscale);
-		}
-		if (App->ImGui_menu->selectedType == 1) {
-			App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->Totalscale = (App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.x + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.y + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->scale.z);
-			Position = newRef + Z * (4 + App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->Totalscale);
-		}
-		if (App->ImGui_menu->selectedType == 2) {
-			App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->Totalscale = (App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->scale.x + App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->scale.z);
-			Position = newRef + Z * (4 + App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->Totalscale);
-		}
-		if (App->ImGui_menu->selectedType == 3) {
-			App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->Totalscale = (App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.x + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.y + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->scale.z);
-			Position = newRef + Z * (4 + App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->Totalscale);
-		}
-		if (App->ImGui_menu->selectedType == -1) {
+		
 			
-			Position = newRef + Z * (6);
-		}
+		Position = newRef + Z * (6);
+		
 		
 		freeMovement = false;
 	}
@@ -213,41 +177,13 @@ update_status ModuleCamera3D::Update(float dt)
 		Look(Position, newRef);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		if (App->ImGui_menu->selectedType == 0) {
-			newRef.x = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.x + 1;
-			newRef.y = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.y + 2;
-			newRef.z = App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon.z + 4;
-			Look(newPos, App->gameObjects->QuadList[App->ImGui_menu->selectedQ]->positon);
-			freeMovement = true;
-		}
-		if (App->ImGui_menu->selectedType == 1) {
-			newRef.x = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 1;
-			newRef.y = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 2;
-			newRef.z = App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 4;
-			Look(newPos, { App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.x + 0.5f,App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.y + 1,App->gameObjects->PyramideList[App->ImGui_menu->selectedP]->positon.z + 1 });
-			freeMovement = true;
-		}
-		if (App->ImGui_menu->selectedType == 2) {
-			newRef.x = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.x + 1;
-			newRef.y = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.y + 2;
-			newRef.z = App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon.z + 4;
-			Look(newPos, App->gameObjects->PPlaneList[App->ImGui_menu->selectedPP]->positon);
-			freeMovement = true;
-		}
-		if (App->ImGui_menu->selectedType == 3) {
-			newRef.x = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.x + 1;
-			newRef.y = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.y + 2;
-			newRef.z = App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon.z + 4;
-			Look(newPos, App->gameObjects->CilindreList[App->ImGui_menu->selectedC]->positon);
-			freeMovement = true;
-		}
-		if (App->ImGui_menu->selectedType == -1) {
+		
 			newRef.x = 1;
 			newRef.y =  2;
 			newRef.z =  4;
 			Look(newPos, {0,0,0});
 			freeMovement = true;
-		}
+		
 
 	}
 
