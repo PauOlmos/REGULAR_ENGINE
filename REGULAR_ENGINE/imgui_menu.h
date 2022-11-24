@@ -1,8 +1,11 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "GameObjects.h"
+
 #include<vector>
 #include <imgui.h>
+
 class imgui_menu : public Module {
 public:
 	bool Start();
@@ -11,6 +14,7 @@ public:
 	~imgui_menu();
 	void HistogramFps();
 	void HistogramMs();
+	void HierarchyTree(GameObject* rootGO_);
 
 public:
 	int selectedQ;
@@ -57,6 +61,9 @@ public:
 
 	float WindowHeightInit;
 	float WindowWidthInit;
+
+	GameObject* rootGO = nullptr;
+	GameObject* firstGO = nullptr;
 
 private:
 

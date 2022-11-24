@@ -6,10 +6,6 @@ GameObject::GameObject()
 	parent = nullptr;
 }
 
-GameObject::~GameObject()
-{
-}
-
 GameObject::GameObject(GameObject* parent)
 {
 	name = "GameObjectKLK";
@@ -18,3 +14,9 @@ GameObject::GameObject(GameObject* parent)
 		parent->Children.push_back(this);
 	}
 }
+
+
+GameObject::~GameObject()
+{
+}
+

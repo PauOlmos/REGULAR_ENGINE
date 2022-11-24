@@ -53,6 +53,7 @@ void ModuleLoadFBX::LoadFile(string file_path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		GameObject* GO = new GameObject(App->ImGui_menu->rootGO);
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 			MyMesh* mesh = new MyMesh();

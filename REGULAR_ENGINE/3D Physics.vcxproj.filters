@@ -55,6 +55,9 @@
     <Filter Include="Sources\DevIL\include">
       <UniqueIdentifier>{c0eac45a-1cff-4cc3-addb-29be5fa0e9f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObject">
+      <UniqueIdentifier>{75a89786-b1b2-40f1-860b-3194c3ef3feb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -450,6 +453,15 @@
     <ClInclude Include="Console.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjects.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GOComponents.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -619,6 +631,15 @@
     </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GOComponents.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Sources\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

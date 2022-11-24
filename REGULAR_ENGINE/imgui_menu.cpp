@@ -123,6 +123,7 @@ bool imgui_menu::Start()
 {
     WindowHeight = App->window->height;
     WindowWidth = App->window->width;
+    rootGO = new GameObject();
     LOG(LogType::LOGS, "Setting up the camera");
     bool ret = true;
 
@@ -366,31 +367,24 @@ bool imgui_menu::DrawGui(bool* p_open)
                 ImGui::BulletText("System RAM %.1f Gb", RAM);
             }
             if (ImGui::CollapsingHeader("Create")) {
+
                 if (ImGui::Checkbox("Baker House Active", &BakerHouseRenderer)) {
                 }
                 if (ImGui::Checkbox("Giant Shpere Active", &GiantShpereRenderer)) {
                 }
-                if(ImGui::Checkbox("Cube Active",&CubeRenderer)) {
+
+                if (ImGui::Button("Generate Empty")) {
+                    if(firstGO != nullptr){
+                        GameObject* child = new GameObject(App->ImGui_menu->firstGO);
+                    }
                 }
                 if (ImGui::Button("Generate Cube")) {
-
-                }
-                
-                if(ImGui::Checkbox("Piramid Active",&PiramidRenderer)) {
                 }
                 if (ImGui::Button("Generate Pyramide")) {
-
-
-                }
-                if (ImGui::Checkbox("Plane Active", &PPlaneRenderer)) {
                 }
                 if (ImGui::Button("Generate Plane")) {
-
-                }
-                if (ImGui::Checkbox("Cilindre Active", &CilindreRenderer)) {             
                 }
                 if (ImGui::Button("Generate Cilindre")) {
-
                 }
             }
         }
@@ -407,8 +401,15 @@ bool imgui_menu::DrawGui(bool* p_open)
     Console::PrintDebug();
 
     ImGui::End();
-    
+    ImGui::Begin("Hierarchy", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
+
+    HierarchyTree(rootGO);
+
+
+    ImGui::End();
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
+    ImGui::End();
+
     /*if (ImGui::CollapsingHeader("Inspector")) {
 
         for (int i = 0; i < App->gameObjects->numQuads; i++) {
@@ -487,10 +488,39 @@ bool imgui_menu::DrawGui(bool* p_open)
             }
         }
     }*/
-
-    ImGui::End();
     
     return true;
+
+}
+
+void imgui_menu::HierarchyTree(GameObject* rootGO_) {
+
+    ImGuiTreeNodeFlags FlagsHT = ImGuiTreeNodeFlags_DefaultOpen;
+
+    if (rootGO_->Children.size() == 0) FlagsHT |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+
+    if (rootGO_ == firstGO)  FlagsHT |= ImGuiTreeNodeFlags_Selected;
+
+    bool openTree = ImGui::TreeNodeEx(rootGO_, FlagsHT, rootGO_->name.c_str());
+
+    if (openTree)
+    {
+        if (!rootGO_->Children.empty())
+        {
+            for (int i = 0; i < rootGO_->Children.size(); i++)
+            {
+                HierarchyTree(rootGO_->Children[i]);
+            }
+            ImGui::TreePop();
+        }
+        else  FlagsHT |= ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf;
+
+    }
+
+    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_->parent != nullptr)
+    {
+        firstGO = rootGO_;
+    }
 
 }
 
