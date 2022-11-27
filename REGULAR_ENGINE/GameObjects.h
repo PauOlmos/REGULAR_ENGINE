@@ -10,14 +10,16 @@ class Transform;
 class GameObject {
 public:
 	GameObject();
+	GameObject(GameObject* parent, string name);
 	~GameObject();
 	GameObject* parent;
 	vector<GameObject*> Children;
 	vector<Components*> ComponentsList;
 	string name;
 	Transform* transform;
+	Meshes* GOMesh;
 
-	GameObject(GameObject* parent, string name);
+	void CreateInspector();
 
 
 };

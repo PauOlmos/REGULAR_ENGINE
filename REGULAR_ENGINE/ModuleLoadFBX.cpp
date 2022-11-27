@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleLoadFBX.h"
+#include "Transform.h"
 #include "scene.h"
 #include "Glew/include/glew.h"
 #include "Mesh.h"
@@ -15,6 +16,8 @@ ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app,
 bool ModuleLoadFBX::Start()
 {
 	bool ret = true;
+	PrimitiveMesh = LoadFile("Assets/BakerHouse.fbx",Primitive_Type::LOADED, App->ImGui_menu->rootGO);
+
 	return ret;
 }
 
@@ -41,8 +44,12 @@ void MyMesh::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
+	glPushMatrix();
+	glMultMatrixf(&meshK->transform->transformationMatrix);
+
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
+	glPopMatrix();
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 }

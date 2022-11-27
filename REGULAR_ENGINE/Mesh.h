@@ -1,6 +1,9 @@
 #pragma once
+#include "Globals.h"
 #include "GOComponents.h"
 #include "GameObjects.h"
+#include "ModuleLoadFBX.h"
+#include "Mesh.h"
 
 class GameObject;
 class Components;
@@ -13,6 +16,6 @@ public:
 	Meshes(GameObject* GOMesh);
 
 	~Meshes();
-	GameObject* MeshGO;
+	void Inspector();
 	MyMesh* Mesh;
 };

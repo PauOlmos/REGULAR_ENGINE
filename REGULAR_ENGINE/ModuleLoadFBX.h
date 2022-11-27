@@ -4,16 +4,20 @@
 #include "cimport.h"
 #include "scene.h"
 #include "postprocess.h"
+#include "GOComponents.h"
 
 #include <string>
 using namespace std;
 
 class GameObject;
+class Transform;
+
 enum class Primitive_Type {
 	CUBE,CILINDRE,PYRAMIDE,PLANE,SPHERE,LOADED
 };
 
 struct MyMesh {
+
 	MyMesh();
 	~MyMesh();
 
@@ -47,6 +51,7 @@ public:
 	GameObject* PrimitivePyramideMesh = nullptr;
 	GameObject* PrimitiveCilindreMesh = nullptr;
 	GameObject* PrimitiveSphereMesh = nullptr;
+	
 
 private:
 	vector<MyMesh*> meshes;

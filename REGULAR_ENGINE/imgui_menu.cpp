@@ -9,6 +9,7 @@
 #endif
 #include "Globals.h"
 #include "GameObjects.h"
+#include "GOComponents.h"
 #include <string>
 #include "SDL/include/SDL_cpuinfo.h"
 #include "Timer.h"
@@ -425,9 +426,10 @@ bool imgui_menu::DrawGui(bool* p_open)
     }
 
     ImGui::End();
-    ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
-    ImGui::End();
-
+    if (firstGO != nullptr)
+    {
+        firstGO->CreateInspector();
+    }
     /*if (ImGui::CollapsingHeader("Inspector")) {
 
         for (int i = 0; i < App->gameObjects->numQuads; i++) {
@@ -606,17 +608,3 @@ void imgui_menu::HistogramMs()
         ImGui::PlotHistogram("##Milisecods", Miliseconds.data(), Miliseconds.size(), 0, NULL, 0.f, 80.f, ImVec2(310, 100));
     }
 }
-
-/*bool imgui_menu::CleanUp()
-{
-    if (App->ImGui_menu->firstGO->HasChildren == true) {
-        for (int i = 0; i < App->ImGui_menu->firstGO->Children.capacity(); i++) {
-            delete App->ImGui_menu->firstGO->Children[i];
-            App->ImGui_menu->firstGO->Children[i] = nullptr;
-        }
-    }
-    App->ImGui_menu->firstGO->Children.clear();
-
-    aiDetachAllLogStreams();
-    return true;
-}*/

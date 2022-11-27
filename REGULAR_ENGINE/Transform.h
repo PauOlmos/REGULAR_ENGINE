@@ -19,6 +19,10 @@ public:
 	Transform(GameObject* Transform);
 	~Transform();
 
+	void Inspector();
+
+	void Tranformation();
+
 	mat4x4 transformationMatrix = {
 		1, 0, 0, 0,
 		0, 1, 0, 0,

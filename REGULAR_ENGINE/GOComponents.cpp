@@ -13,3 +13,9 @@ Components::Components(GameObject* parent)
 Components::~Components()
 {
 }
+
+
+void Components::Inspector()
+{
+
+}

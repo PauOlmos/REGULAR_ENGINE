@@ -12,6 +12,8 @@ public:
 	
 	Components(GameObject* parent);
 	~Components();
+	virtual void Inspector();
+
 	Type KLK;
 	GameObject* MyFirstGO = nullptr;
 

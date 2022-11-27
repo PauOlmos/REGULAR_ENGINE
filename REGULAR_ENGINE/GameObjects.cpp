@@ -23,7 +23,35 @@ GameObject::GameObject(GameObject* parent, string name)
 	}
 }
 
+void GameObject::CreateInspector()
+{
+	if (ImGui::Begin("Inspector")) {
+		for (size_t i = 0; i < ComponentsList.size(); i++)
+		{
+			ComponentsList[i]->Inspector();
+		}
+	}
+	ImGui::End();
+}
+
 GameObject::~GameObject()
 {
+	if (parent != nullptr)
+	{
+		for (size_t i = 0; i < Children.size(); i++)
+		{
+			delete Children[i];
+			Children[i] = nullptr;
+		}
+	}
+
+	//transform = nullptr;
+	Children.clear();
+	for (size_t i = 0; i < ComponentsList.size(); i++)
+	{
+		delete ComponentsList[i];
+		ComponentsList[i] = nullptr;
+	}
+
 }
 
