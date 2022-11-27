@@ -375,19 +375,26 @@ bool imgui_menu::DrawGui(bool* p_open)
 
                 if (ImGui::Button("Generate Empty")) {
                     if(firstGO != nullptr){
-                        GameObject* child = new GameObject(App->ImGui_menu->firstGO);
+                        GameObject* child = new GameObject(App->ImGui_menu->firstGO, "Empty");
                     }
                     else {
-                        GameObject* child = new GameObject(rootGO);
+                        GameObject* child = new GameObject(rootGO, "Empty");
                     }
                 }
+                if (ImGui::Button("Generate Plane")) {
+                    App->loadFBX->CreatePrimitives(Primitive_Type::PLANE);
+                }
                 if (ImGui::Button("Generate Cube")) {
+                    App->loadFBX->CreatePrimitives(Primitive_Type::CUBE);
                 }
                 if (ImGui::Button("Generate Pyramide")) {
-                }
-                if (ImGui::Button("Generate Plane")) {
+                    App->loadFBX->CreatePrimitives(Primitive_Type::PYRAMIDE);
                 }
                 if (ImGui::Button("Generate Cilindre")) {
+                    App->loadFBX->CreatePrimitives(Primitive_Type::CILINDRE);
+                }
+                if (ImGui::Button("Generate Sphere")) {
+                    App->loadFBX->CreatePrimitives(Primitive_Type::SPHERE);
                 }
             }
         }
@@ -408,8 +415,6 @@ bool imgui_menu::DrawGui(bool* p_open)
         HierarchyTree(rootGO);
     }
     
-
-
     ImGui::End();
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
     ImGui::End();
@@ -525,7 +530,6 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
     {
         firstGO = rootGO_;
     }
-
 }
 
 void imgui_menu::HistogramFps()

@@ -98,8 +98,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 		case (SDL_DROPFILE):
 		{
-			//TODO: Change method name to duplicate on drop or something
-			App->loadFBX->LoadFile(e.drop.file);
+			App->loadFBX->LoadFile(e.drop.file,Primitive_Type::LOADED, App->ImGui_menu->rootGO);
 			SDL_free(e.drop.file);    // Free dropped_filedir memory
 			break;
 			SDL_EventState(SDL_DROPFILE, SDL_ENABLE); 

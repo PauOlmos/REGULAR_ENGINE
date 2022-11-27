@@ -2,9 +2,10 @@
 #include "Application.h"
 #include "ModuleLoadFBX.h"
 #include "scene.h"
-#include <vector>
 #include "Glew/include/glew.h"
 #include "Mesh.h"
+#include <vector>
+#include <string>
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
@@ -14,8 +15,6 @@ ModuleLoadFBX::ModuleLoadFBX(Application* app, bool start_enabled) : Module(app,
 bool ModuleLoadFBX::Start()
 {
 	bool ret = true;
-	LoadFile("Assets/BakerHouse.fbx");
-	LoadFile("Assets/GiantSphere.fbx");
 	return ret;
 }
 
@@ -48,13 +47,37 @@ void MyMesh::Render()
 
 }
 
-GameObject* ModuleLoadFBX::LoadFile(string file_path)
+GameObject* ModuleLoadFBX::LoadFile(string file_path, Primitive_Type TYPE, GameObject* thisRoot)
 {
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
-
+	GameObject* GO = nullptr;
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* GO = new GameObject(App->ImGui_menu->rootGO);
+		switch (TYPE)
+		{
+		case Primitive_Type::PLANE:
+			GO = new GameObject(thisRoot, "Plane");
+			break;
+		case Primitive_Type::CUBE:
+			GO = new GameObject(thisRoot, "Cube");
+
+			break;
+		case Primitive_Type::PYRAMIDE:
+			GO = new GameObject(thisRoot, "Pyramide");
+
+			break;
+		case Primitive_Type::CILINDRE:
+			GO = new GameObject(thisRoot, "Cilindre");
+
+			break;
+		case Primitive_Type::SPHERE:
+			GO = new GameObject(thisRoot, "Sphere");
+			break;
+		default:
+			GO = new GameObject(App->ImGui_menu->rootGO, "GameObject");
+			break;
+		}
+		
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 			MyMesh* mesh = new MyMesh();
@@ -91,10 +114,60 @@ GameObject* ModuleLoadFBX::LoadFile(string file_path)
 				delete mesh;
 			}
 		}
-
+		App->ImGui_menu->firstGO = App->ImGui_menu->rootGO;
 		aiReleaseImport(scene);
 		return GO;
 	}
+}
+
+
+GameObject* ModuleLoadFBX::CreatePrimitives(Primitive_Type TYPE)
+{
+	GameObject* child;
+	switch (TYPE)
+	{
+	case Primitive_Type::PLANE:
+		if (PrimitiveMesh != nullptr) {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Plane.fbx", Primitive_Type::PLANE, App->ImGui_menu->firstGO);
+		}
+		else{
+			PrimitiveMesh = LoadFile("Assets/Primitives/Plane.fbx", Primitive_Type::PLANE, App->ImGui_menu->rootGO);
+		}
+		break;
+	case Primitive_Type::CUBE:
+		if (PrimitiveMesh != nullptr) {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Cube.fbx", Primitive_Type::CUBE, App->ImGui_menu->firstGO);
+		}
+		else {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Cube.fbx", Primitive_Type::CUBE, App->ImGui_menu->rootGO);
+		}
+		break;	
+	case Primitive_Type::PYRAMIDE:
+		if (PrimitiveMesh != nullptr) {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Pyramide.fbx", Primitive_Type::PYRAMIDE, App->ImGui_menu->firstGO);
+		}
+		else {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Pyramide.fbx", Primitive_Type::PYRAMIDE, App->ImGui_menu->rootGO);
+		}
+		break;
+	case Primitive_Type::CILINDRE:
+		if (PrimitiveMesh != nullptr) {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Cilindre.fbx", Primitive_Type::CILINDRE, App->ImGui_menu->firstGO);
+		}
+		else {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Cilindre.fbx", Primitive_Type::CILINDRE, App->ImGui_menu->rootGO);
+		}
+		break;
+	case Primitive_Type::SPHERE:
+		if (PrimitiveMesh != nullptr) {
+			PrimitiveMesh = LoadFile("Assets/Primitives/Sphere.fbx", Primitive_Type::SPHERE, App->ImGui_menu->firstGO);
+		}
+		else{
+		PrimitiveMesh = LoadFile("Assets/Primitives/Sphere.fbx", Primitive_Type::SPHERE, App->ImGui_menu->rootGO);
+		}
+		break;
+	}
+	return nullptr;
 }
 
 void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {

@@ -10,9 +10,9 @@ GameObject::GameObject()
 
 }
 
-GameObject::GameObject(GameObject* parent)
+GameObject::GameObject(GameObject* parent, string name)
 {
-	name = "GameObjectKLK";
+	this->name = name;
 	this->parent = parent;
 	transform = new Transform(this);
 	ComponentsList.push_back(transform);

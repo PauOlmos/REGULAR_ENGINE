@@ -9,6 +9,9 @@
 using namespace std;
 
 class GameObject;
+enum class Primitive_Type {
+	CUBE,CILINDRE,PYRAMIDE,PLANE,SPHERE,LOADED
+};
 
 struct MyMesh {
 	MyMesh();
@@ -28,16 +31,22 @@ struct MyMesh {
 class ModuleLoadFBX : public Module
 {
 public:
-
 	ModuleLoadFBX(Application* app, bool start_enabled = true);
 
 	bool Start();
-	GameObject* LoadFile(string file_path);
+	GameObject* LoadFile(string file_path, Primitive_Type TYPE, GameObject* thisRoot);
+	GameObject* CreatePrimitives(Primitive_Type TYPE);
 	void LoadMesh(MyMesh* mesh);
 	
 	update_status PostUpdate(float dt);
 	//bool Init();
 	bool CleanUp();
+	GameObject* PrimitiveMesh = nullptr;
+	GameObject* PrimitivePlaneMesh = nullptr;
+	GameObject* PrimitiveCubeMesh = nullptr;
+	GameObject* PrimitivePyramideMesh = nullptr;
+	GameObject* PrimitiveCilindreMesh = nullptr;
+	GameObject* PrimitiveSphereMesh = nullptr;
 
 private:
 	vector<MyMesh*> meshes;

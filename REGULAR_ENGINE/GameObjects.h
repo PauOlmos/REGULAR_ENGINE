@@ -18,6 +18,6 @@ public:
 	string name;
 	Transform* transform;
 
-	GameObject(GameObject* parent);
+	GameObject(GameObject* parent, string name);
 
 };
