@@ -8,6 +8,7 @@
 #include <stdint.h>         // intptr_t
 #endif
 #include "Globals.h"
+#include "GameObjects.h"
 #include <string>
 #include "SDL/include/SDL_cpuinfo.h"
 #include "Timer.h"
@@ -375,7 +376,7 @@ bool imgui_menu::DrawGui(bool* p_open)
 
                 if (ImGui::Button("Generate Empty")) {
                     if(firstGO != nullptr){
-                        GameObject* child = new GameObject(App->ImGui_menu->firstGO, "Empty");
+                        GameObject* child = new GameObject(firstGO, "Empty");
                     }
                     else {
                         GameObject* child = new GameObject(rootGO, "Empty");
@@ -396,6 +397,10 @@ bool imgui_menu::DrawGui(bool* p_open)
                 if (ImGui::Button("Generate Sphere")) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::SPHERE);
                 }
+                
+                if (ImGui::Button("Delete GameObject")) {
+                    firstGO;
+                }
             }
         }
         
@@ -415,6 +420,10 @@ bool imgui_menu::DrawGui(bool* p_open)
         HierarchyTree(rootGO);
     }
     
+    if (!App->input->GetMouseButton(0)) {
+        released = true;
+    }
+
     ImGui::End();
     ImGui::Begin("Inspector", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
     ImGui::End();
@@ -503,7 +512,6 @@ bool imgui_menu::DrawGui(bool* p_open)
 }
 
 void imgui_menu::HierarchyTree(GameObject* rootGO_) {
-
     ImGuiTreeNodeFlags FlagsHT = ImGuiTreeNodeFlags_DefaultOpen;
 
     if (rootGO_->Children.size() == 0) FlagsHT |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
@@ -518,7 +526,9 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
         {
             for (int i = 0; i < rootGO_->Children.size(); i++)
             {
-                HierarchyTree(rootGO_->Children[i]);
+                if (rootGO_ != nullptr) {
+                    HierarchyTree(rootGO_->Children[i]);
+                }
             }
             ImGui::TreePop();
         }
@@ -526,8 +536,9 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
 
     }
 
-    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_->parent != nullptr)
+    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_->parent != nullptr && released == true)
     {
+        released = false;
         firstGO = rootGO_;
     }
 }
@@ -596,3 +607,16 @@ void imgui_menu::HistogramMs()
     }
 }
 
+/*bool imgui_menu::CleanUp()
+{
+    if (App->ImGui_menu->firstGO->HasChildren == true) {
+        for (int i = 0; i < App->ImGui_menu->firstGO->Children.capacity(); i++) {
+            delete App->ImGui_menu->firstGO->Children[i];
+            App->ImGui_menu->firstGO->Children[i] = nullptr;
+        }
+    }
+    App->ImGui_menu->firstGO->Children.clear();
+
+    aiDetachAllLogStreams();
+    return true;
+}*/

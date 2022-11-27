@@ -1,4 +1,6 @@
 #include "GameObjects.h"
+#include "Application.h"
+#include "imgui_menu.h"
 #include "Transform.h"
 
 GameObject::GameObject()
@@ -7,7 +9,6 @@ GameObject::GameObject()
 	parent = nullptr;
 	transform = new Transform(this);
 	ComponentsList.push_back(transform);
-
 }
 
 GameObject::GameObject(GameObject* parent, string name)
@@ -22,22 +23,7 @@ GameObject::GameObject(GameObject* parent, string name)
 	}
 }
 
-
 GameObject::~GameObject()
 {
-
-	name = nullptr;
-	this->parent = nullptr;
-
-	transform = nullptr;
-
-	for (size_t i = 0; i < Children.size(); i++)
-	{
-		delete Children[i];
-		Children[i] = nullptr;
-	}
-	ComponentsList.clear();
-
-
 }
 

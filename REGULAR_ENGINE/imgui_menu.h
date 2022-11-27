@@ -14,6 +14,7 @@ public:
 	~imgui_menu();
 	void HistogramFps();
 	void HistogramMs();
+	//bool CleanUp();
 	void HierarchyTree(GameObject* rootGO_);
 
 public:
@@ -58,6 +59,8 @@ public:
 	float WindowHeight;
 	float WindowWidth;
 	float WindowSize;
+
+	bool released = true;
 
 	float WindowHeightInit;
 	float WindowWidthInit;

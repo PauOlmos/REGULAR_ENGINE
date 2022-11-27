@@ -11,7 +11,6 @@ class GameObject {
 public:
 	GameObject();
 	~GameObject();
-
 	GameObject* parent;
 	vector<GameObject*> Children;
 	vector<Components*> ComponentsList;
@@ -19,5 +18,6 @@ public:
 	Transform* transform;
 
 	GameObject(GameObject* parent, string name);
+
 
 };
