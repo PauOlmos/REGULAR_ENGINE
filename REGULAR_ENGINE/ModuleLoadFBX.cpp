@@ -45,11 +45,14 @@ void MyMesh::Render()
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	glPushMatrix();
-	meshK->transform->transformationMatrix.translate(meshK->transform->position.x, meshK->transform->position.y, meshK->transform->position.z);
-	meshK->transform->transformationMatrix.scale(meshK->transform->scale.x, meshK->transform->scale.y, meshK->transform->scale.z);
+	
+
+
+	meshK->transform->transformationMatrix.translate(meshK->parent->transform->position.x + meshK->transform->position.x, meshK->parent->transform->position.y + meshK->transform->position.y, meshK->parent->transform->position.z + meshK->transform->position.z);
+	meshK->transform->transformationMatrix.scale(meshK->parent->transform->scale.x + meshK->transform->scale.x, meshK->parent->transform->scale.y + meshK->transform->scale.y, meshK->parent->transform->scale.z + meshK->transform->scale.z);
 	glMultMatrixf(&meshK->transform->transformationMatrix);
-	TransformChildren(meshK);
-	auxiliar = false;
+
+
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	glPopMatrix();
