@@ -29,6 +29,7 @@ struct MyMesh {
 	float* vertices = nullptr;
 	GameObject* meshK = nullptr;
 
+	bool auxiliar = false;
 	void Render();
 	void TransformChildren(GameObject* &parent);
 };
@@ -37,7 +38,6 @@ class ModuleLoadFBX : public Module
 {
 public:
 	ModuleLoadFBX(Application* app, bool start_enabled = true);
-
 	bool Start();
 	GameObject* LoadFile(string file_path, Primitive_Type TYPE, GameObject* thisRoot);
 	GameObject* CreatePrimitives(Primitive_Type TYPE);

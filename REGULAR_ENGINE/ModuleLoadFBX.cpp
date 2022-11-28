@@ -45,12 +45,11 @@ void MyMesh::Render()
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	glPushMatrix();
-
 	meshK->transform->transformationMatrix.translate(meshK->transform->position.x, meshK->transform->position.y, meshK->transform->position.z);
 	meshK->transform->transformationMatrix.scale(meshK->transform->scale.x, meshK->transform->scale.y, meshK->transform->scale.z);
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 	TransformChildren(meshK);
-
+	auxiliar = false;
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	glPopMatrix();
@@ -59,22 +58,26 @@ void MyMesh::Render()
 }
 void MyMesh::TransformChildren(GameObject* &parent)
 {
-	if (parent->Children.size() > 0) {
-		parent->transform->transformationMatrix.translate((parent->parent->transform->position.x + parent->transform->position.x), parent->parent->transform->position.y, parent->parent->transform->position.z);
-		parent->transform->transformationMatrix.scale(parent->parent->transform->scale.x, parent->parent->transform->scale.y, parent->parent->transform->scale.z);
+	if (parent->Children.size() > 0) { 
+		if (auxiliar == true) {
+			parent->transform->transformationMatrix.translate((parent->parent->transform->position.x + parent->transform->position.x)/2, parent->parent->transform->position.y, parent->parent->transform->position.z);
+			parent->transform->transformationMatrix.scale(parent->parent->transform->scale.x, parent->parent->transform->scale.y, parent->parent->transform->scale.z);
+			glMultMatrixf(&parent->transform->transformationMatrix);
 
-		glMultMatrixf(&parent->transform->transformationMatrix);
+		}
 		for (int i = 0; i < parent->Children.size(); i++) {
+			auxiliar = true;
 			TransformChildren(parent->Children[i]);
 		}
 		
 	}
 	else {
+
 		parent->transform->transformationMatrix.translate(parent->parent->transform->position.x, parent->parent->transform->position.y, parent->parent->transform->position.z);
 		parent->transform->transformationMatrix.scale(parent->parent->transform->scale.x, parent->parent->transform->scale.y, parent->parent->transform->scale.z);
+		glMultMatrixf(&parent->transform->transformationMatrix);
 
 	}
-	glMultMatrixf(&parent->transform->transformationMatrix);
 
 
 }
