@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include "Mesh.h"
 
 Transform::Transform() : Components(nullptr)
 {
@@ -29,10 +30,5 @@ void Transform::Inspector()
 
 void Transform::Tranformation()
 {
-
-	transformationMatrix.translate(position.x, position.y, position.z);
-
-
-	transformationMatrix.scale(scale.x, scale.y, scale.z);
 
 }

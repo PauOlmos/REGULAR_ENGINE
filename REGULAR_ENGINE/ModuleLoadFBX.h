@@ -30,6 +30,7 @@ struct MyMesh {
 	GameObject* meshK = nullptr;
 
 	void Render();
+	void TransformChildren(GameObject* &parent);
 };
 
 class ModuleLoadFBX : public Module

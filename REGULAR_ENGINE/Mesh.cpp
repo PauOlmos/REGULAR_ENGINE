@@ -7,8 +7,8 @@ Meshes::Meshes():Meshes(nullptr)
 
 Meshes::Meshes(GameObject* GOMesh) : Components(GOMesh)
 {
-	MyFirstGO = GOMesh;
 	Mesh = nullptr;
+	MyFirstGO = GOMesh;
 	KLK = Type::MESH;
 
 }

@@ -10,6 +10,7 @@
 
 class GameObject;
 class Components;
+struct MyMesh;
 class aiNode;
 
 class Transform : public Components
