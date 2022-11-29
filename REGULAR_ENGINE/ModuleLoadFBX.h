@@ -31,7 +31,6 @@ struct MyMesh {
 
 	bool auxiliar = false;
 	void Render();
-	void TransformChildren(GameObject* &parent);
 };
 
 class ModuleLoadFBX : public Module

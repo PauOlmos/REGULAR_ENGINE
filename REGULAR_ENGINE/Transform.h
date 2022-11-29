@@ -34,7 +34,7 @@ public:
 
 	vec3 position = { 0,0,0 };
 	vec3 scale = { 1,1,1 };
-	vec3 rotation = { 2,1,2 };
+	vec3 rotation = { 0,0,0.001 };
 
 	float angle = 180;
 

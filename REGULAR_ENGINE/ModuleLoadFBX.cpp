@@ -46,12 +46,20 @@ void MyMesh::Render()
 
 	glPushMatrix();
 	
-
-
 	meshK->transform->transformationMatrix.translate(meshK->parent->transform->position.x + meshK->transform->position.x, meshK->parent->transform->position.y + meshK->transform->position.y, meshK->parent->transform->position.z + meshK->transform->position.z);
+	glMultMatrixf(&meshK->transform->transformationMatrix);
+
 	meshK->transform->transformationMatrix.scale(meshK->parent->transform->scale.x + meshK->transform->scale.x, meshK->parent->transform->scale.y + meshK->transform->scale.y, meshK->parent->transform->scale.z + meshK->transform->scale.z);
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 
+	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.x + meshK->parent->transform->rotation.x, meshK->transform->rotation);
+	glMultMatrixf(&meshK->transform->transformationMatrix);
+
+	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.y + meshK->parent->transform->rotation.y, meshK->transform->rotation);
+	glMultMatrixf(&meshK->transform->transformationMatrix);
+
+	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.z + meshK->parent->transform->rotation.z, meshK->transform->rotation);
+	glMultMatrixf(&meshK->transform->transformationMatrix);
 
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
@@ -59,31 +67,7 @@ void MyMesh::Render()
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 }
-void MyMesh::TransformChildren(GameObject* &parent)
-{
-	if (parent->Children.size() > 0) { 
-		if (auxiliar == true) {
-			parent->transform->transformationMatrix.translate((parent->parent->transform->position.x + parent->transform->position.x)/2, parent->parent->transform->position.y, parent->parent->transform->position.z);
-			parent->transform->transformationMatrix.scale(parent->parent->transform->scale.x, parent->parent->transform->scale.y, parent->parent->transform->scale.z);
-			glMultMatrixf(&parent->transform->transformationMatrix);
 
-		}
-		for (int i = 0; i < parent->Children.size(); i++) {
-			auxiliar = true;
-			TransformChildren(parent->Children[i]);
-		}
-		
-	}
-	else {
-
-		parent->transform->transformationMatrix.translate(parent->parent->transform->position.x, parent->parent->transform->position.y, parent->parent->transform->position.z);
-		parent->transform->transformationMatrix.scale(parent->parent->transform->scale.x, parent->parent->transform->scale.y, parent->parent->transform->scale.z);
-		glMultMatrixf(&parent->transform->transformationMatrix);
-
-	}
-
-
-}
 GameObject* ModuleLoadFBX::LoadFile(string file_path, Primitive_Type TYPE, GameObject* thisRoot)
 {
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
