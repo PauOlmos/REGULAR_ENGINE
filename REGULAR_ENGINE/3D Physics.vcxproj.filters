@@ -58,6 +58,9 @@
     <Filter Include="Sources\GameObject">
       <UniqueIdentifier>{75a89786-b1b2-40f1-860b-3194c3ef3feb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\PhysFS">
+      <UniqueIdentifier>{f4331944-f912-4639-a6b0-f66a86f427e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -464,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysFS\include\physfs.h">
+      <Filter>Sources\PhysFS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

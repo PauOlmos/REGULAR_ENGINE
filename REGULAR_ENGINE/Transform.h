@@ -16,6 +16,7 @@ class aiNode;
 class Transform : public Components
 {
 public:
+
 	Transform();
 	Transform(GameObject* Transform);
 	~Transform();

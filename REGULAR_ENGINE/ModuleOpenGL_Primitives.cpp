@@ -32,7 +32,6 @@ bool ModuleOpenGL_Primitives::Start()
 {
     LOG(LogType::LOGS, "Loading Intro assets");
     bool ret = true;
-
     return ret;
 }
 
