@@ -68,6 +68,8 @@ public:
 	GameObject* rootGO = nullptr;
 	GameObject* firstGO = nullptr;
 
+	bool movingGO = false;
+	int klk = -1;
 private:
 
 	std::vector<float> FPS;

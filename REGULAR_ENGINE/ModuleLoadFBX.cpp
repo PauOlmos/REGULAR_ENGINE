@@ -60,7 +60,7 @@ void MyMesh::Render()
 
 	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.z + meshK->parent->transform->rotation.z, meshK->transform->rotation);
 	glMultMatrixf(&meshK->transform->transformationMatrix);
-
+	
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	glPopMatrix();

@@ -424,91 +424,11 @@ bool imgui_menu::DrawGui(bool* p_open)
     if (!App->input->GetMouseButton(0)) {
         released = true;
     }
-
     ImGui::End();
-    if (firstGO != nullptr)
+    if (firstGO != nullptr && firstGO->parent != nullptr)
     {
         firstGO->CreateInspector();
     }
-    /*if (ImGui::CollapsingHeader("Inspector")) {
-
-        for (int i = 0; i < App->gameObjects->numQuads; i++) {
-
-            char buf[32];
-            sprintf(buf, "Cube %d", i);
-
-            if (ImGui::Selectable(buf, i == selectedQ, 0)) {
-                selectedQ = i;
-                selectedP = -1;
-                selectedPP = -1;
-                selectedC = -1;
-                selectedType = 0;
-            }
-            if (i == selectedQ) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->QuadList[i]->positon.x, App->gameObjects->QuadList[i]->positon.y, App->gameObjects->QuadList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->QuadList[i]->scale.x, App->gameObjects->QuadList[i]->scale.y, App->gameObjects->QuadList[i]->scale.z);
-                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-            }
-        }
-        for (int i = 0; i < App->gameObjects->numPyramides; i++) {
-
-            char buf[32];
-            sprintf(buf, "Pyramide %d", i);
-
-            if (ImGui::Selectable(buf, i == selectedP, 0)) {
-                selectedP = i;
-                selectedQ = -1;
-                selectedPP = -1;
-                selectedC = -1;
-                selectedType = 1;
-
-            }
-            if (i == selectedP) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PyramideList[i]->positon.x, App->gameObjects->PyramideList[i]->positon.y, App->gameObjects->PyramideList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PyramideList[i]->scale.x, App->gameObjects->PyramideList[i]->scale.y, App->gameObjects->PyramideList[i]->scale.z);
-                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-            }
-        }
-        for (int i = 0; i < App->gameObjects->numPPlanes; i++) {
-
-            char buf[32];
-            sprintf(buf, "Plane %d", i);
-
-            if (ImGui::Selectable(buf, i == selectedPP, 0)) {
-                selectedPP = i;
-                selectedQ = -1;
-                selectedC = -1;
-                selectedP = -1;
-                selectedType = 2;
-
-            }
-            if (i == selectedPP) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PPlaneList[i]->positon.x, App->gameObjects->PPlaneList[i]->positon.y, App->gameObjects->PPlaneList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->PPlaneList[i]->scale.x, App->gameObjects->PPlaneList[i]->scale.y, App->gameObjects->PPlaneList[i]->scale.z);
-                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-            }
-        }
-        for (int i = 0; i < App->gameObjects->numCilindres; i++) {
-
-            char buf[32];
-            sprintf(buf, "Cilindre %d", i);
-
-            if (ImGui::Selectable(buf, i == selectedC, 0)) {
-                selectedC = i;
-                selectedQ = -1;
-                selectedP = -1;
-                selectedPP = -1;
-                selectedType = 3;
-
-            }
-            if (i == selectedC) {
-                ImGui::BulletText("Transform:   x: %.3f     y: %.3f     z: %.3f", App->gameObjects->CilindreList[i]->positon.x, App->gameObjects->CilindreList[i]->positon.y, App->gameObjects->CilindreList[i]->positon.z);
-                ImGui::BulletText("Scale:       x: %.3f     y: %.3f     z: %.3f", App->gameObjects->CilindreList[i]->scale.x, App->gameObjects->CilindreList[i]->scale.y, App->gameObjects->CilindreList[i]->scale.z);
-                ImGui::BulletText("Rotation:    x: 0.000    y: 0.000    z: 0.000");
-            }
-        }
-    }*/
-    
     return true;
 
 }
@@ -522,15 +442,18 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
 
     bool openTree = ImGui::TreeNodeEx(rootGO_, FlagsHT, rootGO_->name.c_str());
 
+   
     if (openTree)
     {
         if (!rootGO_->Children.empty())
         {
             for (int i = 0; i < rootGO_->Children.size(); i++)
             {
+               
                 if (rootGO_ != nullptr) {
                     HierarchyTree(rootGO_->Children[i]);
                 }
+
             }
             ImGui::TreePop();
         }
@@ -542,7 +465,33 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
     {
         released = false;
         firstGO = rootGO_;
+
     }
+
+    if (ImGui::IsItemHovered() && rootGO_ != rootGO && ImGui::IsMouseReleased(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_ != firstGO && firstGO != nullptr && rootGO_ != firstGO->parent) {
+        //rootGO_ al que estic movent dins
+        //firstGO el que estic movent a
+        for (int i = 0; i < firstGO->parent->Children.size(); i++) {
+            if (firstGO == firstGO->parent->Children[i]) {
+                klk = i;
+            }
+        }
+
+        rootGO_->Children.push_back(firstGO);
+
+        for (int i = klk; i < firstGO->parent->Children.size() - 1; i++)
+        {
+
+            firstGO->parent->Children[i] = firstGO->parent->Children[i + 1];
+
+        }
+        firstGO->parent = rootGO_;
+
+        rootGO_->parent->Children.pop_back();
+
+    }
+
+
 }
 
 void imgui_menu::HistogramFps()
