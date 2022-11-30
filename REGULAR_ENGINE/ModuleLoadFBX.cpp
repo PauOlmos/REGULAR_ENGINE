@@ -45,20 +45,48 @@ void MyMesh::Render()
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	glPushMatrix();
-	
-	meshK->transform->transformationMatrix.translate(meshK->parent->transform->position.x + meshK->transform->position.x, meshK->parent->transform->position.y + meshK->transform->position.y, meshK->parent->transform->position.z + meshK->transform->position.z);
+	if (meshK->parent != nullptr) {
+		meshK->transform->transformationMatrix.translate(meshK->parent->transform->position.x + meshK->transform->position.x, meshK->parent->transform->position.y + meshK->transform->position.y, meshK->parent->transform->position.z + meshK->transform->position.z);
+	}
+	else {
+		meshK->transform->transformationMatrix.translate(meshK->transform->position.x, meshK->transform->position.y,meshK->transform->position.z);
+
+	}
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 
-	meshK->transform->transformationMatrix.scale(meshK->parent->transform->scale.x + meshK->transform->scale.x, meshK->parent->transform->scale.y + meshK->transform->scale.y, meshK->parent->transform->scale.z + meshK->transform->scale.z);
+	if (meshK->parent != nullptr) {
+		meshK->transform->transformationMatrix.scale(meshK->parent->transform->scale.x + meshK->transform->scale.x, meshK->parent->transform->scale.y + meshK->transform->scale.y, meshK->parent->transform->scale.z + meshK->transform->scale.z);
+	}
+	else {
+		meshK->transform->transformationMatrix.scale(meshK->transform->scale.x,meshK->transform->scale.y,meshK->transform->scale.z);
+
+	}
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 
-	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.x + meshK->parent->transform->rotation.x, meshK->transform->rotation);
+	if (meshK->parent != nullptr) {
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.x + meshK->parent->transform->rotation.x, meshK->transform->rotation);
+	}
+	else {
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.x, meshK->transform->rotation);
+	}
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 
-	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.y + meshK->parent->transform->rotation.y, meshK->transform->rotation);
+	if (meshK->parent != nullptr) {
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.y + meshK->parent->transform->rotation.y, meshK->transform->rotation);
+	}
+	else {
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.y , meshK->transform->rotation);
+
+	}
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 
-	meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.z + meshK->parent->transform->rotation.z, meshK->transform->rotation);
+	if (meshK->parent != nullptr)
+	{
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.z + meshK->parent->transform->rotation.z, meshK->transform->rotation);
+	}
+	else {
+		meshK->transform->transformationMatrix.rotate(meshK->transform->rotation.z, meshK->transform->rotation);
+	}
 	glMultMatrixf(&meshK->transform->transformationMatrix);
 	
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);

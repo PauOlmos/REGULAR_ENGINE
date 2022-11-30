@@ -25,6 +25,7 @@ public:
 	int selectedType = -1;
 	bool testing = false;
 	bool DrawGui(bool* p_open);
+	void DeleteGO(GameObject* deleting);
 	float FPSStart;
 	float averageFps = 0.f;
 	float frameTicks = 0.f;
@@ -67,6 +68,8 @@ public:
 
 	GameObject* rootGO = nullptr;
 	GameObject* firstGO = nullptr;
+
+	bool deleteGameObjects = false;
 
 	bool movingGO = false;
 	int klk = -1;

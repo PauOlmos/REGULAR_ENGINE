@@ -370,12 +370,7 @@ bool imgui_menu::DrawGui(bool* p_open)
             }
             if (ImGui::CollapsingHeader("Create")) {
 
-                if (ImGui::Checkbox("Baker House Active", &BakerHouseRenderer)) {
-                }
-                if (ImGui::Checkbox("Giant Shpere Active", &GiantShpereRenderer)) {
-                }
-
-                if (ImGui::Button("Generate Empty")) {
+                if (ImGui::Button("Generate Empty") && firstGO != nullptr) {
                     if(firstGO != nullptr){
                         GameObject* child = new GameObject(firstGO, "Empty");
                     }
@@ -383,29 +378,40 @@ bool imgui_menu::DrawGui(bool* p_open)
                         GameObject* child = new GameObject(rootGO, "Empty");
                     }
                 }
-                if (ImGui::Button("Generate Plane")) {
+                if (ImGui::Button("Generate Plane") && firstGO != nullptr) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::PLANE);
                 }
-                if (ImGui::Button("Generate Cube")) {
+                if (ImGui::Button("Generate Cube") && firstGO != nullptr) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::CUBE);
                 }
-                if (ImGui::Button("Generate Pyramide")) {
+                if (ImGui::Button("Generate Pyramide") && firstGO != nullptr) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::PYRAMIDE);
                 }
-                if (ImGui::Button("Generate Cilindre")) {
+                if (ImGui::Button("Generate Cilindre") && firstGO != nullptr) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::CILINDRE);
                 }
-                if (ImGui::Button("Generate Sphere")) {
+                if (ImGui::Button("Generate Sphere") && firstGO != nullptr) {
                     App->loadFBX->CreatePrimitives(Primitive_Type::SPHERE);
                 }
                 
-                if (ImGui::Button("Delete GameObject")) {
-                    firstGO;
+                if ((ImGui::Button("Delete GameObject") || App->input->GetKey(SDL_SCANCODE_DELETE)) && firstGO != rootGO && firstGO != nullptr) {
+                    
+                        /*for (int i = 0; i < firstGO->parent->Children.size(); i++) {
+                            if (firstGO == firstGO->parent->Children[i]) {
+                                klk = i;
+                            }
+                        }
+                        for (int i = klk; i < firstGO->parent->Children.size() - 1; i++)
+                        {
+                            firstGO->parent->Children[i] = firstGO->parent->Children[i + 1];
+                        }
+                        DeleteGO(firstGO);
+                        firstGO->~GameObject();
+                        firstGO->parent->Children.pop_back();
+                        firstGO = nullptr;*/
                 }
             }
         }
-        
-        
     }
 
     ImGui::PushItemWidth(ImGui::GetFontSize() * -12);
@@ -432,7 +438,16 @@ bool imgui_menu::DrawGui(bool* p_open)
     return true;
 
 }
-
+void imgui_menu::DeleteGO(GameObject* deleting) {
+    if (!deleting->Children.empty()) {
+        for (int i = 0; i < deleting->Children.size(); i++) {
+            DeleteGO(deleting->Children[i]);
+        }
+    }
+    else {
+        deleting->~GameObject();
+    }
+}
 void imgui_menu::HierarchyTree(GameObject* rootGO_) {
     ImGuiTreeNodeFlags FlagsHT = ImGuiTreeNodeFlags_DefaultOpen;
 
@@ -461,7 +476,7 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
 
     }
 
-    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_->parent != nullptr && released == true)
+    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left) && released == true)
     {
         released = false;
         firstGO = rootGO_;
@@ -471,26 +486,28 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
     if (ImGui::IsItemHovered() && rootGO_ != rootGO && ImGui::IsMouseReleased(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_ != firstGO && firstGO != nullptr && rootGO_ != firstGO->parent) {
         //rootGO_ al que estic movent dins
         //firstGO el que estic movent a
-        for (int i = 0; i < firstGO->parent->Children.size(); i++) {
-            if (firstGO == firstGO->parent->Children[i]) {
-                klk = i;
+        if (firstGO->parent != nullptr) {
+
+            for (int i = 0; i < firstGO->parent->Children.size(); i++) {
+                if (firstGO == firstGO->parent->Children[i]) {
+                    klk = i;
+                }
             }
+
+            rootGO_->Children.push_back(firstGO);
+
+            for (int i = klk; i < firstGO->parent->Children.size() - 1; i++)
+            {
+
+                firstGO->parent->Children[i] = firstGO->parent->Children[i + 1];
+
+            }
+            firstGO->parent = rootGO_;
+
+            rootGO_->parent->Children.pop_back();
+
         }
-
-        rootGO_->Children.push_back(firstGO);
-
-        for (int i = klk; i < firstGO->parent->Children.size() - 1; i++)
-        {
-
-            firstGO->parent->Children[i] = firstGO->parent->Children[i + 1];
-
-        }
-        firstGO->parent = rootGO_;
-
-        rootGO_->parent->Children.pop_back();
-
     }
-
 
 }
 
