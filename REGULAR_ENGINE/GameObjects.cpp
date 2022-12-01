@@ -20,7 +20,6 @@ GameObject::GameObject(GameObject* parent, string name)
 	GOCam = new Camera(this);
 	ComponentsList.push_back(transform);
 	ComponentsList.push_back(GOCam);
-
 	if (parent != nullptr) {
 		parent->Children.push_back(this);
 	}

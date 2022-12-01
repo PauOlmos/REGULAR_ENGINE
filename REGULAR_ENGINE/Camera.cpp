@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL_events.h"
+#include "imgui_menu.h"
 
 Camera::Camera() :Camera(nullptr)
 {
@@ -12,6 +13,7 @@ Camera::Camera(GameObject* GOCamera) : Components(GOCamera)
 {
 	MyFirstGO = GOCamera;
 	KLK = Type::CAMERA;
+	MyCamera* cameraGO = new MyCamera();
 
 }
 
@@ -43,7 +45,6 @@ bool MyCamera::Start()
 
 update_status MyCamera::Update(float dt)
 {
-
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 	SDL_Event e;
@@ -239,7 +240,6 @@ float* MyCamera::GetViewMatrix()
 
 void MyCamera::CalculateViewMatrices()
 {
-
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
 

@@ -10,15 +10,6 @@
 class GameObject;
 class Components;
 
-class Camera : public Components {
-public:
-
-	Camera();
-	Camera(GameObject* GOCamera);
-
-	~Camera();
-	//MyCamera* cameraGO;
-};
 
 struct MyCamera {
 
@@ -36,7 +27,7 @@ struct MyCamera {
 	void Move(const vec3& Movement);
 	float* GetViewMatrix();
 	float zoomSensitivity = 5.0f;
-private:
+public:
 
 	void CalculateViewMatrices();
 
@@ -47,6 +38,17 @@ public:
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+};
+
+
+class Camera : public Components {
+public:
+
+	Camera();
+	Camera(GameObject* GOCamera);
+
+	~Camera();
+	MyCamera* cameraGO;
 };
 
 
