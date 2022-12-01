@@ -26,6 +26,11 @@ GameObject::GameObject(GameObject* parent, string name)
 void GameObject::CreateInspector()
 {
 	if (ImGui::Begin("Inspector")) {
+		ImGui::InputText("Name", namer, IM_ARRAYSIZE(namer), ImGuiInputTextFlags_EnterReturnsTrue);
+
+		if (ImGui::IsKeyDown(ImGuiKey_Enter)) {
+			name = namer;
+		}
 		for (size_t i = 0; i < ComponentsList.size(); i++)
 		{
 			ComponentsList[i]->Inspector();

@@ -15,6 +15,7 @@ public:
 	GameObject* parent;
 	vector<GameObject*> Children;
 	vector<Components*> ComponentsList;
+	char namer[100] = "";
 	string name;
 	Transform* transform;
 	Meshes* GOMesh;
