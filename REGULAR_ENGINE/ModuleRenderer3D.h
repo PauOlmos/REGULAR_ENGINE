@@ -21,10 +21,11 @@ public:
 	bool CleanUp();
 	bool showMenu = false;
 	void OnResize(int width, int height);
+	
 	unsigned int cameraBuffer;
-
 	unsigned int frameBuffer;
 	unsigned int bufferObj;
+	
 public:
 	ImGuiIO* io = nullptr;
 	Light lights[MAX_LIGHTS];

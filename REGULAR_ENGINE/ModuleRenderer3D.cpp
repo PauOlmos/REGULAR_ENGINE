@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleLoadFBX.h"
+#include "imgui_menu.h"
+#include "Camera.h"
 #include "Glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "Primitive.h"
@@ -38,8 +40,6 @@ bool ModuleRenderer3D::Init()
 {
 	LOG(LogType::LOGS, "Creating 3D Renderer context");
 	bool ret = true;
-
-
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -205,9 +205,21 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	ImGui::End();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, cameraBuffer);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	if (App->ImGui_menu->released == false) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(App->ImGui_menu->firstGO->GOCam->cameraGO->GetViewMatrix());
+		glBindFramebuffer(GL_FRAMEBUFFER, App->ImGui_menu->firstGO->GOCam->cameraGO->frameBuffer2);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	}
+	else {
+		glBindFramebuffer(GL_FRAMEBUFFER, cameraBuffer);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	}
+
+
 	return UPDATE_CONTINUE;
 }
 

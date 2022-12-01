@@ -3,6 +3,8 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL_events.h"
 #include "imgui_menu.h"
+#include "ModuleRenderer3D.h"
+#include <glew.h>
 
 Camera::Camera() :Camera(nullptr)
 {
@@ -24,6 +26,31 @@ Camera::~Camera()
 
 MyCamera::MyCamera()
 {
+
+	glGenFramebuffers(1, &frameBuffer2);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer2);
+
+	glGenTextures(1, &cameraBuffer2);
+	glBindTexture(GL_TEXTURE_2D, cameraBuffer2);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer2, 0);
+
+	glGenRenderbuffers(1, &bufferObj2);
+	glBindRenderbuffer(GL_RENDERBUFFER, bufferObj2);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, bufferObj2);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
 	CalculateViewMatrices();
 
 	X = vec3(1.0f, 0.0f, 0.0f);
@@ -40,6 +67,7 @@ MyCamera::~MyCamera()
 
 bool MyCamera::Start()
 {
+
 	return false;
 }
 
@@ -227,15 +255,27 @@ void MyCamera::Look(const vec3& Position, const vec3& Reference, bool RotateArou
 
 void MyCamera::LookAt(const vec3& Spot)
 {
+
+	Reference = Spot;
+
+	Z = normalize(Position - Reference);
+	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+	Y = cross(Z, X);
+
+	CalculateViewMatrices();
 }
 
 void MyCamera::Move(const vec3& Movement)
 {
+	Position += Movement;
+	Reference += Movement;
+
+	CalculateViewMatrices();
 }
 
 float* MyCamera::GetViewMatrix()
 {
-	return nullptr;
+	return &ViewMatrix;
 }
 
 void MyCamera::CalculateViewMatrices()

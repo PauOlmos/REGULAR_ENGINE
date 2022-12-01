@@ -12,6 +12,7 @@ class Components;
 
 
 struct MyCamera {
+public:
 
 	MyCamera();
 	~MyCamera();
@@ -27,6 +28,7 @@ struct MyCamera {
 	void Move(const vec3& Movement);
 	float* GetViewMatrix();
 	float zoomSensitivity = 5.0f;
+
 public:
 
 	void CalculateViewMatrices();
@@ -35,9 +37,11 @@ public:
 
 	vec3 X, Y, Z, Position, Reference;
 
-private:
-
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+
+	unsigned int cameraBuffer2;
+	unsigned int frameBuffer2;
+	unsigned int bufferObj2;
 };
 
 

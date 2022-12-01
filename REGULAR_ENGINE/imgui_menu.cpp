@@ -19,6 +19,7 @@
 #include "imgui_menu.h"
 #include "Console.h"
 #include "ModuleOpenGL_Primitives.h"
+#include <glew.h>
 #include <gl/GL.h>
 #include <ctype.h>          // toupper
 #include <limits.h>         // INT_MIN, INT_MAX
@@ -482,10 +483,15 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
     {
         released = false;
         firstGO = rootGO_;
-        firstGO->GOCam->cameraGO = new MyCamera();
-        firstGO->GOCam->cameraGO->Position.x += firstGO->transform->position.x;
-        firstGO->GOCam->cameraGO->Position.y += firstGO->transform->position.y;
-        firstGO->GOCam->cameraGO->Position.z += firstGO->transform->position.z;
+        if (firstGO != rootGO) {
+            firstGO->GOCam->cameraGO = new MyCamera();
+            firstGO->GOCam->cameraGO->Position.x += firstGO->transform->position.x;
+            firstGO->GOCam->cameraGO->Position.y += firstGO->transform->position.y;
+            firstGO->GOCam->cameraGO->Position.z += firstGO->transform->position.z;
+
+            
+
+        }
     }
 
     if (ImGui::IsItemHovered() && rootGO_ != rootGO && ImGui::IsMouseReleased(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_ != firstGO && firstGO != nullptr && rootGO_ != firstGO->parent) {
