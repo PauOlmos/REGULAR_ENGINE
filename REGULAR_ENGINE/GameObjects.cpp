@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "imgui_menu.h"
 #include "Transform.h"
+#include "Camera.h"
 
 GameObject::GameObject()
 {
@@ -16,8 +17,10 @@ GameObject::GameObject(GameObject* parent, string name)
 	this->name = name;
 	this->parent = parent;
 	transform = new Transform(this);
+	GOCam = new Camera(this);
 	ComponentsList.push_back(transform);
-	
+	ComponentsList.push_back(GOCam);
+
 	if (parent != nullptr) {
 		parent->Children.push_back(this);
 	}

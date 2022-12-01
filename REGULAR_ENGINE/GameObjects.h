@@ -6,6 +6,7 @@ using namespace std;
 class Meshes;
 class Components;
 class Transform;
+class Camera;
 
 class GameObject {
 public:
@@ -19,7 +20,8 @@ public:
 	string name;
 	Transform* transform;
 	Meshes* GOMesh;
-
+	Camera* GOCam;
+ 
 	void CreateInspector();
 
 
