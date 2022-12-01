@@ -237,9 +237,14 @@ void ModuleLoadFBX::LoadMesh(MyMesh* mesh) {
 
 update_status ModuleLoadFBX::PostUpdate(float dt)
 {
+
+
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
 	}
+	
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	return UPDATE_CONTINUE;
 }
 bool ModuleLoadFBX::CleanUp()
