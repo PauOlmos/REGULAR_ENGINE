@@ -429,7 +429,7 @@ bool imgui_menu::DrawGui(bool* p_open)
     if (ImGui::Begin("Hierarchy", p_open, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar)) {
         HierarchyTree(rootGO);
     }
-    
+
     if (!App->input->GetMouseButton(0)) {
         released = true;
     }
@@ -488,12 +488,8 @@ void imgui_menu::HierarchyTree(GameObject* rootGO_) {
             firstGO->GOCam->cameraGO->Position.x += firstGO->transform->position.x;
             firstGO->GOCam->cameraGO->Position.y += firstGO->transform->position.y;
             firstGO->GOCam->cameraGO->Position.z += firstGO->transform->position.z;
-
-            
-
         }
     }
-
     if (ImGui::IsItemHovered() && rootGO_ != rootGO && ImGui::IsMouseReleased(ImGuiMouseButton_::ImGuiMouseButton_Left) && rootGO_ != firstGO && firstGO != nullptr && rootGO_ != firstGO->parent) {
         //rootGO_ al que estic movent dins
         //firstGO el que estic movent a

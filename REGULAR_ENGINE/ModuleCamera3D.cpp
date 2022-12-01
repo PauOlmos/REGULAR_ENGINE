@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleOpenGL_Primitives.h"
 #include "ModuleCamera3D.h"
+#include "Camera.h"
 #include <imgui_impl_sdl.h>
 #include "PhysFS/include/physfs.h"
 
@@ -40,6 +41,10 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
+	if (App->ImGui_menu->firstGO != nullptr && App->ImGui_menu->firstGO != App->ImGui_menu->rootGO) {
+		App->ImGui_menu->firstGO->GOCam->cameraGO->Update(0);
+	}
+
 	SDL_Event e;
 	bool quit = false;
 

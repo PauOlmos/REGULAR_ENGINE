@@ -17,6 +17,7 @@ Camera::Camera(GameObject* GOCamera) : Components(GOCamera)
 	KLK = Type::CAMERA;
 	MyCamera* cameraGO = new MyCamera();
 
+
 }
 
 Camera::~Camera()
@@ -27,6 +28,16 @@ Camera::~Camera()
 MyCamera::MyCamera()
 {
 
+	CalculateViewMatrices();
+
+	X = vec3(1.0f, 0.0f, 0.0f);
+	Y = vec3(0.0f, 1.0f, 0.0f);
+	Z = vec3(0.0f, 0.0f, 1.0f);
+
+	Position = vec3(0.0f, 0.0f, 5.0f);
+	Reference = vec3(0.0f, 0.0f, 0.0f);
+
+
 	glGenFramebuffers(1, &frameBuffer2);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer2);
 
@@ -36,7 +47,6 @@ MyCamera::MyCamera()
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer2, 0);
 
@@ -51,14 +61,6 @@ MyCamera::MyCamera()
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
-	CalculateViewMatrices();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
 MyCamera::~MyCamera()
@@ -67,12 +69,13 @@ MyCamera::~MyCamera()
 
 bool MyCamera::Start()
 {
-
+	int klk = 0;
 	return false;
 }
 
 update_status MyCamera::Update(float dt)
 {
+
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 	SDL_Event e;
@@ -282,5 +285,4 @@ void MyCamera::CalculateViewMatrices()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
-
 }
